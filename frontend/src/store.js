@@ -1,35 +1,35 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import UserStore from './modules/UserStrore'
+import UserStore from './modules/UserStore'
 import TripStore from './modules/TripStore'
 import MatchStore from './modules/MatchStore'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {
-    
-  },
+    state: {
 
-  getters: {
-    
-  },
+    },
 
-  mutations: {
-    
-  },
+    getters: {
 
-  actions: {
-    
-  
-  },
+    },
 
-  modules: {
-    UserStore,
-    MatchStore,
-    TripStore
+    mutations: {
+
+    },
+
+    actions: {
 
 
-  }
+    },
+
+    modules: {
+        UserStore,
+        MatchStore,
+        TripStore
+
+
+    }
 
 })

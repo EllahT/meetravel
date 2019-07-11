@@ -1,7 +1,7 @@
 <template>
   <div>
-      <ul>
-          <h1>i'm users list</h1>
+      <ul class="users-list">
+          <h3>Users list:</h3>
           <user-preview v-for="user in users" 
           :user="user" :key="user._id" @liked="addLike"></user-preview>
       </ul>
@@ -30,3 +30,10 @@ export default {
   }
 };
 </script>
+
+<style>
+.users-list{
+    margin-top: 20px
+}
+    
+</style>
