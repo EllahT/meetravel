@@ -1,0 +1,1 @@
+// renders chatroom, imagegallery(optional), tripplanner

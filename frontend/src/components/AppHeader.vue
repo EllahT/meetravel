@@ -1,0 +1,14 @@
+<template>
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link> |
+      <router-link to="/users">Find Travelers</router-link> |
+      <router-link to="/about">Profile</router-link>
+    </div>
+</template>
+
+<script>
+export default {
+
+}
+</script>
