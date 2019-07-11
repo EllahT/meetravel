@@ -1,6 +1,7 @@
 <template>
   <div>
       <ul>
+          <h1>i'm users list</h1>
           <user-preview v-for="user in users" 
           :user="user" :key="user._id" @liked="addLike"></user-preview>
       </ul>

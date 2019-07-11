@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h1>i'm trip details</h1>
+      <h1>i'm a form to edit or add a trip</h1>
   </div>
 </template>
 

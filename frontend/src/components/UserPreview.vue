@@ -1,5 +1,6 @@
 <template>
   <li class="user-preview">
+    <h1>i'm user preview</h1>
       <h1>{{user.name}}</h1>
       <img :src="user.imgSrc"/>
       <h4>user location</h4>

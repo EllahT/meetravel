@@ -7,6 +7,8 @@ import AdminPage from './views/AdminPage.vue'
 import EditUser from './views/EditUser.vue'
 import UserProfile from './views/UserProfile.vue'
 import UserDetails from './views/UserDetails.vue'
+import TripDetails from './views/TripDetails.vue'
+import TripEdit from './views/TripEdit.vue'
 
 Vue.use(Router)
 
@@ -43,9 +45,19 @@ export default new Router({
       component: EditUser
     },
     {
-      path: '/user/userId',
+      path: '/user/:userId',
       name: 'UserDetails',
       component: UserDetails
+    },
+    {
+      path: '/trip/edit/:tripId?',
+      name: 'TripEdit',
+      component: TripEdit
+    },
+    {
+      path: '/trip/:tripId',
+      name: 'TripDetails',
+      component: TripDetails
     }
   ]
 })

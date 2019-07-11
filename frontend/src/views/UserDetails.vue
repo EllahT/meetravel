@@ -5,11 +5,12 @@
       <div class="actions">
         <button @click="likeUser(user._id)">Like/Message</button>
       </div>
+      <trip-list></trip-list>
     </div>
 </template>
 
 <script>
-
+import TripList from '@/components/TripList.vue'
 export default {
    data() {
       return {
@@ -36,6 +37,10 @@ export default {
       this.$router.push('/user');
       })
     }
+  },
+
+  components: {
+    TripList
   }
 }
 </script>
