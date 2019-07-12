@@ -13,6 +13,10 @@ export default {
       },
     
       getters: {
+        users(state) {
+          return state.users;
+        },
+
         loggedInUser(state) {
           return state.loggedUser;
         },
@@ -76,6 +80,10 @@ export default {
     
         addLike(state, {_id, username}) {
           state.likes.push({_id, username});
+        },
+        
+        setLoadingUsers(state, {val}) {
+          state.isLoadingUsers = val;
         }
       },
     

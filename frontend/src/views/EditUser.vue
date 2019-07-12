@@ -16,7 +16,7 @@
             </div>
             <div>
                 <label>Gender:</label>
-                <gender-picker v-model="user.gender"></gender-picker>
+                <gender-picker v-model="user.gender" :type="'picker'"></gender-picker>
             </div>
             <button class="submit-btn">{{btnText}}</button>
         </form>
