@@ -7,16 +7,16 @@
     <label> To: </label>
     <input type="number" v-model="filters.toAge"/>
     <label> Gender: </label>
-    <select>
-        <option value="all">All</option>
-        <option value="f">Female</option>
-        <option value="m">Male</option>
-        <option value="o">Other</option>
-    </select>
+    <gender-picker v-model="filters.gender"></gender-picker>
+    <label> Dates: </label>
+    <date-picker v-model="filters.dates"></date-picker>
+    
   </div>
 </template>
 
 <script>
+import DatePicker from '@/components/DatePicker.vue'
+import GenderPicker from '@/components/GenderPicker.vue'
 
 export default {
   props: {
@@ -31,7 +31,8 @@ export default {
         distance: 5,
         fromAge: 20,
         toAge: 50,
-        gender: 'all'
+        gender: {type: 'a', display: 'All'},
+        dates: {from: new Date(), to: new Date()}
       }
     }
   },
@@ -45,6 +46,11 @@ export default {
     emitFilters() {
         this.$emit('filterChanged',this.filters);
     }
+  },
+
+  components: {
+    DatePicker,
+    GenderPicker
   }
 }
 </script>
