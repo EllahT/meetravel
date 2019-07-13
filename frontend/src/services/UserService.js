@@ -1,5 +1,6 @@
 import HttpService from './HttpService';
 import UtilService from './UtilService';
+import GeocodeService from './GeocodeService';
 
 let loggedUser = null;
 
@@ -16,7 +17,7 @@ export default {
     getLoggedUser,
 }
 
-function query(filters) {
+function query(filters, location) {
     // return HttpService.ajax('user/'); //for real backend DB
     if (!filters) return Promise.resolve(USERS_DB);
 
@@ -33,12 +34,18 @@ function query(filters) {
         filteredUsers = filteredUsers.filter(user => user.gender === filters.gender.type);
     }
 
-    // filters: {
-    //     distance: 5,
-    //     age: {from: 20, to: 50},
-    //     gender: {type: 'a', display: 'All'},
-    //     dates: {from: new Date(), to: new Date()}
-    //   }
+    // if (filters.distance) {
+    //     filteredUsers = filteredUsers.filter(user => {
+    //         GeocodeService.getLatLngByAddress('jerusalem')
+    //         .then(destination => {
+    //             GeocodeService.getDistanceByLatLngs(location, destination)
+    //             .then(distance => {
+    //                 return distance < filters.distance;
+    //             })
+    //         })    
+    //     })
+    // }
+
     return Promise.resolve(filteredUsers);
 }
 

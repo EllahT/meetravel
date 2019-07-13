@@ -14,7 +14,8 @@ export default {
             gender: {type: 'all', display: 'All'},
             dates: {from: new Date(), to: new Date()}
         },
-        isLoadingUsers: false
+        isLoadingUsers: false,
+        location: {lat: 32.059391999999995, lng: 34.8512256, address: null}
     },
 
     getters: {
@@ -38,10 +39,6 @@ export default {
             return state.matches;
         },
 
-        likes(state) {
-            return state.likes;
-        },
-
         filters(state) {
             return state.filters;
         },
@@ -53,6 +50,14 @@ export default {
         userById: state => id => {
             return state.users.find(user => user._id === id);
         },
+
+        currLocation(state) {
+            return state.location;
+        },
+
+        location(state) {
+            return state.location;
+        }
     },
 
     mutations: {
@@ -86,9 +91,9 @@ export default {
             state.filters = JSON.parse(JSON.stringify(filters));
         },
 
-        addLike(state, { _id, username }) {
-            state.likes.push({ _id, username });
-        }
+        updateLocation(state, {location}) {
+            state.location = location;
+          }
     },
 
     actions: {
@@ -149,7 +154,7 @@ export default {
         setFilter(context, { filters }) {
             // context.commit({ type: "setLoadingUsers", val: true });
             context.commit({ type: "setFilter", filters });
-            UserService.query(filters).then(filteredUsers => {
+            UserService.query(filters, context.state.location).then(filteredUsers => {
                 context.commit({ type: "setUsers", filteredUsers });
                 // context.commit({ type: "setLoadingUsers", val: false });
             });
@@ -164,11 +169,15 @@ export default {
         },
 
         loadUsers(context) {
-            return UserService.query(context.state.filters)
+            return UserService.query(context.state.filters, context.state.location)
                 .then(filteredUsers => {
                     context.commit({ type: "setUsers", filteredUsers });
                     return filteredUsers;
                 });
+        },
+
+        updateCurrLocation(context, {location}) {
+            context.commit({type: 'updateLocation', location})
         }
     }
 }
