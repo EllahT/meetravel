@@ -1,18 +1,18 @@
 <template>
-<div >
-  <li class="user-preview">
-    <!-- <h1>I'm user preview</h1> -->
+  <li class="user-preview" v-if="user">
+    <button  v-if="!isAdminPage" @click="emitNavUsers(-1)">⮜</button>
+    <router-link :to="detailsUrl">
       <h4>{{fullName}}</h4>
       <img :src="user.profileImg"/>
       <h5>location: {{user.currLocation}}</h5> |
-      <div class="actions">
-        <button @click="emitLikeUser(user._id)"> Like/Message </button> |
-        <router-link :to="detailsUrl">Details</router-link> |
-        <router-link :to="editUrl">Edit</router-link> |
-        <button @click="emitDelete" title="delete user">x</button> |
-      </div>
+    </router-link> |
+    <div v-if="isAdminPage" class="actions">
+      <router-link :to="editUrl">Edit</router-link> |
+      <button @click="emitDelete" title="delete user">x</button>
+    </div>
+      <button v-if="!isAdminPage" @click="emitRequest">Send a request</button>
+      <button  v-if="!isAdminPage" @click="emitNavUsers(1)">⮞</button>
   </li>
-  </div>
 </template>
 
 <script>
@@ -22,6 +22,11 @@ export default {
       user: {
           type: Object,
           require: true
+      },
+
+      type: {
+        type: String,
+        require: false
       }
   },
 
@@ -29,21 +34,33 @@ export default {
     detailsUrl() {
       return `/user/${this.user._id}`;
     },
+
     editUrl() {
       return `/profile/edit`;
     },
+
     fullName(){
       return this.user.firstName + ' ' + this.user.lastName
+    },
+
+    isAdminPage() {
+      return this.type === 'admin';
     }
   },
 
   methods: {
-    emitLikeUSer(userId) {
-      this.$emit('liked', userId);
-    },
     emitDelete(){
       this.$parent.$emit('delete-user', this.user._id)
+    },
+
+    emitRequest() {
+      this.$emit('request', this.user._id);
+    },
+
+    emitNavUsers(diff) {
+      this.$emit('nav', diff);
     }
+
   }
 }
 

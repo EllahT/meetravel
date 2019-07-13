@@ -2,7 +2,7 @@
   <div>
       <ul class="users-list">
           <h3>Users list:</h3>
-          <user-preview v-for="user in users" 
+          <user-preview v-for="user in users" :type="type"
           :user="user" :key="user._id" @liked="addLike"></user-preview>
       </ul>
   </div>
@@ -16,8 +16,14 @@ export default {
       users: {
           type: Array,
           require: true
+      },
+
+      type: {
+          type: String,
+          require: false
       }
   },
+
 
   methods: {
       addLike(userId) {
@@ -32,7 +38,7 @@ export default {
 </script>
 
 <style>
-.users-list{
+.users-list {
     margin-top: 20px
 }
     

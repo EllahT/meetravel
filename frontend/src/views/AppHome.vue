@@ -3,23 +3,28 @@
       <div class="top-bar">
         <user-filter :currFilter="filters" @filterChanged="setFilter"></user-filter>
       </div>
+      <user-preview :user="users[currUserIdx]" @nav="navUsers"></user-preview>
       <!-- <img v-if="loadingUsers" src="@/assets/loading.gif"/> -->
-      <user-list :users="users" @delete-user="deleteUser"></user-list>
   </div>
 </template>
 
 <script>
 import UserFilter from '@/components/UserFilter.vue';
-import UserList from '@/components/UserList.vue';
+import UserPreview from '@/components/UserPreview.vue';
 
 export default {
   created() {
     this.$store.dispatch({type: 'loadUsers'});
   },
 
+  data() {
+    return {
+      currUserIdx: 0
+    }
+  },
+
   computed: {
       users() {
-        // console.log(this.$store.getters.users)
           return this.$store.getters.users;
       },
 
@@ -36,15 +41,15 @@ export default {
       setFilter(filters) {
         this.$store.dispatch({type:'setFilter', filters});
       },
-      deleteUser(userId) {
-        // console.log('user ID to delete:', userId); 
-        this.$store.dispatch({type:'deleteUser', userId});
+
+      navUsers(diff) {
+        this.currUserIdx += diff;
       }
   },
 
   components: {
       UserFilter,
-      UserList
+      UserPreview
   }
 };
 </script>
