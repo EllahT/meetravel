@@ -1,5 +1,5 @@
 <template>
-    <div class="picker">
+    <div class="picker" v-if="genders.length">
         <button @click.prevent="toggleShowDropdownContent" class="dropbtn">{{value.display}}▼</button>
         <ul v-if="showContent" class="dropdown-content">
             <li v-for="gender in genders" :key="gender.type"
@@ -17,13 +17,26 @@
             value: {
                 type: Object,
                 require: true
+            },
+
+            type: {
+                type: String,
+                require: false
             }
         },
 
         data() {
             return {
                 showContent: false,
-                genders: [{type: 'f', display: 'Female'}, {type: 'm', display: 'male'}, {type: 'o', display: 'Other'}]
+                genders: []
+            }
+        },
+
+        created() {
+            if (this.type === 'picker') {
+                this.genders = this.$store.getters.genderTypes;
+            } else {
+                this.genders = this.$store.getters.gendersToFilter;
             }
         },
 
@@ -71,6 +84,10 @@
 
 .dropdown-item:hover {
     background-color: #f1f1f1
+}
+
+.picker {
+    display: inline-block;
 }
 
 </style>
