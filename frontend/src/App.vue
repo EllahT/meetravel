@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <app-header v-if="!showNav"></app-header>
+    <app-header v-if="showNav"></app-header>
     <router-view @homepage="toggleNav"/>
   </div>
 </template>

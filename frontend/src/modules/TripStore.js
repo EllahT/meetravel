@@ -43,14 +43,12 @@ export default {
 
     },
     getters: {
-        getTrips(state) {
-
-        },
-        getAllTrips(state) {
+        trips(state) {
             return state.trips;
         },
-        getTrip(state) {
-            return state.currTrip;
+
+        tripById: state => id => {
+            return state.trips.find(trip => trip._id === id);
         },
     },
 

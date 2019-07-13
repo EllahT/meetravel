@@ -8,7 +8,9 @@ import EditUser from './views/EditUser.vue'
 import UserProfile from './views/UserProfile.vue'
 import UserDetails from './views/UserDetails.vue'
 import TripDetails from './views/TripDetails.vue'
+import TripList from './views/TripList.vue'
 import TripEdit from './views/TripEdit.vue'
+import MatchList from './views/MatchList.vue'
 
 Vue.use(Router)
 
@@ -50,6 +52,11 @@ export default new Router({
       component: UserDetails
     },
     {
+      path: '/trip/',
+      name: 'TripList',
+      component: TripList
+    },
+    {
       path: '/trip/edit/:tripId?',
       name: 'TripEdit',
       component: TripEdit
@@ -58,6 +65,11 @@ export default new Router({
       path: '/trip/:tripId',
       name: 'TripDetails',
       component: TripDetails
+    },
+    {
+      path: '/match/',
+      name: 'MatchList',
+      component: MatchList
     }
   ]
 })

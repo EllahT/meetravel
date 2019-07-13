@@ -43,8 +43,11 @@ export default {
 
         notifications(state) {
             return state.notifications;
-        }
+        },
 
+        userById: state => id => {
+            return state.users.find(user => user._id === id);
+        },
     },
 
     mutations: {

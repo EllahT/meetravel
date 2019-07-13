@@ -22,7 +22,7 @@ export default {
   name: 'home',
 
   created() {
-    this.$emit('homepage', true);
+    this.$emit('homepage', false);
   },
   
   data() {
@@ -63,7 +63,7 @@ export default {
   },
 
   destroyed() {
-    this.$emit('homepage', false);
+    this.$emit('homepage', true);
   }
 };
 </script>
@@ -77,7 +77,7 @@ export default {
     text-align: center;
     background-image: url('../../public/img/background.jpg');
     background-position: top;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
   }
