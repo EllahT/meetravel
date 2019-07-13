@@ -19,7 +19,7 @@ export default {
           user: {
               _id: '',
               name: '',
-              // gender: {type: '', display: ''},
+              gender: {type: '', display: ''},
           }
       }
   },
@@ -27,7 +27,7 @@ export default {
       const userId = this.$route.params.userId;      
       this.$store.dispatch({type: 'loadUsers'})
       .then (() => {
-        console.log('userId after promise:', userId);
+        // console.log('userId after promise:', userId);
         if (userId) this.user = JSON.parse(JSON.stringify(this.$store.getters.loggedInUser(userId)));
         else this.$router.push('/user');
       })
