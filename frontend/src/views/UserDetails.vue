@@ -1,16 +1,18 @@
 <template>
   <div class="user-details">
       <h1>{{user.name}}</h1>
-      <h4>Gender: {{user.gender.display}}</h4>
+      <!-- <h4>Gender: {{user.gender.display}}</h4> -->
       <div class="actions">
         <button @click="likeUser(user._id)">Like/Message</button>
       </div>
       <trip-list></trip-list>
+      <!-- <user-preview></user-preview> -->
     </div>
 </template>
 
 <script>
 import TripList from '@/components/TripList.vue'
+// import UserPreview from '../components/UserPreview.vue'
 export default {
    data() {
       return {
@@ -22,10 +24,11 @@ export default {
       }
   },
   created() {
-      const userId = this.$route.params.userId;
+      const userId = this.$route.params.userId;      
       this.$store.dispatch({type: 'loadUsers'})
       .then (() => {
-        if (userId) this.user = JSON.parse(JSON.stringify(this.$store.getters.userById(userId)));
+        // console.log('userId after promise:', userId);
+        if (userId) this.user = JSON.parse(JSON.stringify(this.$store.getters.loggedInUser(userId)));
         else this.$router.push('/user');
       })
       

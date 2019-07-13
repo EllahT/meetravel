@@ -3,8 +3,8 @@
       <div class="top-bar">
         <user-filter :currFilter="filters" @filterChanged="setFilter"></user-filter>
       </div>
-      <img v-if="loadingUsers" src="@/assets/loading.gif"/>
-      <user-list v-else :users="users"></user-list>
+      <!-- <img v-if="loadingUsers" src="@/assets/loading.gif"/> -->
+      <user-list :users="users" @delete-user="deleteUser"></user-list>
   </div>
 </template>
 
@@ -19,6 +19,7 @@ export default {
 
   computed: {
       users() {
+        // console.log(this.$store.getters.users)
           return this.$store.getters.users;
       },
 
@@ -34,6 +35,10 @@ export default {
   methods: {
       setFilter(filters) {
         this.$store.dispatch({type:'setFilter', filters});
+      },
+      deleteUser(userId) {
+        // console.log('user ID to delete:', userId); 
+        this.$store.dispatch({type:'deleteUser', userId});
       }
   },
 

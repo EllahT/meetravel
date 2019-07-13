@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import UserStore from './modules/UserStrore'
+import UserStore from './modules/UserStore'
 import TripStore from './modules/TripStore'
 import MatchStore from './modules/MatchStore'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+<<<<<<< HEAD
   state: {
     genders: [{type: 'f', display: '👩 Woman'}, {type: 'm', display: '👨 Man'}, {type: 'o', display: 'Other'}]
   },
@@ -22,22 +23,31 @@ export default new Vuex.Store({
       return filterGenders;
     }
   },
+=======
+    state: {
 
-  mutations: {
-    
-  },
+    },
+>>>>>>> users
 
-  actions: {
-    
-  
-  },
+    getters: {
 
-  modules: {
-    UserStore,
-    MatchStore,
-    TripStore
+    },
+
+    mutations: {
+
+    },
+
+    actions: {
 
 
-  }
+    },
+
+    modules: {
+        UserStore,
+        MatchStore,
+        TripStore
+
+
+    }
 
 })
