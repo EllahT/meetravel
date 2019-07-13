@@ -3,13 +3,13 @@
     <label>Distance: </label>
     <input type="range" min=1 max=20 v-model="filters.distance" @input="emitFilters"/>
     <label>Age: </label>
-    <input type="number" v-model="filters.fromAge"/>
+    <input type="number" v-model="filters.age.from" @input="emitFilters"/>
     <label> To: </label>
-    <input type="number" v-model="filters.toAge"/>
+    <input type="number" v-model="filters.age.to" @input="emitFilters"/>
     <label> Gender: </label>
-    <gender-picker v-model="filters.gender"></gender-picker>
+    <gender-picker v-model="filters.gender" @input="emitFilters"/>
     <label> Dates: </label>
-    <date-picker v-model="filters.dates"></date-picker>
+    <date-picker v-model="filters.dates" @input="emitFilters"/>
     
   </div>
 </template>
@@ -29,8 +29,7 @@ export default {
     return {
       filters: {
         distance: 5,
-        fromAge: 20,
-        toAge: 50,
+        age: {from: 20, to: 50},
         gender: {type: 'a', display: 'All'},
         dates: {from: new Date(), to: new Date()}
       }

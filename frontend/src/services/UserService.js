@@ -16,9 +16,30 @@ export default {
     getLoggedUser,
 }
 
-function query() {
+function query(filters) {
     // return HttpService.ajax('user/'); //for real backend DB
-    return Promise.resolve(USERS_DB);
+    if (!filters) return Promise.resolve(USERS_DB);
+
+    let filteredUsers = [...USERS_DB];
+
+    if (filters.age) {
+        filteredUsers = filteredUsers.filter(user => {
+            let age = new Date().getFullYear() - user.birthDate;
+            return (age > filters.age.from && age < filters.age.to);
+        })
+    }
+    
+    if (filters.gender.type !== 'all') {
+        filteredUsers = filteredUsers.filter(user => user.gender === filters.gender.type);
+    }
+
+    // filters: {
+    //     distance: 5,
+    //     age: {from: 20, to: 50},
+    //     gender: {type: 'a', display: 'All'},
+    //     dates: {from: new Date(), to: new Date()}
+    //   }
+    return Promise.resolve(filteredUsers);
 }
 
 function getById(userId) {

@@ -1,10 +1,10 @@
 <template>
   <div class="app-home">
       <div class="top-bar">
-        <h1>There are {{users.length}} Fellow Travelers in {{location}}</h1>
+        <h1 v-if="users">There are {{users.length}} Fellow Travelers in {{location}}</h1>
         <user-filter :currFilter="filters" @filterChanged="setFilter"></user-filter>
       </div>
-      <user-preview :user="users[currUserIdx]" @nav="navUsers"></user-preview>
+      <user-preview  v-if="users" :user="users[currUserIdx]" @nav="navUsers"></user-preview>
       <!-- <img v-if="loadingUsers" src="@/assets/loading.gif"/> -->
   </div>
 </template>

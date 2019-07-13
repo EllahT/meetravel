@@ -8,7 +8,12 @@ export default {
         likes: [],
         matches: [],
         notifications: [],
-        filters: {},
+        filters: {
+            distance: 5,
+            age: {from: 20, to: 50},
+            gender: {type: 'all', display: 'All'},
+            dates: {from: new Date(), to: new Date()}
+        },
         isLoadingUsers: false
     },
 
@@ -55,8 +60,8 @@ export default {
             state.loggedUser = user;
         },
 
-        setUsers(state, { users }) {
-            state.users = users;
+        setUsers(state, {filteredUsers}) {
+            state.users = filteredUsers;
         },
 
         clearLoggedUser(state) {
@@ -142,11 +147,11 @@ export default {
         },
 
         setFilter(context, { filters }) {
-            context.commit({ type: "setLoadingUsers", val: true });
+            // context.commit({ type: "setLoadingUsers", val: true });
             context.commit({ type: "setFilter", filters });
             UserService.query(filters).then(filteredUsers => {
                 context.commit({ type: "setUsers", filteredUsers });
-                context.commit({ type: "setLoadingUsers", val: false });
+                // context.commit({ type: "setLoadingUsers", val: false });
             });
 
         },
@@ -159,10 +164,10 @@ export default {
         },
 
         loadUsers(context) {
-            return UserService.query()
-                .then(users => {
-                    context.commit({ type: "setUsers", users });
-                    return users;
+            return UserService.query(context.state.filters)
+                .then(filteredUsers => {
+                    context.commit({ type: "setUsers", filteredUsers });
+                    return filteredUsers;
                 });
         }
     }
