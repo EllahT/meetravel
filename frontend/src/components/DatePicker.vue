@@ -12,6 +12,7 @@
           <li v-for="index in currDayFor1st" :key="index*100">
           </li>
           <li v-for="index in currMonthDaysCount" :key="index" 
+          @mouseclick="changePickedStartDay(index)"
           @mousedown="changePickedStartDay(index)"
           @mouseover="changePickedEndDay(index)"
           @mouseup="changePickedEndDay(index)"
@@ -98,7 +99,6 @@
             },
 
             changePickedStartDay(index) {
-              if (index === this.pickedEndDay) return;
               this.pickedStartDay = index;
 
               if (this.pickedEndDay < this.pickedStartDay) this.pickedEndDay = null;

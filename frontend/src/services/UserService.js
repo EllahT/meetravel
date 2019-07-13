@@ -70,7 +70,7 @@ USERS_DB = [
         "password": 100,
         "isAdmin": true,
         "gender": "man",
-        "profileImg": "http://placehold.it/32x32",
+        "profileImg": "https://api.adorable.io/avatars/100/1.png",
         "galleryImgs": [{
                 "picture": "http://placehold.it/32x32"
             },
@@ -128,7 +128,7 @@ USERS_DB = [
         "password": 101,
         "isAdmin": false,
         "gender": "woman",
-        "profileImg": "http://placehold.it/32x32",
+        "profileImg": "https://api.adorable.io/avatars/100/2.png",
         "galleryImgs": [{
                 "picture": "http://placehold.it/32x32"
             },
@@ -186,7 +186,7 @@ USERS_DB = [
         "password": 102,
         "isAdmin": false,
         "gender": "woman",
-        "profileImg": "http://placehold.it/32x32",
+        "profileImg": "https://api.adorable.io/avatars/100/3.png",
         "galleryImgs": [{
                 "picture": "http://placehold.it/32x32"
             },
@@ -244,7 +244,7 @@ USERS_DB = [
         "password": 103,
         "isAdmin": true,
         "gender": "other",
-        "profileImg": "http://placehold.it/32x32",
+        "profileImg": "https://api.adorable.io/avatars/100/4.png",
         "galleryImgs": [{
                 "picture": "http://placehold.it/32x32"
             },
@@ -302,7 +302,7 @@ USERS_DB = [
         "password": 104,
         "isAdmin": false,
         "gender": "man",
-        "profileImg": "http://placehold.it/32x32",
+        "profileImg": "https://api.adorable.io/avatars/100/5.png",
         "galleryImgs": [{
                 "picture": "http://placehold.it/32x32"
             },
@@ -360,7 +360,7 @@ USERS_DB = [
         "password": 105,
         "isAdmin": false,
         "gender": "woman",
-        "profileImg": "http://placehold.it/32x32",
+        "profileImg": "https://api.adorable.io/avatars/100/6.png",
         "galleryImgs": [{
                 "picture": "http://placehold.it/32x32"
             },
@@ -418,7 +418,7 @@ USERS_DB = [
         "password": 106,
         "isAdmin": false,
         "gender": "other",
-        "profileImg": "http://placehold.it/32x32",
+        "profileImg": "https://api.adorable.io/avatars/100/7.png",
         "galleryImgs": [{
                 "picture": "http://placehold.it/32x32"
             },
@@ -476,7 +476,7 @@ USERS_DB = [
         "password": 107,
         "isAdmin": false,
         "gender": "man",
-        "profileImg": "http://placehold.it/32x32",
+        "profileImg": "https://api.adorable.io/avatars/100/8.png",
         "galleryImgs": [{
                 "picture": "http://placehold.it/32x32"
             },
@@ -534,7 +534,7 @@ USERS_DB = [
         "password": 108,
         "isAdmin": true,
         "gender": "other",
-        "profileImg": "http://placehold.it/32x32",
+        "profileImg": "https://api.adorable.io/avatars/100/9.png",
         "galleryImgs": [{
                 "picture": "http://placehold.it/32x32"
             },
@@ -592,7 +592,7 @@ USERS_DB = [
         "password": 109,
         "isAdmin": false,
         "gender": "woman",
-        "profileImg": "http://placehold.it/32x32",
+        "profileImg": "https://api.adorable.io/avatars/100/10.png",
         "galleryImgs": [{
                 "picture": "http://placehold.it/32x32"
             },
@@ -650,7 +650,7 @@ USERS_DB = [
         "password": 110,
         "isAdmin": true,
         "gender": "other",
-        "profileImg": "http://placehold.it/32x32",
+        "profileImg": "https://api.adorable.io/avatars/100/11.png",
         "galleryImgs": [{
                 "picture": "http://placehold.it/32x32"
             },
@@ -708,7 +708,7 @@ USERS_DB = [
         "password": 111,
         "isAdmin": false,
         "gender": "other",
-        "profileImg": "http://placehold.it/32x32",
+        "profileImg": "https://api.adorable.io/avatars/100/12.png",
         "galleryImgs": [{
                 "picture": "http://placehold.it/32x32"
             },
@@ -766,7 +766,7 @@ USERS_DB = [
         "password": 112,
         "isAdmin": true,
         "gender": "woman",
-        "profileImg": "http://placehold.it/32x32",
+        "profileImg": "https://api.adorable.io/avatars/100/13.png",
         "galleryImgs": [{
                 "picture": "http://placehold.it/32x32"
             },
@@ -824,7 +824,7 @@ USERS_DB = [
         "password": 113,
         "isAdmin": true,
         "gender": "woman",
-        "profileImg": "http://placehold.it/32x32",
+        "profileImg": "https://api.adorable.io/avatars/100/14.png",
         "galleryImgs": [{
                 "picture": "http://placehold.it/32x32"
             },
@@ -882,7 +882,7 @@ USERS_DB = [
         "password": 114,
         "isAdmin": true,
         "gender": "other",
-        "profileImg": "http://placehold.it/32x32",
+        "profileImg": "https://api.adorable.io/avatars/100/15.png",
         "galleryImgs": [{
                 "picture": "http://placehold.it/32x32"
             },
@@ -940,7 +940,7 @@ USERS_DB = [
         "password": 115,
         "isAdmin": false,
         "gender": "other",
-        "profileImg": "http://placehold.it/32x32",
+        "profileImg": "https://api.adorable.io/avatars/100/16.png",
         "galleryImgs": [{
                 "picture": "http://placehold.it/32x32"
             },
@@ -998,7 +998,7 @@ USERS_DB = [
         "password": 116,
         "isAdmin": false,
         "gender": "other",
-        "profileImg": "http://placehold.it/32x32",
+        "profileImg": "https://api.adorable.io/avatars/100/17.png",
         "galleryImgs": [{
                 "picture": "http://placehold.it/32x32"
             },
@@ -1056,7 +1056,7 @@ USERS_DB = [
         "password": 117,
         "isAdmin": true,
         "gender": "other",
-        "profileImg": "http://placehold.it/32x32",
+        "profileImg": "https://api.adorable.io/avatars/100/18.png",
         "galleryImgs": [{
                 "picture": "http://placehold.it/32x32"
             },
@@ -1114,7 +1114,7 @@ USERS_DB = [
         "password": 118,
         "isAdmin": true,
         "gender": "other",
-        "profileImg": "http://placehold.it/32x32",
+        "profileImg": "https://api.adorable.io/avatars/100/19.png",
         "galleryImgs": [{
                 "picture": "http://placehold.it/32x32"
             },
@@ -1172,7 +1172,7 @@ USERS_DB = [
         "password": 119,
         "isAdmin": false,
         "gender": "man",
-        "profileImg": "http://placehold.it/32x32",
+        "profileImg": "https://api.adorable.io/avatars/100/20.png",
         "galleryImgs": [{
                 "picture": "http://placehold.it/32x32"
             },

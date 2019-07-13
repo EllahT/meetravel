@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import DatePicker from '@/components/DatePicker.vue'
 import GenderPicker from '@/components/GenderPicker.vue'
+import DatePicker from '@/components/DatePicker.vue'
 
 export default {
   props: {
@@ -49,8 +49,8 @@ export default {
   },
 
   components: {
-    DatePicker,
-    GenderPicker
+    GenderPicker,
+    DatePicker
   }
 }
 </script>
