@@ -39,7 +39,8 @@ export default {
 
 <style>
 .users-list {
-    margin-top: 20px
+    margin-top: 20px;
+    border: none;
 }
     
 </style>

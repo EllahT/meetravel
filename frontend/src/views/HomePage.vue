@@ -8,14 +8,12 @@
       <div class="locations">
         <v-btn @click="getUserLocation"><v-icon left>location_on</v-icon> My Location</v-btn>
         <p>Search other Location</p>
-        {{location}}
         <input ref="autocomplete"
         placeholder="Search" 
         onfocus="value = ''" 
         type="text" />
-        {{address}}
       </div>
-      <v-btn @click="goToUsers">Get Started</v-btn>
+      <v-btn @click="goToUsers" :disabled="isAddress">Get Started</v-btn>
   </v-flex>
 </template>
 
@@ -37,10 +35,9 @@ export default {
     this.autocomplete.addListener('place_changed', () => {
       let place = this.autocomplete.getPlace();
       let ac = place.address_components;
-      console.log(ac)
       this.location.lat = place.geometry.location.lat();
       this.location.lng = place.geometry.location.lng();
-      this.address = ac[0]["short_name"] +', '+ ac[2]["long_name"]
+      this.address = ac[0]["short_name"] +', '+ ac[2]["long_name"];
     })
   },
   
@@ -49,6 +46,12 @@ export default {
       location: {lat: null, lng: null},
       address: null,
       autocomplete: null
+    }
+  },
+
+  computed: {
+    isAddress() {
+      return (this.address === null);
     }
   },
 
@@ -66,10 +69,15 @@ export default {
         .then((loc) => {
           this.location.lat = loc.coords.latitude;
           this.location.lng = loc.coords.longitude;
+          GeocodeService.getCityByLatLng(this.location.lat, this.location.lng)
+          .then((address) => {
+          this.address = address;
+        })
         })
       },
 
     goToUsers() {
+        this.$store.dispatch({type: 'updateCurrLocation', location: {lat: this.location.lat, lng: this.location.lng, address: this.address}});
         this.$router.push('/users');
     },
   },

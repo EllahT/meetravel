@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div class="app-home">
       <div class="top-bar">
+        <h1>There are {{users.length}} Fellow Travelers in {{location}}</h1>
         <user-filter :currFilter="filters" @filterChanged="setFilter"></user-filter>
       </div>
       <user-preview :user="users[currUserIdx]" @nav="navUsers"></user-preview>
@@ -34,6 +35,10 @@ export default {
 
       loadingUsers() {
         return this.$store.getters.isLoadingUsers;
+      },
+
+      location() {
+        return this.$store.getters.location.address;
       }
   },
 
@@ -53,3 +58,12 @@ export default {
   }
 };
 </script>
+
+<style>
+  .app-home {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+</style>
