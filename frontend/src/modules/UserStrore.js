@@ -13,8 +13,6 @@ export default {
         isLoadingUsers: false
       },
     
-     
-    
       mutations: {
         setLoggedUser(state, {user}) {
           state.loggedUser = user;
@@ -48,6 +46,10 @@ export default {
     
         addLike(state, {_id, username}) {
           state.likes.push({_id, username});
+        },
+        
+        setLoadingUsers(state, {val}) {
+          state.isLoadingUsers = val;
         }
       },
     
