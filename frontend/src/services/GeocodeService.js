@@ -1,7 +1,10 @@
+import HttpService from "./HttpService";
+
 export default {
     getCityByLatLng,
     getLatLngByAddress,
-    getPosition
+    getPosition,
+    getDistanceByLatLngs
 }
 
 const API_KEY = 'AIzaSyAQz_Zc9Ys9pFeNAYxOhagonVUGOyg_zlg';
@@ -32,5 +35,13 @@ function getLatLngByAddress(address) {
 function getPosition() {
     return new Promise((resolve, reject)=>{
         navigator.geolocation.getCurrentPosition(resolve, reject)
+    })
+}
+
+function getDistanceByLatLngs(originLocation, destinationLocation) {
+    return fetch(`https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${originLocation.lat},${originLocation.lng}&destinations=${destinationLocation.lat}%2C${destinationLocation.lng}&key=${API_KEY}`, {'mode': 'no-cors'})
+    .then(res => {
+        console.log(res.json());
+        console.log(res.json().rows[0].elements[0].distance.text);
     })
 }
