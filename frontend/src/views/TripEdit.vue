@@ -49,14 +49,14 @@
               :prepend-icon="input.icon"
               v-model="trip[input.type]"
             >
+            <v-date-picker v-model="trip.dates.from" reactive=true>
+            </v-date-picker>
               <v-progress-linear slot="progress" color height="7"></v-progress-linear>
             </v-text-field>
           </v-card-text>
         </v-card>
       </v-dialog>
 
-
-      <v-checkbox v-model="trip.isDone" label="Mark as done!" required></v-checkbox>
       <v-btn @click.prevent="submit">submit</v-btn>
       <v-btn @click="clear">Clear</v-btn>
     </v-form>
@@ -74,7 +74,6 @@ export default {
         type: "",
         dates: { from: "", to: "" },
         budget: null,
-        isDone: false,
         location: "",
         docs: [],
         imgUrl:
@@ -91,9 +90,15 @@ export default {
         },
         {
           isShown: false,
-          label: "Dates",
+          label: "End Date",
           icon: "calendar_today",
-          type: "dates"
+          type: "from"
+        },
+        {
+          isShown: false,
+          label: "Start Date",
+          icon: "calendar_today",
+          type: "to"
         }
       ]
     };

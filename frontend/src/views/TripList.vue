@@ -1,5 +1,6 @@
 <template>
   <div>
+    <router-link to="/trip/edit/">Add A Trip</router-link>
      <v-flex>
     <trip-preview v-for="trip in tripsToShow" :trip="trip" :key="trip._id"></trip-preview>
     </v-flex>

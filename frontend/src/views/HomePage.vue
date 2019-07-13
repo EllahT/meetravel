@@ -8,8 +8,12 @@
       <div class="locations">
         <v-btn @click="getUserLocation"><v-icon left>location_on</v-icon> My Location</v-btn>
         <p>Search other Location</p>
-        <input type="text" v-model="address" @input="searchLoc"/>
         {{location}}
+        <input ref="autocomplete"
+        placeholder="Search" 
+        onfocus="value = ''" 
+        type="text" />
+        {{address}}
       </div>
       <v-btn @click="goToUsers">Get Started</v-btn>
   </v-flex>
@@ -24,12 +28,27 @@ export default {
   created() {
     this.$emit('homepage', false);
   },
+
+  mounted() {
+    this.autocomplete = new google.maps.places.Autocomplete(
+      (this.$refs.autocomplete),
+      {types: ['geocode']}
+    );
+    this.autocomplete.addListener('place_changed', () => {
+      let place = this.autocomplete.getPlace();
+      let ac = place.address_components;
+      console.log(ac)
+      this.location.lat = place.geometry.location.lat();
+      this.location.lng = place.geometry.location.lng();
+      this.address = ac[0]["short_name"] +', '+ ac[2]["long_name"]
+    })
+  },
   
   data() {
     return {
       location: {lat: null, lng: null},
-      address: null
-
+      address: null,
+      autocomplete: null
     }
   },
 
@@ -42,14 +61,7 @@ export default {
       })
     },
 
-    searchLoc() {
-        GeocodeService.getLatLngByAddress(this.address)
-        .then((location) => {
-          this.location = location;
-        })
-      },
-
-      getUserLocation() {
+    getUserLocation() {
         GeocodeService.getPosition()
         .then((loc) => {
           this.location.lat = loc.coords.latitude;
@@ -57,9 +69,9 @@ export default {
         })
       },
 
-      goToUsers() {
+    goToUsers() {
         this.$router.push('/users');
-      }
+    },
   },
 
   destroyed() {
@@ -69,7 +81,7 @@ export default {
 </script>
 
 <style>
-  input {
+  .homepage input {
     border: 1px solid black;
   }
 
