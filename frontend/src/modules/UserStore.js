@@ -106,6 +106,24 @@ export default {
             })
         },
 
+        updateUser(context, { user }) {
+            return UserService.update(user)
+                .then(updatedUser => {
+                    console.log('added user at store', updatedUser);
+                    context.commit({ type: 'updateUser', user: updatedUser })
+                    return updatedUser
+                })
+        },
+
+        saveUser(context, { user }) {
+            return UserService.add(user)
+                .then(addedUser => {
+                    console.log('added user at store', addedUser);
+                    context.commit({ type: 'addUser', user: addedUser })
+                    return addedUser
+                })
+        },
+
         logout(context) {
             return UserService.logout().then(() => {
                 context.commit({ type: 'clearLoggedUser' });
@@ -138,10 +156,8 @@ export default {
         },
 
         loadUsers(context) {
-
             return UserService.query()
                 .then(users => {
-
                     context.commit({ type: "setUsers", users });
                     return users;
                 });

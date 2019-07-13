@@ -19,15 +19,24 @@ function query() {
 }
 
 function getById(userId) {
-    return HttpService.ajax(`user/${userId}`);
+    // return HttpService.ajax(`user/${userId}`); //for real backend DB
+    var user = USERS_DB.find(user => user._id = userId)
+    if (user) return Promise.resolve(user)
+    else return Promise.resolve('unknown user')
 }
 
 function add(user) {
-    return HttpService.ajax('user', 'post', user);
+    // return HttpService.ajax('user', 'post', user); //for real backend DB
+    user._id = _makeId()
+    USERS_DB.unshift(user)
+    return Promise.resolve(user)
 }
 
 function update(user) {
-    return HttpService.ajax(`user/${user._id}`, 'put', user);
+    // return HttpService.ajax(`user/${user._id}`, 'put', user);   //for real backend DB
+    var userIdx = USERS_DB.find(currUser => currUser._id = user._id)
+    USERS_DB.splice(userIdx, 1, user)
+    return Promise.resolve(user)
 }
 
 function remove(userId) {
@@ -47,6 +56,15 @@ function logout() {
 
 function getLoggedUser() {
     return HttpService.ajax('user/logged');
+}
+
+function _makeId(length = 5) {
+    var txt = '';
+    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (var i = 0; i < length; i++) {
+        txt += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return txt;
 }
 
 USERS_DB = [{

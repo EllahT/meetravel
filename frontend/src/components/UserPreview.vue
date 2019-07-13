@@ -8,6 +8,7 @@
       <div class="actions">
         <button @click="emitLikeUser(user._id)"> Like/Message </button> |
         <router-link :to="detailsUrl">Details</router-link> |
+        <router-link :to="editUrl">Edit</router-link> |
         <button @click="emitDelete" title="delete user">x</button> |
       </div>
   </li>
@@ -28,8 +29,11 @@ export default {
     detailsUrl() {
       return `/user/${this.user._id}`;
     },
+    editUrl() {
+      return `/profile/edit`;
+    },
     fullName(){
-      return this.user.firstName + this.user.lastName
+      return this.user.firstName + ' ' + this.user.lastName
     }
   },
 
@@ -47,7 +51,7 @@ export default {
 
 <style >
 .user-preview {
-    max-width: 600px;
+    max-width: 650px;
     margin-top:5px;
     padding: 5px;
     border-width:1px;

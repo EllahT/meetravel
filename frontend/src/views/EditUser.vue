@@ -43,7 +43,8 @@ export default {
         return {
             user: {
                 name: '',
-                gender: {type: '', display: ''},
+                // gender: {type: '', display: ''},
+                gender: '',
                 email: null,
                 isAdmin: false
             }
@@ -62,13 +63,13 @@ export default {
               this.$store.dispatch({type: 'updateUser', user:this.user})
               .then(() => {
                 console.log('updated user');
-                this.$router.push('/user');
+                this.$router.push('/users');
               })
           } else {
-              this.$store.dispatch({type: 'addUser', user:this.user})
+              this.$store.dispatch({type: 'saveUser', user:this.user})
               .then(() => {
                 console.log('added user');
-                this.$router.push('/user');
+                this.$router.push('/users');
               })
           }
     },
