@@ -43,8 +43,8 @@ export default {
         return {
             user: {
                 name: '',
-                // gender: {type: '', display: ''},
-                gender: '',
+                gender: {type: '', display: ''},
+                // gender: '',
                 email: null,
                 isAdmin: false
             }
