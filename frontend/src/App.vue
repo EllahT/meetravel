@@ -2,7 +2,6 @@
   <div id="app">
     <app-header/>
     <router-view/>
-    <h1>check push</h1>
   </div>
 </template>
 

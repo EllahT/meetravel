@@ -1,50 +1,16 @@
 import UserService from '../services/UserService'
 
+
 export default {
     strict: true,
     state: {
         users: [],
-        loggedUser: {_id: 1, name: "Puki", trips: ["first trip", "sec trip"]},
+        loggedUser: {_id: 1, name: "Puki"},
         likes: [],
         matches: [],
         notifications: [],
         filters: {},
         isLoadingUsers: false
-      },
-    
-      getters: {
-        users(state) {
-          return state.users;
-        },
-
-        loggedInUser(state) {
-          return state.loggedUser;
-        },
-    
-        isLoadingUsers(state) {
-          return state.isLoadingUsers;
-        },
-    
-        isAdmin(state) {
-          return state.loggedInUser.isAdmin;
-        },
-    
-        matchs(state) {
-          return state.matches;
-        },
-    
-        likes(state) {
-          return state.likes;
-        },
-    
-        filters(state) {
-          return state.filters;
-        },
-    
-        notifications(state) {
-          return state.notifications;
-        }
-    
       },
     
       mutations: {
@@ -88,6 +54,7 @@ export default {
       },
     
       actions: {
+
         login(context, {username, password}) {
           return UserService.login(username, password).then((user) => {
             context.commit({type: 'setLoggedUser', user});
@@ -148,5 +115,35 @@ export default {
             return users;
           });
         }
+      },
+      getters: {
+        loggedInUser(state) {
+          return state.loggedUser;
+        },
+    
+        isLoadingUsers(state) {
+          return state.isLoadingUsers;
+        },
+    
+        isAdmin(state) {
+          return state.loggedInUser.isAdmin;
+        },
+    
+        matchs(state) {
+          return state.matches;
+        },
+    
+        likes(state) {
+          return state.likes;
+        },
+    
+        filters(state) {
+          return state.filters;
+        },
+    
+        notifications(state) {
+          return state.notifications;
+        }
+    
       }
 }
