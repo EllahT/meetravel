@@ -26,8 +26,8 @@ export default {
         "registered": "Saturday, October 7, 2017 8:28 PM",
         "lastConnected": "Thursday, February 1, 2018 2:09 AM",
         "currLocation": {
-            "lat": "-82.87981",
-            "lng": "1.444387"
+            "lat": -82.87981,
+            "lng": 1.444387
         },
         "residance": {
             "city": "Afula",

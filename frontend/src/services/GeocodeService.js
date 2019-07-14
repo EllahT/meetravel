@@ -1,4 +1,4 @@
-import HttpService from "./HttpService";
+// import HttpService from "./HttpService";
 
 export default {
     getCityByLatLng,
@@ -42,8 +42,11 @@ function getPosition() {
 function getDistanceByLatLngs(originLocation, destinationLocation) {
     return fetch(`https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${originLocation.lat},${originLocation.lng}&destinations=${destinationLocation.lat}%2C${destinationLocation.lng}&key=${API_KEY}`, {'mode': 'no-cors'})
     .then(res => {
-        console.log(res.json());
-        console.log(res.json().rows[0].elements[0].distance.text);
+        console.log(res);
+        // console.log(res.json().rows[0].elements[0].distance.text);
+    })
+    .catch(err => {
+        console.log('error in geocode', err);
     })
 }
 
