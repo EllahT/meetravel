@@ -1,7 +1,7 @@
 <template>
   <li class="match-preview" v-if="match">
     <h4>{{match._id}}</h4>
-    <h5>{{match.image}}</h5>
+    <img :src="match.image"/>
     <h5>{{match.location}}</h5>
     <h5>{{match.createdAt}}</h5>
     <h5>{{match.members._id}}</h5>
