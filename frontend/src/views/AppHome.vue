@@ -4,7 +4,7 @@
         <h1 v-if="users">There are {{users.length}} Fellow Travelers in {{location}}</h1>
         <user-filter :currFilter="filters" @filterChanged="setFilter"></user-filter>
       </div>
-      <user-preview  v-if="users" :user="users[currUserIdx]" @nav="navUsers"></user-preview>
+      <user-preview  v-if="users" :user="users[currUserIdx]" @nav="navUsers" @request="sendRequest"></user-preview>
       <!-- <img v-if="loadingUsers" src="@/assets/loading.gif"/> -->
   </div>
 </template>
@@ -50,6 +50,10 @@ export default {
       navUsers(diff) {
         if ((this.currUserIdx === 0 && diff < 0) || (this.currUserIdx === this.users.length-1 && diff > 0)) return;
         this.currUserIdx += diff;
+      },
+
+      sendRequest(userId) {
+        console.log('sent a request to ',userId);
       }
   },
 

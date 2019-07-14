@@ -68,7 +68,6 @@ function add(user) {
 }
 
 function update(user) {
-    console.log(user);
     // return HttpService.ajax(`user/${user._id}`, 'put', user);   //for real backend DB
     var userIdx = USERS_DB.find(currUser => currUser._id = user._id)
     USERS_DB.splice(userIdx, 1, user)

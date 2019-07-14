@@ -11,7 +11,7 @@
         <router-link :to="editUrl">Edit</router-link> |
         <button @click="emitDelete" title="delete user">x</button>
       </div>
-        <button v-if="!isAdminPage" @click="emitRequest">Send a request</button>
+        <v-btn v-if="!isAdminPage" @click="emitRequest">Send a request</v-btn>
     </div>
     <button  v-if="!isAdminPage" @click="emitNavUsers(1)"><v-icon>keyboard_arrow_right</v-icon></button>
   </li>
@@ -91,6 +91,15 @@ export default {
       justify-content: space-between;
       align-items: center;
     }
+
+    button {
+      outline: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 }
 
 .user-preview.admin {
@@ -100,4 +109,5 @@ export default {
     border-width: 1px;
     border-radius: 20px;
 }
+
 </style>

@@ -52,7 +52,7 @@ export default {
             this.$store.dispatch({type: 'updateUser', user:this.user})
             .then(() => {
                 console.log('updated user');
-                this.$router.push('/users');
+                this.$router.push('/user');
               })
         }
     },
