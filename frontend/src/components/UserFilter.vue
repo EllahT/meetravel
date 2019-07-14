@@ -1,15 +1,17 @@
 <template>
-  <div>
+  <div class="user-filter">
     <label>Distance: </label>
-    <input type="range" min=1 max=20 v-model="filters.distance" @input="emitFilters"/>
-    <label>Age: </label>
-    <input type="number" v-model="filters.age.from" @input="emitFilters"/>
-    <label> To: </label>
-    <input type="number" v-model="filters.age.to" @input="emitFilters"/>
+    <input type="range" min=1 max=15000 v-model="filters.distance" @input="emitFilters"/>
+    <div>
+      <label>Age: From: </label>
+      <input type="number" v-model="filters.age.from" @input="emitFilters"/>
+      <label> To: </label>
+      <input type="number" v-model="filters.age.to" @input="emitFilters"/>
+    </div>
     <label> Gender: </label>
     <gender-picker v-model="filters.gender" @input="emitFilters"/>
-    <label> Dates: </label>
-    <date-picker v-model="filters.dates" @input="emitFilters"/>
+    <!-- <label> Dates: </label>
+    <date-picker v-model="filters.dates" @input="emitFilters"/> -->
     
   </div>
 </template>
@@ -28,9 +30,9 @@ export default {
   data() {
     return {
       filters: {
-        distance: 5,
-        age: {from: 20, to: 50},
-        gender: {type: 'a', display: 'All'},
+        distance: 15000,
+        age: {from: 20, to: 80},
+        gender: {type: 'all', display: 'All'},
         dates: {from: new Date(), to: new Date()}
       }
     }
@@ -54,3 +56,14 @@ export default {
 }
 </script>
  
+ <style lang="scss">
+  .user-filter {
+    display: flex;
+    justify-content: center;
+    
+    input {
+      max-width: 50px;
+      margin: 0 10px;
+    }
+  }
+ </style>

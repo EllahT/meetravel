@@ -48,6 +48,7 @@ export default {
       },
 
       navUsers(diff) {
+        if ((this.currUserIdx === 0 && diff < 0) || (this.currUserIdx === this.users.length-1 && diff > 0)) return;
         this.currUserIdx += diff;
       }
   },
