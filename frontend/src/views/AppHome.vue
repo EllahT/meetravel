@@ -2,7 +2,7 @@
   <div class="app-home">
       <div class="top-bar">
         <h1 v-if="users">There are {{users.length}} Fellow Travelers in {{location}}</h1>
-        <user-filter :currFilter="filters" @filterChanged="setFilter"></user-filter>
+        <user-filter :currFilter="filterBy" @filterChanged="setFilter"></user-filter>
       </div>
       <user-preview  v-if="users" :user="users[currUserIdx]" @nav="navUsers" @request="sendRequest"></user-preview>
       <!-- <img v-if="loadingUsers" src="@/assets/loading.gif"/> -->
@@ -29,8 +29,8 @@ export default {
           return this.$store.getters.users;
       },
 
-      filters() {
-          return this.$store.getters.filters;
+      filterBy() {
+          return this.$store.getters.filterBy;
       },
 
       loadingUsers() {
@@ -43,8 +43,9 @@ export default {
   },
 
   methods: {
-      setFilter(filters) {
-        this.$store.dispatch({type:'setFilter', filters});
+      setFilter(filterBy) {
+        this.$store.dispatch({type:'setFilter', filterBy});
+        this.currUserIdx = 0;
       },
 
       navUsers(diff) {

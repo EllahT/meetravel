@@ -8,25 +8,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    genders: [{type: 'woman', display: '👩 Woman'}, {type: 'man', display: '👨 Man'}, {type: 'other', display: 'Other'}],
+    
   },
 
-    getters: {
-      genderTypes(state) {
-        return state.genders;
-      },
+  getters: {
+    
+  },
   
-      gendersToFilter(state) {
-        const filterGenders = [...state.genders];
-        filterGenders.unshift({type: 'all', display: 'All'});
-        return filterGenders;
-      }
-    },
-  
-    modules: {
-        UserStore,
-        MatchStore,
-        TripStore
-    }
+  modules: {
+    UserStore,
+    MatchStore,
+    TripStore
+  }
 
 })

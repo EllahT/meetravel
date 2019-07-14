@@ -63,10 +63,10 @@ export default {
         },
         
         notifications: [],
-        filters: {
+        filterBy: {
             distance: 15000,
             age: {from: 20, to: 80},
-            gender: {type: 'all', display: 'All'},
+            gender: 'all',
             dates: {from: new Date(), to: new Date()}
         },
         isLoadingUsers: false,
@@ -90,8 +90,8 @@ export default {
             return state.loggedInUser.isAdmin;
         },
 
-        filters(state) {
-            return state.filters;
+        filterBy(state) {
+            return state.filterBy;
         },
 
         notifications(state) {
@@ -100,10 +100,6 @@ export default {
 
         userById: state => id => {
             return state.users.find(user => user._id === id);
-        },
-
-        currLocation(state) {
-            return state.location;
         },
 
         location(state) {
@@ -120,10 +116,6 @@ export default {
             state.users = filteredUsers;
         },
 
-        clearLoggedUser(state) {
-            state.loggedUser = null;
-        },
-
         updateUser(state, { updatedUser }) {
             const idx = state.users.findIndex(user => user._id === updatedUser._id);
             state.users.splice(idx, 1, updatedUser);
@@ -138,8 +130,8 @@ export default {
             state.users.splice(idx, 1);
         },
 
-        setFilter(state, { filters }) {
-            state.filters = JSON.parse(JSON.stringify(filters));
+        setFilter(state, { filterBy }) {
+            state.filterBy = JSON.parse(JSON.stringify(filterBy));
         },
 
         updateLocation(state, {location}) {
@@ -190,22 +182,15 @@ export default {
 
         logout(context) {
             return UserService.logout().then(() => {
-                context.commit({ type: 'clearLoggedUser' });
+                context.commit({ type: 'setLoggedUser', user: null });
                 return {};
             })
         },
 
-        likeUser(context, { userId }) {
-            UserService.getById(userId)
-                .then(({ _id, username }) => {
-                    context.commit({ type: 'addLike' }, { _id, username });
-                })
-        },
-
-        setFilter(context, { filters }) {
+        setFilter(context, { filterBy }) {
             // context.commit({ type: "setLoadingUsers", val: true });
-            context.commit({ type: "setFilter", filters });
-            UserService.query(filters, context.state.location).then(filteredUsers => {
+            context.commit({ type: "setFilter", filterBy });
+            UserService.query(filterBy, context.state.location).then(filteredUsers => {
                 context.commit({ type: "setUsers", filteredUsers });
                 // context.commit({ type: "setLoadingUsers", val: false });
             });
@@ -220,7 +205,7 @@ export default {
         },
 
         loadUsers(context) {
-            return UserService.query(context.state.filters, context.state.location)
+            return UserService.query(context.state.filterBy, context.state.location)
                 .then(filteredUsers => {
                     context.commit({ type: "setUsers", filteredUsers });
                     return filteredUsers;

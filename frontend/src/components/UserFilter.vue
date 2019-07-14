@@ -1,15 +1,15 @@
 <template>
   <div class="user-filter">
     <label>Distance: </label>
-    <input type="range" min=1 max=15000 v-model="filters.distance" @input="emitFilters"/>
+    <input type="range" min=1 max=15000 v-model="filterBy.distance" @input="emitfilterBy"/>
     <div>
       <label>Age: From: </label>
-      <input type="number" v-model="filters.age.from" @input="emitFilters"/>
+      <input type="number" v-model="filterBy.age.from" @input="emitfilterBy"/>
       <label> To: </label>
-      <input type="number" v-model="filters.age.to" @input="emitFilters"/>
+      <input type="number" v-model="filterBy.age.to" @input="emitfilterBy"/>
     </div>
     <label> Gender: </label>
-    <gender-picker v-model="filters.gender" @input="emitFilters"/>
+    <gender-picker v-model="filterBy.gender" @input="emitfilterBy"/>
     <!-- <label> Dates: </label>
     <date-picker v-model="filters.dates" @input="emitFilters"/> -->
     
@@ -29,7 +29,7 @@ export default {
   
   data() {
     return {
-      filters: {
+      filterBy: {
         distance: 15000,
         age: {from: 20, to: 80},
         gender: {type: 'all', display: 'All'},
@@ -40,12 +40,12 @@ export default {
 
   created() {
     
-    // this.filters = JSON.parse(JSON.stringify(this.currFilter));
+    // this.filterBy = JSON.parse(JSON.stringify(this.currFilter));
   },
 
   methods: {
-    emitFilters() {
-        this.$emit('filterChanged',this.filters);
+    emitfilterBy() {
+        this.$emit('filterChanged',this.filterBy);
     }
   },
 

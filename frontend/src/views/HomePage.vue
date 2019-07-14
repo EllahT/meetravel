@@ -32,6 +32,7 @@ export default {
       (this.$refs.autocomplete),
       {types: ['geocode']}
     );
+    
     this.autocomplete.addListener('place_changed', () => {
       let place = this.autocomplete.getPlace();
       let ac = place.address_components;
