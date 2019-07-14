@@ -47,7 +47,6 @@ function query(filters, location) {
             //     // return distance < filters.distance;
             // })
             return distance < filters.distance;
-
         })
     }
 
