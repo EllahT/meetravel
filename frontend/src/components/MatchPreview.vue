@@ -16,7 +16,10 @@ export default {
       match: {
           type: Object,
           require: true
-      },
+      }
+  },
+  
+  created (){    
   },
 
   computed: {
@@ -43,56 +46,10 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
 }
 </style>
 
 
-
-
-// <script>
-
-// export default {
-//   props: {
-//       user: {
-//           type: Object,
-//           require: true
-//       },
-
-//       type: {
-//         type: String,
-//         require: false
-//       }
-//   },
-
-//   computed: {
-//     detailsUrl() {
-//       return `/user/${this.user._id}`;
-//     },
-
-//     editUrl() {
-//       return `/profile/edit`;
-//     },
-
-//     fullName(){
-//       return this.user.firstName + ' ' + this.user.lastName
-//     },
-
-//     isAdminPage() {
-//       return this.type === 'admin';
-//     }
-//   },
-
-//   methods: {
-//     emitDelete(){
-//       this.$parent.$emit('delete-user', this.user._id)
-//     },
-
-//     emitRequest() {
-//       this.$emit('request', this.user._id);
-//     },
-//   }
-// }
-
-// </script>
 
 

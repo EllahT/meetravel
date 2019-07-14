@@ -3,7 +3,7 @@
         <h1>User Profile</h1>
         <router-link to="/profile/edit">Edit Profile</router-link> | 
         <router-link to="/trip">Trips</router-link> | 
-        <router-link to="/matchs">Matchs</router-link>        
+        <router-link to="/matches">Matches</router-link>        
     </div>
 </template>
 

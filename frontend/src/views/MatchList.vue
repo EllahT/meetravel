@@ -1,6 +1,6 @@
 <template>
-     <ul>
-    <match-preview v-for="match in matches" :match="match" :key="match._id"></match-preview>
+     <ul v-if="matches">
+        <match-preview v-for="match in matches" :match="match" :key="match._id"></match-preview>
     </ul>
 </template>
 
@@ -8,13 +8,8 @@
 import MatchPreview from "@/components/MatchPreview.vue";
 
 export default {
-  data() {
-    return {
-      matches: []
-    }
-  },
   created() {
-    this.$store.dispatch({type: 'loadMatces'});
+    this.$store.dispatch({type: 'loadMatches'});
   },
   computed: {
       matches() {
