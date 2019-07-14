@@ -5,8 +5,6 @@ export default {
     state: {
         users: [],
         loggedUser: { _id: 1, name: "Puki", trips: ["first trip", "sec trip"] },
-        likes: [],
-        matches: [],
         notifications: [],
         filters: {},
         isLoadingUsers: false
@@ -27,14 +25,6 @@ export default {
 
         isAdmin(state) {
             return state.loggedInUser.isAdmin;
-        },
-
-        matchs(state) {
-            return state.matches;
-        },
-
-        likes(state) {
-            return state.likes;
         },
 
         filters(state) {
