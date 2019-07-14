@@ -1,6 +1,6 @@
 <template>
   <li class="user-preview" v-if="user" :class="isAdminPageClass">
-    <button  v-if="!isAdminPage" @click="emitNavUsers(-1)">⮜</button>
+    <button  v-if="!isAdminPage" @click="emitNavUsers(-1)"><v-icon>keyboard_arrow_left</v-icon></button>
     <div class="details-container">
       <router-link :to="detailsUrl">
         <h4>{{fullName}}</h4>
@@ -13,7 +13,7 @@
       </div>
         <button v-if="!isAdminPage" @click="emitRequest">Send a request</button>
     </div>
-    <button  v-if="!isAdminPage" @click="emitNavUsers(1)">⮞</button>
+    <button  v-if="!isAdminPage" @click="emitNavUsers(1)"><v-icon>keyboard_arrow_right</v-icon></button>
   </li>
 </template>
 
