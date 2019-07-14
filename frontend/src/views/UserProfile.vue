@@ -1,15 +1,15 @@
 <template>
     <div class="user-profile">
         <h1>User Profile</h1>
+
         <img src="http://placehold.it/100x100"/>
         <p>this is general info</p>
         <div class="actions">
             <router-link to="/profile/edit">Edit General Info</router-link> | 
             <router-link to="/trip">Trips</router-link> | 
-            <router-link to="/matchs">Matchs</router-link>
+            <router-link to="/matches">Matchs</router-link>
             <!-- | <router-link to="/gallery">Gallery</router-link>         -->
         </div>
-
     </div>
 </template>
 

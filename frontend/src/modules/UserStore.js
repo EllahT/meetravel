@@ -61,8 +61,7 @@ export default {
             }
         ]
         },
-        likes: [],
-        matches: [],
+        
         notifications: [],
         filters: {
             distance: 15000,
@@ -89,10 +88,6 @@ export default {
 
         isAdmin(state) {
             return state.loggedInUser.isAdmin;
-        },
-
-        matchs(state) {
-            return state.matches;
         },
 
         filters(state) {

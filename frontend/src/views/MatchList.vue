@@ -1,24 +1,24 @@
 <template>
-  <div>
-     <v-flex>
-    <match-preview v-for="match in matches" :match="match" :key="match._id"></match-preview>
-    </v-flex>
-  </div>
+     <ul v-if="matches">
+        <match-preview v-for="match in matches" :match="match" :key="match._id"></match-preview>
+    </ul>
 </template>
 
 <script>
 import MatchPreview from "@/components/MatchPreview.vue";
 
 export default {
-  data() {
-    return {
-      matches: []
-    }
+  created() {
+    this.$store.dispatch({type: 'loadMatches'});
   },
-
+  computed: {
+      matches() {
+          return this.$store.getters.matches;
+      }
+  },
   components: {
     MatchPreview
   }
-};
+}
 </script>
    
