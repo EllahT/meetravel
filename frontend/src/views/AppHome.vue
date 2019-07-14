@@ -1,9 +1,10 @@
 <template>
-  <div>
+  <div class="app-home">
       <div class="top-bar">
+        <h1 v-if="users">There are {{users.length}} Fellow Travelers in {{location}}</h1>
         <user-filter :currFilter="filters" @filterChanged="setFilter"></user-filter>
       </div>
-      <user-preview :user="users[currUserIdx]" @nav="navUsers"></user-preview>
+      <user-preview  v-if="users" :user="users[currUserIdx]" @nav="navUsers"></user-preview>
       <!-- <img v-if="loadingUsers" src="@/assets/loading.gif"/> -->
   </div>
 </template>
@@ -34,6 +35,10 @@ export default {
 
       loadingUsers() {
         return this.$store.getters.isLoadingUsers;
+      },
+
+      location() {
+        return this.$store.getters.location.address;
       }
   },
 
@@ -43,6 +48,7 @@ export default {
       },
 
       navUsers(diff) {
+        if ((this.currUserIdx === 0 && diff < 0) || (this.currUserIdx === this.users.length-1 && diff > 0)) return;
         this.currUserIdx += diff;
       }
   },
@@ -53,3 +59,12 @@ export default {
   }
 };
 </script>
+
+<style>
+  .app-home {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+</style>

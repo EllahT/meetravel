@@ -1,22 +1,22 @@
 <template>
-    <div class="user-profile">
+    <div class="user-edit" v-if="user">
+        <h1>Edit General User Info</h1>
         <form @submit.prevent="saveUser">
             <div>
-                <label>Email:</label>
-                <validation-provider rules="required|email">
-                    <template #default="{ errors }">
-                        <input type="email" v-model="user.email"/>
-                        <p class="errors">{{ errors[0] }}</p>
-                    </template>
-                </validation-provider>
+                <label>First Name: </label>
+                <input type="text" v-model="user.firstName"/>
             </div>
             <div>
-                <label>Name:</label>
-                <input type="text" v-model="user.name"/>
+                <label>Last Name: </label>
+                <input type="text" v-model="user.lastName"/>
             </div>
             <div>
-                <label>Gender:</label>
+                <label>Gender: </label>
                 <gender-picker v-model="user.gender" :type="'picker'"></gender-picker>
+            </div>
+            <div>
+                <label>Description: </label>
+                <textarea v-model="user.description"></textarea>
             </div>
             <button class="submit-btn">{{btnText}}</button>
         </form>
@@ -32,22 +32,12 @@ Vue.component('ValidationProvider', ValidationProvider);
 
 export default {
     created() {
-        const userId = this.$route.params.userId;
-        this.$store.dispatch({type: 'loadUsers'})
-        .then (() => {
-        if (userId) this.user = JSON.parse(JSON.stringify(this.$store.getters.userById(userId)));
-      })
+        this.user = this.$store.getters.loggedInUser;
     },
 
     data() {
         return {
-            user: {
-                name: '',
-                gender: {type: '', display: ''},
-                // gender: '',
-                email: null,
-                isAdmin: false
-            }
+            user: null
         }
     },
 
@@ -59,20 +49,12 @@ export default {
 
     methods: {
         saveUser() {
-          if (this.user._id) {
-              this.$store.dispatch({type: 'updateUser', user:this.user})
-              .then(() => {
+            this.$store.dispatch({type: 'updateUser', user:this.user})
+            .then(() => {
                 console.log('updated user');
                 this.$router.push('/users');
               })
-          } else {
-              this.$store.dispatch({type: 'saveUser', user:this.user})
-              .then(() => {
-                console.log('added user');
-                this.$router.push('/users');
-              })
-          }
-    },
+        }
     },
 
     components: {
@@ -81,5 +63,38 @@ export default {
     }
 };
 </script>
+
+<style lang="scss">
+.user-edit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1 {
+        margin-bottom: 20px;
+    }
+
+    div {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        
+        label {
+            display: flex;
+            align-items: center;
+            margin: 5px;
+        }
+
+        input, textarea, .picker {
+            padding: 5px;
+        }
+    }
+
+    button {
+        border: 1px solid black;
+    }
+}
+
+</style>
 
 

@@ -40,7 +40,6 @@ function _generateTrips() {
       startDate: "7/22/2018",
       endDate: "8/5/2018",
       budget: "276",
-      isDone: true,
       city: "Yartsevo",
       country: "Russia",
       docs: [{}, {}, {}, {}, {}],
@@ -54,7 +53,7 @@ function _generateTrips() {
       startDate: "7/27/2018",
       endDate: "8/19/2018",
       budget: "2914",
-      isDone: true,
+      
       city: "Balfour",
       country: "South Africa",
       docs: [{}, {}, {}, {}, {}],
@@ -68,7 +67,7 @@ function _generateTrips() {
       startDate: "7/28/2018",
       endDate: "8/28/2018",
       budget: "923",
-      isDone: true,
+      
       city: "Haarlem",
       country: "Netherlands",
       docs: [{}, {}, {}, {}, {}],
@@ -82,7 +81,7 @@ function _generateTrips() {
       startDate: "7/29/2018",
       endDate: "8/13/2018",
       budget: "378",
-      isDone: true,
+      
       city: "Āshkhāneh",
       country: "Iran",
       docs: [{}, {}, {}, {}, {}],
@@ -96,7 +95,7 @@ function _generateTrips() {
       startDate: "7/28/2018",
       endDate: "8/20/2018",
       budget: "561",
-      isDone: true,
+      
       city: "Malaruhatan",
       country: "Philippines",
       docs: [{}, {}, {}, {}, {}],
@@ -110,7 +109,7 @@ function _generateTrips() {
       startDate: "7/30/2018",
       endDate: "8/10/2018",
       budget: "80",
-      isDone: true,
+      
       city: "Akaki",
       country: "Cyprus",
       docs: [{}, {}, {}, {}, {}],
@@ -124,7 +123,7 @@ function _generateTrips() {
       startDate: "7/14/2018",
       endDate: "7/30/2018",
       budget: "948",
-      isDone: false,
+      
       city: "Krasni Okny",
       country: "Ukraine",
       docs: [{}, {}, {}, {}, {}],
@@ -138,7 +137,7 @@ function _generateTrips() {
       startDate: "7/19/2018",
       endDate: "7/20/2018",
       budget: "116",
-      isDone: false,
+      
       city: "Abovyan",
       country: "Armenia",
       docs: [{}, {}, {}, {}, {}],
@@ -152,7 +151,7 @@ function _generateTrips() {
       startDate: "7/19/2018",
       endDate: "8/13/2018",
       budget: "111",
-      isDone: false,
+      
       city: "Kegeyli Shahar",
       country: "Uzbekistan",
       docs: [{}, {}, {}, {}, {}],
@@ -166,7 +165,7 @@ function _generateTrips() {
       startDate: "7/25/2018",
       endDate: "7/28/2018",
       budget: "76",
-      isDone: false,
+      
       city: "Tarub",
       country: "Indonesia",
       docs: [{}, {}, {}, {}, {}],
@@ -180,7 +179,7 @@ function _generateTrips() {
       startDate: "7/14/2018",
       endDate: "7/27/2018",
       budget: "47",
-      isDone: false,
+      
       city: "Acolla",
       country: "Peru",
       docs: [{}, {}, {}, {}, {}],
@@ -194,7 +193,7 @@ function _generateTrips() {
       startDate: "7/28/2018",
       endDate: "8/12/2018",
       budget: "763",
-      isDone: false,
+      
       city: "Leigao",
       country: "China",
       docs: [{}, {}, {}, {}, {}],
@@ -208,7 +207,7 @@ function _generateTrips() {
       startDate: "7/14/2018",
       endDate: "7/24/2018",
       budget: "346",
-      isDone: false,
+      
       city: "Ziyuan",
       country: "China",
       docs: [{}, {}, {}, {}, {}],
@@ -222,7 +221,7 @@ function _generateTrips() {
       startDate: "7/30/2018",
       endDate: "8/10/2018",
       budget: "399",
-      isDone: false,
+      
       city: "Laylay",
       country: "Philippines",
       docs: [{}, {}, {}, {}, {}],
@@ -236,7 +235,7 @@ function _generateTrips() {
       startDate: "7/17/2018",
       endDate: "7/29/2018",
       budget: "200",
-      isDone: false,
+      
       city: "Ljusdal",
       country: "Sweden",
       docs: [{}, {}, {}, {}, {}],
@@ -250,7 +249,7 @@ function _generateTrips() {
       startDate: "7/29/2018",
       endDate: "8/18/2018",
       budget: "720",
-      isDone: true,
+      
       city: "Yylanly",
       country: "Turkmenistan",
       docs: [{}, {}, {}, {}, {}],
@@ -264,7 +263,7 @@ function _generateTrips() {
       startDate: "7/20/2018",
       endDate: "8/2/2018",
       budget: "386",
-      isDone: false,
+      
       city: "Sala",
       country: "Sweden",
       docs: [{}, {}, {}, {}, {}],
@@ -278,7 +277,7 @@ function _generateTrips() {
       startDate: "7/17/2018",
       endDate: "7/28/2018",
       budget: "777",
-      isDone: true,
+      
       city: "Tuburan",
       country: "Philippines",
       docs: [{}, {}, {}, {}, {}],
@@ -292,7 +291,7 @@ function _generateTrips() {
       startDate: "7/24/2018",
       endDate: "8/18/2018",
       budget: "617",
-      isDone: true,
+      
       city: "Faranah",
       country: "Guinea",
       docs: [{}, {}, {}, {}, {}],
@@ -306,7 +305,7 @@ function _generateTrips() {
       startDate: "7/12/2018",
       endDate: "7/20/2018",
       budget: "9058",
-      isDone: false,
+      
       city: "Besuki Dua",
       country: "Indonesia",
       docs: [{}, {}, {}, {}, {}],

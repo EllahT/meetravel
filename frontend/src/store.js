@@ -8,16 +8,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    genders: [{type: 'f', display: '👩 Woman'}, {type: 'm', display: '👨 Man'}, {type: 'o', display: 'Other'}]
+    genders: [{type: 'woman', display: '👩 Woman'}, {type: 'man', display: '👨 Man'}, {type: 'other', display: 'Other'}],
   },
-
-    mutations: {
-
-    },
-
-    actions: {
-
-    },
 
     getters: {
       genderTypes(state) {
@@ -26,18 +18,15 @@ export default new Vuex.Store({
   
       gendersToFilter(state) {
         const filterGenders = [...state.genders];
-        filterGenders.unshift({type: 'a', display: 'All'});
+        filterGenders.unshift({type: 'all', display: 'All'});
         return filterGenders;
       }
     },
   
-
     modules: {
         UserStore,
         MatchStore,
         TripStore
-
-
     }
 
 })

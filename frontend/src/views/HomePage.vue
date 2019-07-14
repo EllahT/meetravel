@@ -8,10 +8,12 @@
       <div class="locations">
         <v-btn @click="getUserLocation"><v-icon left>location_on</v-icon> My Location</v-btn>
         <p>Search other Location</p>
-        <input type="text" v-model="address" @input="searchLoc"/>
-        {{location}}
+        <input ref="autocomplete"
+        placeholder="Search" 
+        onfocus="value = ''" 
+        type="text" />
       </div>
-      <v-btn @click="goToUsers">Get Started</v-btn>
+      <v-btn @click="goToUsers" :disabled="isAddress">Get Started</v-btn>
   </v-flex>
 </template>
 
@@ -24,12 +26,32 @@ export default {
   created() {
     this.$emit('homepage', false);
   },
+
+  mounted() {
+    this.autocomplete = new google.maps.places.Autocomplete(
+      (this.$refs.autocomplete),
+      {types: ['geocode']}
+    );
+    this.autocomplete.addListener('place_changed', () => {
+      let place = this.autocomplete.getPlace();
+      let ac = place.address_components;
+      this.location.lat = place.geometry.location.lat();
+      this.location.lng = place.geometry.location.lng();
+      this.address = ac[0]["short_name"] +', '+ ac[2]["long_name"];
+    })
+  },
   
   data() {
     return {
       location: {lat: null, lng: null},
-      address: null
+      address: null,
+      autocomplete: null
+    }
+  },
 
+  computed: {
+    isAddress() {
+      return (this.address === null);
     }
   },
 
@@ -42,24 +64,22 @@ export default {
       })
     },
 
-    searchLoc() {
-        GeocodeService.getLatLngByAddress(this.address)
-        .then((location) => {
-          this.location = location;
-        })
-      },
-
-      getUserLocation() {
+    getUserLocation() {
         GeocodeService.getPosition()
         .then((loc) => {
           this.location.lat = loc.coords.latitude;
           this.location.lng = loc.coords.longitude;
+          GeocodeService.getCityByLatLng(this.location.lat, this.location.lng)
+          .then((address) => {
+          this.address = address;
+        })
         })
       },
 
-      goToUsers() {
+    goToUsers() {
+        this.$store.dispatch({type: 'updateCurrLocation', location: {lat: this.location.lat, lng: this.location.lng, address: this.address}});
         this.$router.push('/users');
-      }
+    },
   },
 
   destroyed() {
@@ -69,7 +89,7 @@ export default {
 </script>
 
 <style>
-  input {
+  .homepage input {
     border: 1px solid black;
   }
 

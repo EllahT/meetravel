@@ -1,5 +1,6 @@
 import HttpService from './HttpService';
 import UtilService from './UtilService';
+import GeocodeService from './GeocodeService';
 
 let loggedUser = null;
 
@@ -16,9 +17,41 @@ export default {
     getLoggedUser,
 }
 
-function query() {
+function query(filters, location) {
     // return HttpService.ajax('user/'); //for real backend DB
-    return Promise.resolve(USERS_DB);
+    if (!filters) return Promise.resolve(USERS_DB);
+
+    let filteredUsers = [...USERS_DB];
+
+    if (filters.age) {
+        filteredUsers = filteredUsers.filter(user => {
+            let age = new Date().getFullYear() - user.birthDate;
+            return (age > filters.age.from && age < filters.age.to);
+        })
+    }
+    
+    if (filters.gender.type !== 'all') {
+        filteredUsers = filteredUsers.filter(user => user.gender === filters.gender.type);
+    }
+
+    if (typeof(filters.distance) !== Number) {
+        filters.distance = JSON.parse(filters.distance);
+    }
+
+    if (filters.distance) {
+        filteredUsers = filteredUsers.filter(user => {
+            const distance = GeocodeService.calulateDistance(location, user.currLocation);
+            // GeocodeService.getDistanceByLatLngs(location, user.currLocation)
+            // .then(distance => {
+            //     console.log(distance);
+            //     // return distance < filters.distance;
+            // })
+            return distance < filters.distance;
+
+        })
+    }
+
+    return Promise.resolve(filteredUsers);
 }
 
 function getById(userId) {
@@ -36,6 +69,7 @@ function add(user) {
 }
 
 function update(user) {
+    console.log(user);
     // return HttpService.ajax(`user/${user._id}`, 'put', user);   //for real backend DB
     var userIdx = USERS_DB.find(currUser => currUser._id = user._id)
     USERS_DB.splice(userIdx, 1, user)
@@ -86,8 +120,8 @@ USERS_DB = [
         "registered": "Saturday, October 7, 2017 8:28 PM",
         "lastConnected": "Thursday, February 1, 2018 2:09 AM",
         "currLocation": {
-            "lat": "-82.87981",
-            "lng": "1.444387"
+            "lat": -82.87981,
+            "lng": 1.444387
         },
         "residance": {
             "city": "Afula",
@@ -144,8 +178,8 @@ USERS_DB = [
         "registered": "Tuesday, October 28, 2014 3:20 AM",
         "lastConnected": "Saturday, October 29, 2016 10:14 PM",
         "currLocation": {
-            "lat": "41.159176",
-            "lng": "-179.119603"
+            "lat": 41.159176,
+            "lng": -179.119603
         },
         "residance": {
             "city": "Tel Aviv",
@@ -202,8 +236,8 @@ USERS_DB = [
         "registered": "Sunday, October 26, 2014 1:17 AM",
         "lastConnected": "Saturday, November 29, 2014 1:18 PM",
         "currLocation": {
-            "lat": "-21.712615",
-            "lng": "-53.815966"
+            "lat": -21.712615,
+            "lng": -53.815966
         },
         "residance": {
             "city": "Jerusalem",
@@ -318,8 +352,8 @@ USERS_DB = [
         "registered": "Wednesday, October 26, 2016 11:51 AM",
         "lastConnected": "Monday, June 20, 2016 6:15 AM",
         "currLocation": {
-            "lat": "21.016425",
-            "lng": "-15.452766"
+            "lat": 21.016425,
+            "lng": -15.452766
         },
         "residance": {
             "city": "Jerusalem",
@@ -376,8 +410,8 @@ USERS_DB = [
         "registered": "Wednesday, May 10, 2017 9:10 PM",
         "lastConnected": "Friday, February 22, 2019 3:59 PM",
         "currLocation": {
-            "lat": "-86.041923",
-            "lng": "-168.561944"
+            "lat": -86.041923,
+            "lng": -168.561944
         },
         "residance": {
             "city": "Jerusalem",
@@ -434,8 +468,8 @@ USERS_DB = [
         "registered": "Wednesday, June 7, 2017 2:59 AM",
         "lastConnected": "Saturday, July 30, 2016 9:42 AM",
         "currLocation": {
-            "lat": "47.958245",
-            "lng": "20.774728"
+            "lat": 47.958245,
+            "lng": 20.774728
         },
         "residance": {
             "city": "Jerusalem",
@@ -492,8 +526,8 @@ USERS_DB = [
         "registered": "Wednesday, September 5, 2018 5:56 AM",
         "lastConnected": "Sunday, May 29, 2016 9:49 PM",
         "currLocation": {
-            "lat": "87.142238",
-            "lng": "-84.202729"
+            "lat": 87.142238,
+            "lng": -84.202729
         },
         "residance": {
             "city": "Jerusalem",
@@ -550,8 +584,8 @@ USERS_DB = [
         "registered": "Wednesday, August 27, 2014 1:19 AM",
         "lastConnected": "Tuesday, September 1, 2015 12:59 AM",
         "currLocation": {
-            "lat": "-0.729066",
-            "lng": "134.747028"
+            "lat": -0.729066,
+            "lng": 134.747028
         },
         "residance": {
             "city": "Tel Aviv",
@@ -608,8 +642,8 @@ USERS_DB = [
         "registered": "Tuesday, July 3, 2018 8:06 PM",
         "lastConnected": "Friday, October 13, 2017 9:10 AM",
         "currLocation": {
-            "lat": "-46.224534",
-            "lng": "-25.761862"
+            "lat": -46.224534,
+            "lng": -25.761862
         },
         "residance": {
             "city": "Afula",
@@ -666,8 +700,8 @@ USERS_DB = [
         "registered": "Thursday, February 13, 2014 10:12 AM",
         "lastConnected": "Monday, August 10, 2015 10:12 PM",
         "currLocation": {
-            "lat": "-79.354338",
-            "lng": "-142.764549"
+            "lat": -79.354338,
+            "lng": -142.764549
         },
         "residance": {
             "city": "Afula",
@@ -724,8 +758,8 @@ USERS_DB = [
         "registered": "Saturday, July 15, 2017 1:57 AM",
         "lastConnected": "Sunday, April 14, 2019 8:23 AM",
         "currLocation": {
-            "lat": "-63.150171",
-            "lng": "-88.647828"
+            "lat": -63.150171,
+            "lng": -88.647828
         },
         "residance": {
             "city": "Tel Aviv",
@@ -782,8 +816,8 @@ USERS_DB = [
         "registered": "Thursday, January 29, 2015 5:34 PM",
         "lastConnected": "Saturday, July 18, 2015 7:16 PM",
         "currLocation": {
-            "lat": "51.635352",
-            "lng": "38.008617"
+            "lat": 51.635352,
+            "lng": 38.008617
         },
         "residance": {
             "city": "Afula",
@@ -840,8 +874,8 @@ USERS_DB = [
         "registered": "Tuesday, March 29, 2016 10:39 AM",
         "lastConnected": "Wednesday, October 5, 2016 4:50 AM",
         "currLocation": {
-            "lat": "-71.15199",
-            "lng": "-76.179622"
+            "lat": -71.15199,
+            "lng": -76.179622
         },
         "residance": {
             "city": "Tel Aviv",
@@ -898,8 +932,8 @@ USERS_DB = [
         "registered": "Tuesday, January 28, 2014 4:14 PM",
         "lastConnected": "Monday, October 22, 2018 2:25 AM",
         "currLocation": {
-            "lat": "13.667191",
-            "lng": "107.339088"
+            "lat": 13.667191,
+            "lng": 107.339088
         },
         "residance": {
             "city": "Jerusalem",
@@ -956,8 +990,8 @@ USERS_DB = [
         "registered": "Tuesday, August 12, 2014 7:16 PM",
         "lastConnected": "Tuesday, March 31, 2015 11:12 PM",
         "currLocation": {
-            "lat": "-70.760602",
-            "lng": "22.393379"
+            "lat": -70.760602,
+            "lng": 22.393379
         },
         "residance": {
             "city": "Afula",
@@ -1014,8 +1048,8 @@ USERS_DB = [
         "registered": "Tuesday, July 19, 2016 9:15 AM",
         "lastConnected": "Thursday, July 31, 2014 3:05 AM",
         "currLocation": {
-            "lat": "77.394741",
-            "lng": "35.367446"
+            "lat": 77.394741,
+            "lng": 35.367446
         },
         "residance": {
             "city": "Tel Aviv",
@@ -1072,8 +1106,8 @@ USERS_DB = [
         "registered": "Sunday, July 16, 2017 9:58 PM",
         "lastConnected": "Sunday, September 9, 2018 5:13 PM",
         "currLocation": {
-            "lat": "-75.143522",
-            "lng": "28.232239"
+            "lat": -75.143522,
+            "lng": 28.232239
         },
         "residance": {
             "city": "Jerusalem",
@@ -1130,8 +1164,8 @@ USERS_DB = [
         "registered": "Tuesday, March 4, 2014 11:47 AM",
         "lastConnected": "Sunday, January 25, 2015 8:25 PM",
         "currLocation": {
-            "lat": "20.047226",
-            "lng": "-48.37448"
+            "lat": 20.047226,
+            "lng": -48.37448
         },
         "residance": {
             "city": "Tel Aviv",
@@ -1188,8 +1222,8 @@ USERS_DB = [
         "registered": "Monday, March 26, 2018 8:34 PM",
         "lastConnected": "Friday, May 12, 2017 3:32 AM",
         "currLocation": {
-            "lat": "3.051895",
-            "lng": "-107.56389"
+            "lat": 3.051895,
+            "lng": -107.56389
         },
         "residance": {
             "city": "Tel Aviv",
