@@ -88,11 +88,7 @@ export default {
 };
 </script>
 
-<style>
-  .homepage input {
-    border: 1px solid black;
-  }
-
+<style lang="scss">
   .homepage {
     text-align: center;
     background-image: url('../../public/img/background.jpg');
@@ -100,6 +96,25 @@ export default {
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
+
+    input {
+    border: 1px solid black;
+    }
+  }
+
+  .pac-container {
+    span {
+      text-shadow: none;
+      background-color: transparent;
+    }
+
+    span::after {
+      background-color: transparent;
+    }
+
+    span::before {
+      background-color: transparent;
+    }
   }
 </style>
 
