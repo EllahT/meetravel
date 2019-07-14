@@ -26,7 +26,7 @@ export default new Router({
             component: About
         },
         {
-            path: '/users',
+            path: '/user',
             name: 'AppHome',
             component: AppHome
         },
@@ -66,7 +66,7 @@ export default new Router({
             component: TripDetails
         },
         {
-            path: '/matches/',
+            path: '/match/',
             name: 'MatchList',
             component: MatchList
         }

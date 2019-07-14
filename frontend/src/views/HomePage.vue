@@ -78,7 +78,7 @@ export default {
 
     goToUsers() {
         this.$store.dispatch({type: 'updateCurrLocation', location: {lat: this.location.lat, lng: this.location.lng, address: this.address}});
-        this.$router.push('/users');
+        this.$router.push('/user');
     },
   },
 

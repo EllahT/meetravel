@@ -7,7 +7,7 @@
         <div class="actions">
             <router-link to="/profile/edit">Edit General Info</router-link> | 
             <router-link to="/trip">Trips</router-link> | 
-            <router-link to="/matches">Matchs</router-link>
+            <router-link to="/match">Matches</router-link>
             <!-- | <router-link to="/gallery">Gallery</router-link>         -->
         </div>
     </div>
