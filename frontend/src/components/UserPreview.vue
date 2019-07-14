@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import GecoodeService from '@/services/GeocodeService.js';
 
 export default {
   props: {

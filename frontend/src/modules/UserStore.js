@@ -65,13 +65,13 @@ export default {
         matches: [],
         notifications: [],
         filters: {
-            distance: 5,
-            age: {from: 20, to: 50},
+            distance: 15000,
+            age: {from: 20, to: 80},
             gender: {type: 'all', display: 'All'},
             dates: {from: new Date(), to: new Date()}
         },
         isLoadingUsers: false,
-        location: {lat: 32.059391999999995, lng: 34.8512256, address: null}
+        location: {lat: 32.059391999999995, lng: 34.8512256, address: 'Kiryat Ono, Israel'}
     },
 
     getters: {
