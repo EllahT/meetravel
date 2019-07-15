@@ -3,7 +3,7 @@ const userService = require('../user/user.service')
 const logger = require('../../services/logger.service')
 
 const saltRounds = 10
-
+console.log('test')
 async function login(email, password) {
     logger.debug(`auth.service - login with email: ${email}`)
     if (!email || !password) return Promise.reject('email and password are required!')
