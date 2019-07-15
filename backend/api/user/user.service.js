@@ -28,6 +28,17 @@ async function query(filterBy = {}) {
     
     try {
         const users = await collection.find(criteria).toArray();
+
+        if (typeof(filterBy.distance) !== Number) {
+        filterBy.distance = JSON.parse(filterBy.distance);
+        }
+
+        if (filterBy.distance) {
+        filteredUsers = filteredUsers.filter(user => {
+            const distance = GeocodeService.calulateDistance(location, user.currLocation);
+            return distance < filterBy.distance;
+        })
+    }
         return users
     
     } catch (err) {

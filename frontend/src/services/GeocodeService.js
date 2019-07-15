@@ -3,9 +3,7 @@
 export default {
     getCityByLatLng,
     getLatLngByAddress,
-    getPosition,
-    getDistanceByLatLngs,
-    calulateDistance
+    getPosition
 }
 
 const API_KEY = 'AIzaSyAQz_Zc9Ys9pFeNAYxOhagonVUGOyg_zlg';

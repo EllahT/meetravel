@@ -11,8 +11,8 @@ export default {
     getLoggedUser,
 }
 
-function query(filterBy) {
-    return HttpService.ajax(`user${_getQueryString(filterBy)}`)
+function query(filterBy, location) {
+    return HttpService.ajax(`user${_getQueryString(filterBy)}`, 'get', location)
     .then(users => {
         return users;
     })
