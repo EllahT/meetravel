@@ -17,17 +17,6 @@ async function query(filterBy = {}) {
     if (filterBy.gender !== 'all') {
         criteria.gender = filterBy.gender;
     }
-
-    // if (typeof(filterBy.distance) !== Number) {
-    //     filterBy.distance = JSON.parse(filterBy.distance);
-    // }
-
-    // if (filterBy.distance) {
-    //     filteredUsers = filteredUsers.filter(user => {
-    //         const distance = GeocodeService.calulateDistance(location, user.currLocation);
-    //         return distance < filterBy.distance;
-    //     })
-    // }
     
     if (filterBy.minAge && filterBy.maxAge) {
         const maxBirthDate = new Date().getFullYear() - filterBy.minAge;

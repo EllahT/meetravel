@@ -5,6 +5,7 @@ const router = express.Router()
 
 // middleware that is specific to this router
 // router.use(requireAuth)
+console.log('testing pulling!')
 
 router.get('/', getUsers)
 router.get('/:id', getUser)
