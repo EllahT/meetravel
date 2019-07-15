@@ -1,6 +1,6 @@
 
 const socketIO = require('socket.io');
-const roomService = require('./room-service');
+const roomService = require('./room.service');
 
 var io;
 var activeUsersCount = 0;

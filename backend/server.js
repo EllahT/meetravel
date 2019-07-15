@@ -10,6 +10,7 @@ const http = require('http').createServer(app);
 
 const authRoutes = require('./api/auth/auth.routes')
 const userRoutes = require('./api/user/user.routes')
+const friendRoutes = require('./api/friend/friend.routes')
 
 const logger = require('./services/logger.service')
 const socketService = require('./services/socket.service')
@@ -36,6 +37,7 @@ if (process.env.NODE_ENV !== 'production') {
 // routes
 app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
+app.use('/api/friend', friendRoutes)
 
 socketService.setup(http);
 

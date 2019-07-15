@@ -71,7 +71,7 @@ async function getByEmail(email) {
 async function remove(userId) {
     const collection = await dbService.getCollection('user')
     try {
-        await collection.deleteOne({"_id":userId})
+        await collection.remove({"_id":ObjectId(userId)})
     } catch (err) {
         console.log(`ERROR: cannot remove user ${userId}`)
         throw err;
@@ -81,8 +81,8 @@ async function remove(userId) {
 async function update(user) {
     const collection = await dbService.getCollection('user')
     try {
-        console.log(user)
-        await collection.replaceOne({"_id":user._id}, {$set : user})
+        await collection.replaceOne({"_id":ObjectId(user._id)}, {$set : user})
+        console.log('user was updated');
         return user
     } catch (err) {
         console.log(`ERROR: cannot update user ${user._id}`)

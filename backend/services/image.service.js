@@ -1,15 +1,15 @@
 const cheerio = require('cheerio');
 const axios = require('axios');
-const utilService = require('../services/util.service');
+const utilService = require('./util.service');
 
 module.exports = {
     getRandomImage
 }
 
-const TERM = 'travel';
+// const TERM = 'travel';
 
-function getRandomImage() {
-    return axios.get(`http://www.istockphoto.com/il/photos/${TERM}`)
+function getRandomImage(term) {
+    return axios.get(`http://www.istockphoto.com/il/photos/${term}`)
     .then(res => {
         const $ = cheerio.load(res.data);
         const imgs = $('img.srp-asset-image');
