@@ -1,10 +1,10 @@
 <template>
-    <div class="picker" v-if="genders.length">
+    <div class="picker">
         <button @click.prevent="toggleShowDropdownContent" class="dropbtn">{{display}}▼</button>
         <ul v-if="showContent" class="dropdown-content">
-            <li v-for="gender in genders" :key="gender.type"
-            @click.prevent="emitChangedValue(gender.type)" 
-            class="dropdown-item"> {{gender.display}}
+            <li v-for="gender in Object.entries(genders)" :key="gender[0]"
+            @click.prevent="emitChangedValue(gender[0])" 
+            class="dropdown-item"> {{gender[1]}}
             </li>
         </ul>
     </div>
@@ -15,7 +15,7 @@
     export default {
         props: {
             value: {
-                type: Object,
+                type: String,
                 require: true
             },
 
@@ -51,7 +51,7 @@
 
         computed: {
             display() {
-                return this.genders[value];
+                return this.genders[this.value];
             }
         }
     }

@@ -1,4 +1,4 @@
-const userService = require('./user.service')
+const userService = require('./friend.service')
 
 async function getUser(req, res) {
     const user = await userService.getById(req.params.id)

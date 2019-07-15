@@ -12,7 +12,7 @@ export default {
 }
 
 function query(filterBy) {
-    return HttpService.ajax('user', 'get', filterBy)
+    return HttpService.ajax(`user${_getQueryString(filterBy)}`)
     .then(users => {
         return users;
     })
@@ -46,3 +46,12 @@ function getLoggedUser() {
     return HttpService.ajax('user/logged');
 }
 
+
+function _getQueryString(filterBy) {
+    var queryStrings = Object.entries(filterBy).map(entry => {
+        return `${entry[0]}=${entry[1]}&`;
+    })
+
+    queryStrings.unshift('?');
+    return queryStrings.join('');
+}

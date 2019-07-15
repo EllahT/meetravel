@@ -65,9 +65,9 @@ export default {
         notifications: [],
         filterBy: {
             distance: 15000,
-            age: {from: 20, to: 80},
-            gender: 'all',
-            dates: {from: new Date(), to: new Date()}
+            minAge: 20,
+            maxAge: 80,
+            gender: 'all'
         },
         isLoadingUsers: false,
         location: {lat: 32.059391999999995, lng: 34.8512256, address: 'Kiryat Ono, Israel'}
