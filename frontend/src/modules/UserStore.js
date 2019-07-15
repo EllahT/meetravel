@@ -4,64 +4,65 @@ export default {
     strict: true,
     state: {
         users: [],
-        loggedUser:  {"_id": "5d275b31d4e499ccc0a640ae",
-        "firstName": "Terri",
-        "lastName": "Holman",
-        "password": 100,
-        "isAdmin": true,
-        "gender": {"type": 'man', "display": '👨 Man'},
-        "profileImg": "https://api.adorable.io/avatars/100/1.png",
-        "galleryImgs": [{
-                "picture": "http://placehold.it/32x32"
+        loggedUser: {
+            "_id": "5d275b31d4e499ccc0a640ae",
+            "firstName": "Terri",
+            "lastName": "Holman",
+            "password": 100,
+            "isAdmin": true,
+            "gender": { "type": 'man', "display": '👨 Man' },
+            "profileImg": "https://api.adorable.io/avatars/100/1.png",
+            "galleryImgs": [{
+                    "picture": "http://placehold.it/32x32"
+                },
+                {
+                    "picture": "http://placehold.it/32x32"
+                },
+                {
+                    "picture": "http://placehold.it/32x32"
+                }
+            ],
+            "birthDate": 1969,
+            "description": "Ad quis dolor deserunt sit sint incididunt sit minim occaecat. Incididunt id in dolore ut laboris fugiat commodo fugiat ea labore dolor cupidatat. Minim incididunt proident ea proident minim labore ad Lorem consequat Lorem eiusmod anim tempor incididunt. Tempor tempor sunt labore pariatur enim reprehenderit. Magna anim ipsum duis laborum eu magna aliquip ut.",
+            "registered": "Saturday, October 7, 2017 8:28 PM",
+            "lastConnected": "Thursday, February 1, 2018 2:09 AM",
+            "currLocation": {
+                "lat": -82.87981,
+                "lng": 1.444387
             },
-            {
-                "picture": "http://placehold.it/32x32"
+            "residance": {
+                "city": "Afula",
+                "country": "Jordan"
             },
-            {
-                "picture": "http://placehold.it/32x32"
-            }
-        ],
-        "birthDate": 1969,
-        "description": "Ad quis dolor deserunt sit sint incididunt sit minim occaecat. Incididunt id in dolore ut laboris fugiat commodo fugiat ea labore dolor cupidatat. Minim incididunt proident ea proident minim labore ad Lorem consequat Lorem eiusmod anim tempor incididunt. Tempor tempor sunt labore pariatur enim reprehenderit. Magna anim ipsum duis laborum eu magna aliquip ut.",
-        "registered": "Saturday, October 7, 2017 8:28 PM",
-        "lastConnected": "Thursday, February 1, 2018 2:09 AM",
-        "currLocation": {
-            "lat": -82.87981,
-            "lng": 1.444387
+            "travelType": "sightseeing",
+            "likes": [{
+                    "id": 0,
+                    "name": "Walters Hanson",
+                    "picture": "http://placehold.it/32x32"
+                },
+                {
+                    "id": 1,
+                    "name": "Petersen Ayala",
+                    "picture": "http://placehold.it/32x32"
+                },
+                {
+                    "id": 2,
+                    "name": "Anna Miranda",
+                    "picture": "http://placehold.it/32x32"
+                }
+            ],
+            "trips": [{
+                    "id": 1000
+                },
+                {
+                    "id": 1001
+                },
+                {
+                    "id": 1002
+                }
+            ]
         },
-        "residance": {
-            "city": "Afula",
-            "country": "Jordan"
-        },
-        "travelType": "sightseeing",
-        "likes": [{
-                "id": 0,
-                "name": "Walters Hanson",
-                "picture": "http://placehold.it/32x32"
-            },
-            {
-                "id": 1,
-                "name": "Petersen Ayala",
-                "picture": "http://placehold.it/32x32"
-            },
-            {
-                "id": 2,
-                "name": "Anna Miranda",
-                "picture": "http://placehold.it/32x32"
-            }
-        ],
-        "trips": [{
-                "id": 1000
-            },
-            {
-                "id": 1001
-            },
-            {
-                "id": 1002
-            }
-        ]
-        },
-        
+
         notifications: [],
         filterBy: {
             distance: 15000,
@@ -70,7 +71,7 @@ export default {
             gender: 'all'
         },
         isLoadingUsers: false,
-        location: {lat: 32.059391999999995, lng: 34.8512256, address: 'Kiryat Ono, Israel'}
+        location: { lat: 32.059391999999995, lng: 34.8512256, address: 'Kiryat Ono, Israel' }
     },
 
     getters: {
@@ -112,7 +113,7 @@ export default {
             state.loggedUser = user;
         },
 
-        setUsers(state, {filteredUsers}) {
+        setUsers(state, { filteredUsers }) {
             state.users = filteredUsers;
         },
 
@@ -134,17 +135,19 @@ export default {
             state.filterBy = JSON.parse(JSON.stringify(filterBy));
         },
 
-        updateLocation(state, {location}) {
+        updateLocation(state, { location }) {
             state.location = location;
-          }
+        }
     },
 
     actions: {
-        login(context, { username, password }) {
-            return UserService.login(username, password).then((user) => {
-                context.commit({ type: 'setLoggedUser', user });
-                return user;
-            })
+        login(context, { user }) {
+            // console.log('user in store:', user);
+            return UserService.login(user)
+                .then((user) => {
+                    context.commit({ type: 'setLoggedUser', user });
+                    return user;
+                })
         },
 
         signup(context, { userData }) {
@@ -212,8 +215,8 @@ export default {
                 });
         },
 
-        updateCurrLocation(context, {location}) {
-            context.commit({type: 'updateLocation', location})
+        updateCurrLocation(context, { location }) {
+            context.commit({ type: 'updateLocation', location })
         }
     }
 }

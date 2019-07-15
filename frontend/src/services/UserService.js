@@ -13,9 +13,9 @@ export default {
 
 function query(filterBy, location) {
     return HttpService.ajax(`user${_getQueryString(filterBy)}`, 'get', location)
-    .then(users => {
-        return users;
-    })
+        .then(users => {
+            return users;
+        })
 }
 
 function getById(userId) {
@@ -27,10 +27,11 @@ function update(user) {
 }
 
 function remove(userId) {
-    return HttpService.ajax(`user/${userId}`, 'delete'); 
+    return HttpService.ajax(`user/${userId}`, 'delete');
 }
 
 function login(userCred) {
+    console.log('user cred at User Service:', userCred)
     return HttpService.ajax('auth/login', 'post', userCred);
 }
 

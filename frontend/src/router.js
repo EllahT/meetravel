@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HomePage from './views/HomePage.vue'
+import LogIn from './views/LogIn.vue'
+import SignIn from './views/SignIn.vue'
 import About from './views/About.vue'
 import AppHome from './views/AppHome.vue'
 import AdminPage from './views/AdminPage.vue'
@@ -19,6 +21,16 @@ export default new Router({
             path: '/',
             name: 'home',
             component: HomePage
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: LogIn
+        },
+        {
+            path: '/signin',
+            name: 'signin',
+            component: SignIn
         },
         {
             path: '/about',

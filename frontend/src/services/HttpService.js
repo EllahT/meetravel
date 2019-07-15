@@ -1,8 +1,8 @@
 import router from '@/router'
 
-const BASE_URL = process.env.NODE_ENV === 'production'
-    ? '/api/'
-    : '//localhost:3000/api/'
+const BASE_URL = process.env.NODE_ENV === 'production' ?
+    '/api/' :
+    '//localhost:3000/api/'
 
 
 import Axios from 'axios';
@@ -11,8 +11,9 @@ var axios = Axios.create({
 });
 
 
-async function ajax(endpoint, method='get', data=null) {
+async function ajax(endpoint, method = 'get', data = null) {
     try {
+        // console.log('user at HTTP Service:', data)
         const res = await axios({
             url: `${BASE_URL}${endpoint}`,
             method,
