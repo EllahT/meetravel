@@ -14,9 +14,9 @@ module.exports = {
 async function query(filterBy = {}) {
     const criteria = {};
 
-    if (filterBy.gender !== 'all') {
-        criteria.gender = filterBy.gender;
-    }
+    // if (filterBy.gender !== 'all') {
+    //     criteria.gender = filterBy.gender;
+    // }
 
     // if (typeof(filterBy.distance) !== Number) {
     //     filterBy.distance = JSON.parse(filterBy.distance);
@@ -29,11 +29,11 @@ async function query(filterBy = {}) {
     //     })
     // }
     
-    if (filterBy.age) {
-        const minAge = new Date().getFullYear() - filterBy.age.from;
-        const maxAge = new Date().getFullYear() - filterBy.age.to;
-        criteria.age = {$gte : minAge, $lte: maxAge}
-    }
+    // if (filterBy.age) {
+    //     const minBirthDate = new Date().getFullYear() - filterBy.age.from;
+    //     const maxBirthDate = new Date().getFullYear() - filterBy.age.to;
+    //     criteria.age = {$gte : minBirthDate, $lte: maxBirthDate}
+    // }
 
     const collection = await dbService.getCollection('user')
     
