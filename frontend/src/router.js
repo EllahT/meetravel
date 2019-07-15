@@ -11,6 +11,7 @@ import TripDetails from './views/TripDetails.vue'
 import TripList from './views/TripList.vue'
 import TripEdit from './views/TripEdit.vue'
 import MatchList from './views/MatchList.vue'
+import UserFilter from './views/UserFilter.vue'
 
 Vue.use(Router)
 
@@ -69,6 +70,11 @@ export default new Router({
             path: '/match/',
             name: 'MatchList',
             component: MatchList
+        },
+        {
+            path: '/filterTravelers',
+            name: 'FilterTravelers',
+            component: UserFilter
         }
     ]
 })

@@ -2,15 +2,15 @@
   <div class="app-home">
       <div class="top-bar">
         <h1 v-if="users">There are {{users.length}} Fellow Travelers in {{location}}</h1>
-        <user-filter :currFilter="filterBy" @filterChanged="setFilter"></user-filter>
       </div>
+        <input type="text" placeholder="Search travelers by name" v-model="filterByName" @input="setFilter"/>
+      
       <user-preview  v-if="users" :user="users[currUserIdx]" @nav="navUsers" @request="sendRequest"></user-preview>
       <!-- <img v-if="loadingUsers" src="@/assets/loading.gif"/> -->
   </div>
 </template>
 
 <script>
-import UserFilter from '@/components/UserFilter.vue';
 import UserPreview from '@/components/UserPreview.vue';
 
 export default {
@@ -20,17 +20,14 @@ export default {
 
   data() {
     return {
-      currUserIdx: 0
+      currUserIdx: 0,
+      filterByName: null
     }
   },
 
   computed: {
       users() {
           return this.$store.getters.users;
-      },
-
-      filterBy() {
-          return this.$store.getters.filterBy;
       },
 
       loadingUsers() {
@@ -43,14 +40,13 @@ export default {
   },
 
   methods: {
-      setFilter(filterBy) {
-        this.$store.dispatch({type:'setFilter', filterBy});
-        this.currUserIdx = 0;
-      },
-
       navUsers(diff) {
         if ((this.currUserIdx === 0 && diff < 0) || (this.currUserIdx === this.users.length-1 && diff > 0)) return;
         this.currUserIdx += diff;
+      },
+
+      setFilter() {
+        this.$store.dispatch({type: 'setFilterByName', filterByName: this.filterByName});
       },
 
       sendRequest(userId) {
@@ -59,7 +55,6 @@ export default {
   },
 
   components: {
-      UserFilter,
       UserPreview
   }
 };

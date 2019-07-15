@@ -67,7 +67,8 @@ export default {
             distance: 20,
             minAge: 20,
             maxAge: 80,
-            gender: 'all'
+            gender: 'all',
+            name: null
         },
         isLoadingUsers: false,
         location: {lat: 32.059391999999995, lng: 34.8512256, address: 'Kiryat Ono, Israel'}
@@ -134,6 +135,10 @@ export default {
             state.filterBy = JSON.parse(JSON.stringify(filterBy));
         },
 
+        setFilterByName(state, {filterByName}) {
+            state.filterBy.name = filterByName;
+        },
+
         updateLocation(state, {location}) {
             state.location = location;
           }
@@ -190,11 +195,12 @@ export default {
         setFilter(context, { filterBy }) {
             // context.commit({ type: "setLoadingUsers", val: true });
             context.commit({ type: "setFilter", filterBy });
-            UserService.query(filterBy, context.state.location).then(filteredUsers => {
-                context.commit({ type: "setUsers", filteredUsers });
-                // context.commit({ type: "setLoadingUsers", val: false });
-            });
+            context.dispatch({type: 'loadUsers'});
+        },
 
+        setFilterByName(context, {filterByName}) {
+            context.commit({type: 'setFilterByName', filterByName});
+            context.dispatch({type: 'loadUsers'});
         },
 
         updateProfile(context, { userData }) {

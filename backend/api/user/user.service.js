@@ -25,6 +25,10 @@ async function query(filterBy = {}) {
         criteria.birthDate = {$gte : minBirthDate, $lte: maxBirthDate}
     }
 
+    if (filterBy.name) {
+
+    }
+
     const collection = await dbService.getCollection('user')
     
     try {
@@ -41,6 +45,13 @@ async function query(filterBy = {}) {
                     return distance < filterBy.distance;
                 } else return false;
         })
+
+        if (filterBy.name !== 'null') {
+
+            users = users.filter(user => {
+                return (user.name.first.toLowerCase().includes(filterBy.name.toLowerCase()) || user.name.last.toLowerCase().includes(filterBy.name.toLowerCase()))
+            })
+        }
     }
         return users;
     

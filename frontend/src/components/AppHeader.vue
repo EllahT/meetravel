@@ -6,6 +6,7 @@
     <router-link to="/user">Find Travelers</router-link>|
     <router-link to="/profile">Profile</router-link> | 
     <router-link to="/admin">Admin</router-link> | 
+    <router-link to="/filterTravelers">Filter</router-link> | 
   </header>
 </template>
 
