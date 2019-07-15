@@ -5,100 +5,94 @@ const ObjectId = require('mongodb').ObjectId
 module.exports = {
     query,
     getById,
-    getByEmail,
     remove,
     update,
-    add
+    add,
+    getUserFriendships
 }
 
-async function query(filterBy = {}) {
+async function getUserFriendships(userId) {
+    const collection = await dbService.getCollection('user')
+    
+    try {
+        const friendships = await collection.aggregate([
+        
+            //TODO fix to use the userID that i got from client
+        {$match: { _id: ObjectId("5d2c8782a896e921905c63c9") }},
+        {
+           $lookup:
+              {
+                 from: "friendships",
+                 localField: "_id",
+                 foreignField: "members",
+                 as: "friends_info"
+             }
+        }]).toArray();
+
+        return friendships[0].friends_info;
+    } catch (err) {
+
+        console.log(`ERROR: cannot find friendships for user ${userId}`);
+
+        throw err;
+    }
+}
+
+async function query(userId = {}) {
     const criteria = {};
 
-    // if (filterBy.gender !== 'all') {
-    //     criteria.gender = filterBy.gender;
-    // }
-
-    // if (typeof(filterBy.distance) !== Number) {
-    //     filterBy.distance = JSON.parse(filterBy.distance);
-    // }
-
-    // if (filterBy.distance) {
-    //     filteredUsers = filteredUsers.filter(user => {
-    //         const distance = GeocodeService.calulateDistance(location, user.currLocation);
-    //         return distance < filterBy.distance;
-    //     })
-    // }
-    
-    // if (filterBy.age) {
-    //     const minBirthDate = new Date().getFullYear() - filterBy.age.from;
-    //     const maxBirthDate = new Date().getFullYear() - filterBy.age.to;
-    //     criteria.age = {$gte : minBirthDate, $lte: maxBirthDate}
-    // }
-
-    const collection = await dbService.getCollection('user')
+    const collection = await dbService.getCollection('friendships')
     
     try {
-        const users = await collection.find(criteria).toArray();
-        return users
+        const friendships = await collection.find(criteria).toArray();
+        return friendships;
     
     } catch (err) {
-        console.log('ERROR: cannot find users')
+        console.log('ERROR: cannot find friendship')
         throw err;
     }
 }
 
-async function getById(userId) {
-    const collection = await dbService.getCollection('user')
+async function getById(friendshipId) {
+    const collection = await dbService.getCollection('friendships')
     try {
-        const user = await collection.findOne({"_id":ObjectId(userId)})
+        const user = await collection.findOne({"_id":ObjectId(friendshipId)})
         return user
     } catch (err) {
-        console.log(`ERROR: while finding user ${userId}`)
+        console.log(`ERROR: while finding friendship ${friendshipId}`)
         throw err;
     }
 }
-async function getByEmail(email) {
-    const collection = await dbService.getCollection('user')
+
+async function remove(friendshipId) {
+    const collection = await dbService.getCollection('friendships')
     try {
-        const user = await collection.findOne({email})
-        return user
+        await collection.remove({"_id":ObjectId(friendshipId)})
     } catch (err) {
-        console.log(`ERROR: while finding user ${email}`)
+        console.log(`ERROR: cannot remove friendship ${friendshipId}`)
         throw err;
     }
 }
 
-async function remove(userId) {
-    const collection = await dbService.getCollection('user')
+async function update(friendship) {
+    const collection = await dbService.getCollection('friendships')
     try {
-        await collection.remove({"_id":ObjectId(userId)})
+        await collection.replaceOne({"_id":ObjectId(friendship._id)}, {$set : friendship})
+        console.log('friendship was updated');
+        return friendship;
     } catch (err) {
-        console.log(`ERROR: cannot remove user ${userId}`)
+        console.log(`ERROR: cannot update friendship ${friendship._id}`)
         throw err;
     }
 }
 
-async function update(user) {
-    const collection = await dbService.getCollection('user')
+async function add(friendship) {
+    const collection = await dbService.getCollection('friendships')
     try {
-        await collection.replaceOne({"_id":ObjectId(user._id)}, {$set : user})
-        console.log('user was updated');
-        return user
+        await collection.insertOne(friendship);
+        return friendship;
     } catch (err) {
-        console.log(`ERROR: cannot update user ${user._id}`)
+        console.log(`ERROR: cannot insert friendship`)
         throw err;
     }
 }
-
-async function add(user) {
-    const collection = await dbService.getCollection('user')
-    try {
-        await collection.insertOne(user);
-        return user;
-    } catch (err) {
-        console.log(`ERROR: cannot insert user`)
-        throw err;
-    }
-}
-
-

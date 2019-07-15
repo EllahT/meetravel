@@ -1,10 +1,10 @@
 <template>
-  <li class="match-preview" v-if="match">
-    <h4>{{match._id}}</h4>
-    <img :src="match.image"/>
-    <h5>{{match.location}}</h5>
-    <h5>{{match.createdAt}}</h5>
-    <h5>{{match.members._id}}</h5>
+  <li class="friend-preview" v-if="friend">
+    <h4>{{friend._id}}</h4>
+    <img :src="friend.image"/>
+    <h5>{{friend.location}}</h5>
+    <h5>{{friend.createdAt}}</h5>
+    <h5>{{friend.members._id}}</h5>
   </li>
 </template>
 
@@ -13,7 +13,7 @@
 
 export default {
   props: {
-      match: {
+      friend: {
           type: Object,
           require: true
       }
@@ -34,7 +34,7 @@ export default {
 </script>
 
 <style >
-.match-preview {
+.friend-preview {
     max-width: 650px;
     margin-top:5px;
     padding: 5px;
