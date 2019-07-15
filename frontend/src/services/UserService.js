@@ -13,6 +13,9 @@ export default {
 
 function query(filterBy) {
     return HttpService.ajax('user', 'get', filterBy)
+    .then(users => {
+        return users;
+    })
 }
 
 function getById(userId) {

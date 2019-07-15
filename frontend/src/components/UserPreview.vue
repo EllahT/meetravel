@@ -3,7 +3,7 @@
     <button  v-if="!isAdminPage" @click="emitNavUsers(-1)"><v-icon>keyboard_arrow_left</v-icon></button>
     <div class="details-container">
       <router-link :to="detailsUrl">
-        <h4>{{fullName}}</h4>
+        <h4>{{user.name.first}} {{user.name.last}}</h4>
         <img :src="user.profileImg"/>
         <h5>location: {{user.currLocation}}</h5> 
       </router-link> 
@@ -67,8 +67,7 @@ export default {
     emitNavUsers(diff) {
       this.$emit('nav', diff);
     }
-
-  }
+  },
 }
 
 </script>
