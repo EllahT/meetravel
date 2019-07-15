@@ -5,7 +5,8 @@ module.exports = {
   getTodayAsInputVal,
   createSortFuncTxt,
   getRandomColors,
-  calulateDistance
+  calulateDistance,
+  randomGeo
 };
 
 function getRandomInt(min, max) {
@@ -119,4 +120,23 @@ function calulateDistance(originLocation, destinationLocation) {
   if (d > 1) return Math.round(d);
   else if (d <= 1) return Math.round(d * 1000);
   return d;
+}
+
+function randomGeo(center, radius) {
+  var y0 = center.lat;
+  var x0 = center.lng;
+  var rd = radius / 111300;
+
+  var u = Math.random();
+  var v = Math.random();
+
+  var w = rd * Math.sqrt(u);
+  var t = 2 * Math.PI * v;
+  var x = w * Math.cos(t);
+  var y = w * Math.sin(t);
+
+  return {
+      'lat': y + y0,
+      'lng': x + x0
+  };
 }

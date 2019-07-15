@@ -5,7 +5,6 @@ const router = express.Router()
 
 // middleware that is specific to this router
 // router.use(requireAuth)
-console.log('test')
 
 router.get('/', getUsers)
 router.get('/:id', getUser)

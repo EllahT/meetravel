@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       filterBy: {
-        distance: 15000,
+        distance: 20,
         minAge: 20,
         maxAge: 80,
         gender: 'all'

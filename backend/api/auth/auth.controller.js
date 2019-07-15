@@ -9,7 +9,6 @@ async function login(req, res) {
         res.json(user)
     } catch (err) {
         res.status(401).send({ error: err })
-        console.log('test')
     }
 }
 

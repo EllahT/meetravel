@@ -12,7 +12,9 @@ export default {
 }
 
 function query(filterBy, location) {
-    return HttpService.ajax(`user${_getQueryString(filterBy)}`, 'get', location)
+    filterBy.currLat = location.lat;
+    filterBy.currLng = location.lng;
+    return HttpService.ajax(`user${_getQueryString(filterBy)}`)
     .then(users => {
         return users;
     })
@@ -48,6 +50,7 @@ function getLoggedUser() {
 
 
 function _getQueryString(filterBy) {
+    if (!filterBy) return;
     var queryStrings = Object.entries(filterBy).map(entry => {
         return `${entry[0]}=${entry[1]}&`;
     })

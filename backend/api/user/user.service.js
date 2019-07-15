@@ -1,5 +1,6 @@
 
 const dbService = require('../../services/db.service')
+const utilService = require('../../services/util.service')
 const ObjectId = require('mongodb').ObjectId
 
 module.exports = {
@@ -27,19 +28,21 @@ async function query(filterBy = {}) {
     const collection = await dbService.getCollection('user')
     
     try {
-        const users = await collection.find(criteria).toArray();
+        let users = await collection.find(criteria).toArray();
 
         if (typeof(filterBy.distance) !== Number) {
-        filterBy.distance = JSON.parse(filterBy.distance);
+            filterBy.distance = JSON.parse(filterBy.distance);
         }
-
+        
         if (filterBy.distance) {
-        filteredUsers = filteredUsers.filter(user => {
-            const distance = GeocodeService.calulateDistance(location, user.currLocation);
-            return distance < filterBy.distance;
+            users = users.filter(user => {
+                if (user.location) {
+                    const distance = utilService.calulateDistance({lat: filterBy.currLat, lng: filterBy.currLng}, user.location);
+                    return distance < filterBy.distance;
+                } else return false;
         })
     }
-        return users
+        return users;
     
     } catch (err) {
         console.log('ERROR: cannot find users')
