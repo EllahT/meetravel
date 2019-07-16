@@ -4,12 +4,18 @@ export default {
     strict: true,
 
     state: {
-        friends: []
+        friends: [],
+        requests: [],
+        allFriends: []
     },
 
     getters: {
         friends(state) {
             return state.friends;
+        },
+
+        requests(state) {
+            return state.requests;
         },
 
         friendshipById: state => id => {
@@ -20,6 +26,14 @@ export default {
     mutations: {
         setFriends(state, { friends }) {
             state.friends = friends;
+        },
+
+        setRequests(state, { requests }) {
+            state.requests = requests;
+        },
+
+        setAllFriends(state, { allFriends }) {
+            state.allFriends = allFriends;
         },
 
         updateFriend(state, { updatedFriend }) {
@@ -35,15 +49,35 @@ export default {
             const idx = state.friends.findIndex(friend => friend._id === friendId);
             state.friends.splice(idx, 1);
         },
+
+        approveRequest(state, {requestId}) {
+
+        }
     },
 
     actions: {
         loadFriends(context) {
-            return FriendService.getByUser(context.getters.loggedInUser._id)
+            return FriendService.getFriends(context.getters.loggedInUser._id)
                 .then(friends => {
-                    context.commit({ type: "setFriends", friends });
+                    context.commit({ type: 'setFriends', friends });
                     return friends;
                 });
+        },
+
+        loadRequests(context) {
+            return FriendService.getRequests(context.getters.loggedInUser._id)
+                .then(requests => {
+                    context.commit({ type: 'setRequests', requests });
+                    return requests;
+                });
+        },
+
+        loadAllFriendships(context) {
+            return FriendService.query()
+            .then(allFriends => {
+                context.commit({type: 'setallFriends', allFriends});
+                return allFriends;
+            })
         },
 
         addFriend(context, { friend }) {
@@ -70,7 +104,13 @@ export default {
                 })
         },
 
+        sendRequest(context, {userId}) {
 
+        },
+
+        approveRequest(context, {requestId}) {
+            
+        }
     }
 }
 

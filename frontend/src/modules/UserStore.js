@@ -187,6 +187,11 @@ export default {
 
         updateCurrLocation(context, {location}) {
             context.commit({type: 'updateLocation', location})
+        },
+
+        loadUserById(context, {userId}) {
+            return UserService.getById(userId)
+            .then(user => user)
         }
     }
 }

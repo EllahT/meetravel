@@ -16,6 +16,11 @@ async function getFriendshipsByUser(req, res) {
     res.send(friendships);
 }
 
+async function getRequestsByUser(req, res) {
+    const userId = req.params.userId;
+    const requests = await friendService.getUserRequests(userId);
+    res.send(requests);
+}
 
 async function deleteFriendship(req, res) {
     await friendService.remove(req.params.id)
@@ -33,5 +38,6 @@ module.exports = {
     getFriendships,
     deleteFriendship,
     addFriendship,
-    getFriendshipsByUser
+    getFriendshipsByUser,
+    getRequestsByUser
 }

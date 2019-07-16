@@ -8,31 +8,39 @@ module.exports = {
     remove,
     update,
     add,
-    getUserFriendships
+    getUserFriendships,
+    getUserRequests
 }
 
 async function getUserFriendships(userId) {
-    const collection = await dbService.getCollection('user')
+    const collection = await dbService.getCollection('friendships')
+    const id = new ObjectId(userId.slice(10, userId.length-2));
     
     try {
-        const friendships = await collection.aggregate([
-        
-            //TODO fix to use the userID that i got from client
-        {$match: { _id: ObjectId("5d2c8782a896e921905c63c9") }},
-        {
-           $lookup:
-              {
-                 from: "friendships",
-                 localField: "_id",
-                 foreignField: "members",
-                 as: "friends_info"
-             }
-        }]).toArray();
+        const friendships = await collection.find( 
+            {status: 'approved', members: { $in : [id]} }).toArray();
 
-        return friendships[0].friends_info;
+        return friendships;
     } catch (err) {
 
         console.log(`ERROR: cannot find friendships for user ${userId}`);
+
+        throw err;
+    }
+}
+
+async function getUserRequests(userId) {
+    const collection = await dbService.getCollection('friendships')
+    const id = new ObjectId(userId.slice(10, userId.length-2));
+    
+    try {
+        const requests = await collection.find( 
+            { status: 'pending', "resipient.userId": id}).toArray();
+
+        return requests;
+    } catch (err) {
+
+        console.log(`ERROR: cannot find requests for user ${userId}`);
 
         throw err;
     }

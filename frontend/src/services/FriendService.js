@@ -1,5 +1,4 @@
 import HttpService from './HttpService';
-import UtilService from './UtilService';
 
 export default {
     query,
@@ -7,7 +6,8 @@ export default {
     add,
     update,
     remove,
-    getByUser
+    getFriends,
+    getRequests
 }
 
 function query() {
@@ -17,10 +17,17 @@ function query() {
     })
 }
 
-function getByUser(userId) {
-    return HttpService.ajax(`friend/byuser/${userId}`)
+function getFriends(userId) {
+    return HttpService.ajax(`friend/friends/byuser/${userId}`)
     .then(friends => {
         return friends;
+    })
+}
+
+function getRequests(userId) {
+    return HttpService.ajax(`friend/requests/byuser/${userId}`)
+    .then(requests => {
+        return requests;
     })
 }
 

@@ -5,11 +5,13 @@
 </template>
 
 <script>
-    import ChatRoom from '@/components/ChatRoom.vue'
+    // import ChatRoom from '@/components/ChatRoom.vue'
+
+    //TODO: add pic of the actual friend (by id) and link to his details page
 
     export default {
         components: {
-            ChatRoom,
+            // ChatRoom,
         }
     }
 </script>

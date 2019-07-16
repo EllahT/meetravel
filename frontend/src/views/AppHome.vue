@@ -4,6 +4,7 @@
         <h1 v-if="users">There are {{users.length}} Fellow Travelers in {{location}}</h1>
       </div>
         <input type="text" placeholder="Search travelers by name" v-model="filterByName" @input="setFilter"/>
+        <router-link to="/filterTravelers">Set Filters</router-link>
       
       <user-preview  v-if="users" :user="users[currUserIdx]" @nav="navUsers" @request="sendRequest"></user-preview>
       <!-- <img v-if="loadingUsers" src="@/assets/loading.gif"/> -->
@@ -50,7 +51,10 @@ export default {
       },
 
       sendRequest(userId) {
-        console.log('sent a request to ',userId);
+        this.$store.dispatch({type: 'sendRequest', userId})
+        .then(() => {
+          console.log('request sent to', userId);
+        })
       }
   },
 
