@@ -1,11 +1,13 @@
-
 export default {
     getRandomInt,
     makeLorem,
     makeId,
     getTodayAsInputVal,
     createSortFuncTxt,
-    getRandomColors
+    getRandomColors,
+    calulateDistance,
+    randomGeo,
+    randomDate
 }
 
 function getRandomInt(min, max) {
@@ -14,7 +16,7 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
 }
 
-function makeId(length=5) {
+function makeId(length = 5) {
     var text = '';
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -58,13 +60,13 @@ function createWord(length) {
 }
 
 function getTodayAsInputVal() {
-        var local = new Date();
-        local.setMinutes(local.getMinutes() - local.getTimezoneOffset());
-        return local.toJSON().slice(0,10);
+    var local = new Date();
+    local.setMinutes(local.getMinutes() - local.getTimezoneOffset());
+    return local.toJSON().slice(0, 10);
 }
 
-function createSortFuncTxt(txt,op) {
-    function sorting(a,b) {
+function createSortFuncTxt(txt, op) {
+    function sorting(a, b) {
         if (op === '+') {
             if (a[txt] > b[txt]) {
                 return 1;
@@ -72,7 +74,7 @@ function createSortFuncTxt(txt,op) {
                 return -1;
             } else {
                 return 0;
-            }    
+            }
         } else {
             if (a[txt] < b[txt]) {
                 return 1;
@@ -80,8 +82,8 @@ function createSortFuncTxt(txt,op) {
                 return -1;
             } else {
                 return 0;
-            }    
-        } 
+            }
+        }
     }
     return sorting;
 }
@@ -99,9 +101,47 @@ function getRandomColor() {
     var letters = '0123456789ABCDEF'.split('');
     var color = '#';
     for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
+        color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
-  }
+}
 
+function calulateDistance(originLocation, destinationLocation) {
+    var R = 6371; // km (change this constant to get miles)
+    var dLat = ((originLocation.lat - destinationLocation.lat) * Math.PI) / 180;
+    var dLon = ((originLocation.lng - destinationLocation.lng) * Math.PI) / 180;
+    var a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos((destinationLocation.lat * Math.PI) / 180) *
+        Math.cos((originLocation.lat * Math.PI) / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+    if (d > 1) return Math.round(d);
+    else if (d <= 1) return Math.round(d * 1000);
+    return d;
+}
 
+function randomGeo(center, radius) {
+    var y0 = center.lat;
+    var x0 = center.lng;
+    var rd = radius / 111300;
+
+    var u = Math.random();
+    var v = Math.random();
+
+    var w = rd * Math.sqrt(u);
+    var t = 2 * Math.PI * v;
+    var x = w * Math.cos(t);
+    var y = w * Math.sin(t);
+
+    return {
+        'lat': y + y0,
+        'lng': x + x0
+    };
+}
+
+function randomDate(start, end) {
+    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+}

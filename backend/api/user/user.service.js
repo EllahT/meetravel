@@ -24,16 +24,6 @@ async function query(filterBy = {}) {
         criteria.birthDate = { $gte: minBirthDate, $lte: maxBirthDate }
     }
 
-    if (filterBy.gender !== 'all') {
-        criteria.gender = filterBy.gender;
-    }
-
-    if (filterBy.minAge && filterBy.maxAge) {
-        const maxBirthDate = new Date().getFullYear() - filterBy.minAge;
-        const minBirthDate = new Date().getFullYear() - filterBy.maxAge;
-        criteria.birthDate = { $gte: minBirthDate, $lte: maxBirthDate }
-    }
-
     const collection = await dbService.getCollection('user')
 
     try {
@@ -58,7 +48,6 @@ async function query(filterBy = {}) {
                 })
             }
         }
-
         return users;
 
     } catch (err) {

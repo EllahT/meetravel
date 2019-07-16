@@ -14,6 +14,12 @@
         type="text" />
       </div>
       <v-btn @click="goToUsers" :disabled="isAddress">Get Started</v-btn>
+      <div>
+        <h1>Top Locations: </h1>
+        <v-btn @click="setLocation('newyork')">New York</v-btn>
+        <v-btn @click="setLocation('tokyo')">Tokyo</v-btn>
+        <v-btn @click="setLocation('telaviv')">Tel Aviv</v-btn>
+      </div>
   </v-flex>
 </template>
 
@@ -73,6 +79,7 @@ export default {
           GeocodeService.getCityByLatLng(this.location.lat, this.location.lng)
           .then((address) => {
           this.address = address;
+          this.goToUsers();
         })
         })
       },
@@ -81,6 +88,30 @@ export default {
         this.$store.dispatch({type: 'updateCurrLocation', location: {lat: this.location.lat, lng: this.location.lng, address: this.address}});
         this.$router.push('/user');
     },
+
+    setLocation(value) {
+      switch (value) {
+        case 'newyork': {
+          this.location = {lat: 40.7128 ,lng:  -74.0060};
+          this.address = 'New York, USA';
+          this.goToUsers();
+          break;
+        }
+        case 'tokyo': {
+          this.location = {lat: 35.6804 ,lng:  139.7690};
+          this.address = 'Tokyo, Japan';
+          this.goToUsers();
+          break;
+        }
+        case 'telaviv': {
+          this.location = {lat: 32.0853 ,lng:  34.7818};
+          this.address = 'Tel Aviv, Israel';
+          this.goToUsers();
+          break;
+        }
+      
+      }
+    }
   },
 
   destroyed() {
