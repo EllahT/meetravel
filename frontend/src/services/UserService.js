@@ -32,12 +32,15 @@ function remove(userId) {
     return HttpService.ajax(`user/${userId}`, 'delete');
 }
 
-function login(userCred) {
+function login(userCred) { // TODO: add try and catch
     console.log('user cred at User Service:', userCred)
-    return HttpService.ajax('auth/login', 'post', userCred);
+    const res = HttpService.ajax('auth/login', 'post', userCred)
+        .then(res => console.log('login at front user service after promise :', res))
+    return res
 }
 
 function signup(userCred) {
+    // console.log('userCred at front user-service', userCred);
     return HttpService.ajax('auth/signup', 'post', userCred);
 }
 

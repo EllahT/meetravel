@@ -13,12 +13,13 @@ var axios = Axios.create({
 
 async function ajax(endpoint, method = 'get', data = null) {
     try {
-        // console.log('user at HTTP Service:', data)
+        console.log('user at HTTP Service:', data)
         const res = await axios({
             url: `${BASE_URL}${endpoint}`,
             method,
             data
         })
+        console.log('data from HTTP-service after promise:', res.data);
         return res.data;
     } catch (err) {
         console.log('http service got error:', err);

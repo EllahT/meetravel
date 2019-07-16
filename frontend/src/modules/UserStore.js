@@ -123,17 +123,19 @@ export default {
 
     actions: {
         login(context, { user }) {
-            // console.log('user in store:', user);
             return UserService.login(user)
                 .then((user) => {
+                    console.log('logged-in user at store after promise:', user);
                     context.commit({ type: 'setLoggedUser', user });
                     return user;
                 })
         },
 
         signup(context, { user }) {
-            return UserService.add(user)
+            // console.log('user in store:', user);
+            return UserService.signup(user)
                 .then((addedUser) => {
+                    console.log('added user at store after promise:', addedUser);
                     context.commit({ type: 'addUser', user: addedUser });
                     return addedUser;
                 })
@@ -181,6 +183,8 @@ export default {
         },
 
         loadUsers(context) {
+            console.log('store:', context.state.loggedUser)
+                // context.dispatch({ type: "login", user: { fisrtName: context.state.loggedUser.name.first, password: context.state.loggedUser.password } })
             return UserService.query(context.state.filterBy, context.state.location)
                 .then(filteredUsers => {
                     context.commit({ type: "setUsers", filteredUsers });

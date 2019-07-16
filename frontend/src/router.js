@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HomePage from './views/HomePage.vue'
 import LogIn from './views/LogIn.vue'
-import SignIn from './views/SignIn.vue'
+import SignUp from './views/SignUp.vue'
 import About from './views/About.vue'
 import AppHome from './views/AppHome.vue'
 import AdminPage from './views/AdminPage.vue'
@@ -31,9 +31,9 @@ export default new Router({
             component: LogIn
         },
         {
-            path: '/signin',
-            name: 'signin',
-            component: SignIn
+            path: '/signup',
+            name: 'signup',
+            component: SignUp
         },
         {
             path: '/about',
@@ -91,7 +91,8 @@ export default new Router({
                 {
                     path: 'requests',
                     component: UserRequests
-                }]
+                }
+            ]
         },
         {
             path: '/filterTravelers',

@@ -58,6 +58,7 @@ async function query(filterBy = {}) {
                 })
             }
         }
+
         return users;
 
     } catch (err) {
@@ -76,10 +77,13 @@ async function getById(userId) {
         throw err;
     }
 }
+
 async function getByFirstName(firstName) {
+    // console.log('first name at BE user service: ', firstName);
     const collection = await dbService.getCollection('user')
     try {
-        const user = await collection.findOne({ firstName })
+        const user = await collection.findOne({ "name.first": firstName })
+        console.log('BE user-service getByFirstName: ', user);
         return user
     } catch (err) {
         console.log(`ERROR: while finding user ${firstName}`)
@@ -100,7 +104,7 @@ async function remove(userId) {
 async function update(user) {
     const collection = await dbService.getCollection('user')
     try {
-        console.log(user)
+        // console.log(user)
         await collection.replaceOne({ "_id": ObjectId(user._id) }, { $set: user })
         return user
     } catch (err) {
@@ -110,6 +114,7 @@ async function update(user) {
 }
 
 async function add(user) {
+    // console.log('details of user at user-service BE:', user);
     const collection = await dbService.getCollection('user')
     try {
         await collection.insertOne(user);
