@@ -183,8 +183,8 @@ export default {
         },
 
         loadUsers(context) {
-            console.log('store:', context.state.loggedUser)
-                // context.dispatch({ type: "login", user: { fisrtName: context.state.loggedUser.name.first, password: context.state.loggedUser.password } })
+            // console.log('store:', context.state.loggedUser)
+            // context.dispatch({ type: "login", user: { fisrtName: context.state.loggedUser.name.first, password: context.state.loggedUser.password } })
             return UserService.query(context.state.filterBy, context.state.location)
                 .then(filteredUsers => {
                     context.commit({ type: "setUsers", filteredUsers });
