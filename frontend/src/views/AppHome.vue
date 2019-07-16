@@ -13,6 +13,7 @@
 
 <script>
 import UserPreview from '@/components/UserPreview.vue';
+import ImageService from '@/services/ImageService.js';
 
 export default {
   created() {
@@ -50,11 +51,24 @@ export default {
         this.$store.dispatch({type: 'setFilterByName', filterByName: this.filterByName});
       },
 
-      sendRequest(userId) {
-        this.$store.dispatch({type: 'sendRequest', userId})
-        .then(() => {
-          console.log('request sent to', userId);
-        })
+      sendRequest(resipient) {
+        ImageService.getRandomImg('friendship')
+        .then((imgSrc => {
+            let request = {
+                  members : [this.$store.getters.loggedInUser._id, resipient.userId],
+                  createdAt : new Date().getTime(),
+                  location: this.$store.getters.location,
+                  friendShipImg: imgSrc,
+                  sender: {userId: this.$store.getters.loggedInUser._id, name: this.$store.getters.loggedInUser.name.first + ' ' + this.$store.getters.loggedInUser.name.last},
+                  status : 'pending',
+                  resipient: resipient
+          }
+        
+          this.$store.dispatch({type: 'sendRequest', request})
+          .then(() => {
+            console.log('request sent to', resipient);
+          })
+        }))
       }
   },
 

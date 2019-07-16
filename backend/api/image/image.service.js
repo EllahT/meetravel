@@ -1,6 +1,6 @@
 const cheerio = require('cheerio');
 const axios = require('axios');
-const utilService = require('./util.service');
+const utilService = require('../../services/util.service');
 
 module.exports = {
     getRandomImage

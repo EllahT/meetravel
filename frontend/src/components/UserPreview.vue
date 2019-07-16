@@ -66,7 +66,7 @@ export default {
     },
 
     emitRequest() {
-      this.$emit('request', this.user._id);
+      this.$emit('request', {userId: this.user._id, name: this.user.name.first + ' ' + this.user.name.last});
     },
 
     emitNavUsers(diff) {

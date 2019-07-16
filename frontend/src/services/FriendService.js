@@ -3,11 +3,12 @@ import HttpService from './HttpService';
 export default {
     query,
     getById,
-    add,
     update,
     remove,
     getFriends,
-    getRequests
+    getRequests,
+    sendRequest,
+    approveRequest
 }
 
 function query() {
@@ -43,6 +44,10 @@ function remove(friendId) {
     return HttpService.ajax(`friend/${friendId}`, 'delete'); 
 }
 
-function add(friend) {
-    return HttpService.ajax('friend/', 'post', friend);
+function sendRequest(request) {
+    return HttpService.ajax('friend/', 'post', request);
+}
+
+function approveRequest(requestId) {
+    return HttpService.ajax(`friend/request/${requestId}`, 'put');
 }

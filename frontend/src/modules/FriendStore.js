@@ -50,8 +50,10 @@ export default {
             state.friends.splice(idx, 1);
         },
 
-        approveRequest(state, {requestId}) {
-
+        convertRequestToFriendship(state, {newFriend}) {
+            const requestIdx = state.requests.findIndex(request => request._id === newFriend._id)
+            requests.splice(requestIdx, 1);
+            friends.unshift(newFriend);
         }
     },
 
@@ -104,12 +106,18 @@ export default {
                 })
         },
 
-        sendRequest(context, {userId}) {
-
+        sendRequest(context, {request}) {
+            FriendService.sendRequest(request)
+            .then((newRequest) => {
+                return newRequest;
+            })
         },
 
         approveRequest(context, {requestId}) {
-            
+            FriendService.approveRequest(requestId)
+            .then(newFriend => {
+                context.commit({type: 'convertRequestToFriendship', newFriend})
+            })
         }
     }
 }

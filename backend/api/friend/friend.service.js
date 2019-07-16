@@ -7,9 +7,10 @@ module.exports = {
     getById,
     remove,
     update,
-    add,
+    addRequest,
     getUserFriendships,
-    getUserRequests
+    getUserRequests,
+    convertRequestToFriendship
 }
 
 async function getUserFriendships(userId) {
@@ -46,7 +47,7 @@ async function getUserRequests(userId) {
     }
 }
 
-async function query(userId = {}) {
+async function query() {
     const criteria = {};
 
     const collection = await dbService.getCollection('friendships')
@@ -94,13 +95,25 @@ async function update(friendship) {
     }
 }
 
-async function add(friendship) {
+async function convertRequestToFriendship(request) {
     const collection = await dbService.getCollection('friendships')
     try {
-        await collection.insertOne(friendship);
+        await collection.replaceOne({"_id":ObjectId(request._id)}, {$set : request})
+        console.log('request was converted to friendship');
         return friendship;
     } catch (err) {
-        console.log(`ERROR: cannot insert friendship`)
+        console.log(`ERROR: cannot convert the request ${request._id}`)
+        throw err;
+    }
+}
+
+async function addRequest(request) {
+    const collection = await dbService.getCollection('friendships')
+    try {
+        await collection.insertOne(request);
+        return request;
+    } catch (err) {
+        console.log(`ERROR: cannot insert request`)
         throw err;
     }
 }

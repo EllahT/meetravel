@@ -1,6 +1,6 @@
 const express = require('express')
 const requireAuth = require('../../middlewares/requireAuth.middleware')
-const {getFriendship, getFriendships, deleteFriendship, addFriendship, getFriendshipsByUser, getRequestsByUser} = require('./friend.controller')
+const {getFriendship, getFriendships, deleteFriendship, addRequest, getFriendshipsByUser, getRequestsByUser, convertRequest} = require('./friend.controller')
 const router = express.Router()
 
 // middleware that is specific to this router
@@ -11,6 +11,7 @@ router.get('/friends/byuser/:userId', getFriendshipsByUser)
 router.get('/requests/byuser/:userId', getRequestsByUser)
 router.get('/:id', getFriendship)
 router.delete('/:id',  requireAuth, deleteFriendship)
-router.post('/', addFriendship)
+router.post('/', addRequest)
+router.put('/request/:id', convertRequest)
 
 module.exports = router

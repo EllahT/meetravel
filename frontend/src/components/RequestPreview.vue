@@ -29,7 +29,6 @@ export default {
       this.$store.dispatch({type: 'loadUserById', userId: this.request.sender.userId})
       .then(sender => {
           this.sender = sender;
-          console.log(sender);
       })
   },
 
