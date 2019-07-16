@@ -12,7 +12,10 @@ import UserDetails from './views/UserDetails.vue'
 import TripDetails from './views/TripDetails.vue'
 import TripList from './views/TripList.vue'
 import TripEdit from './views/TripEdit.vue'
-import MatchList from './views/MatchList.vue'
+import FriendList from './components/FriendList.vue'
+import UserFilter from './views/UserFilter.vue'
+import UserInbox from './views/UserInbox.vue'
+import UserRequests from './components/UserRequests.vue'
 
 Vue.use(Router)
 
@@ -78,9 +81,22 @@ export default new Router({
             component: TripDetails
         },
         {
-            path: '/match/',
-            name: 'MatchList',
-            component: MatchList
+            path: '/inbox',
+            name: 'UserInbox',
+            component: UserInbox,
+            children: [{
+                    path: 'friends',
+                    component: FriendList
+                },
+                {
+                    path: 'requests',
+                    component: UserRequests
+                }]
+        },
+        {
+            path: '/filterTravelers',
+            name: 'FilterTravelers',
+            component: UserFilter
         }
     ]
 })

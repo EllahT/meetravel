@@ -1,16 +1,17 @@
 <template>
   <div class="user-filter">
     <label>Distance: </label>
-    <input type="range" min=1 max=15000 v-model="filterBy.distance" @input="emitfilterBy"/>
+    {{filterBy.distance}}
+    <input type="range" min=1 max=100 v-model="filterBy.distance" @input="setFilter"/>
     <div>
       <label>Age: From: </label>
-      <input type="number" v-model="filterBy.minAge" @input="emitfilterBy"/>
+      <input type="number" v-model="filterBy.minAge" @input="setFilter"/>
       <label> To: </label>
-      <input type="number" v-model="filterBy.maxAge" @input="emitfilterBy"/>
+      <input type="number" v-model="filterBy.maxAge" @input="setFilter"/>
     </div>
     <label> Gender: </label>
-    <gender-picker v-model="filterBy.gender" @input="emitfilterBy"/>
-    
+    <gender-picker v-model="filterBy.gender" @input="setFilter"/>
+    <router-link to="/user">Back To Travelers</router-link>
   </div>
 </template>
 
@@ -18,16 +19,11 @@
 import GenderPicker from '@/components/GenderPicker.vue'
 
 export default {
-  props: {
-    currFilter: {
-      type: Object
-    }
-  },
-  
+
   data() {
     return {
       filterBy: {
-        distance: 15000,
+        distance: 20,
         minAge: 20,
         maxAge: 80,
         gender: 'all'
@@ -36,13 +32,13 @@ export default {
   },
 
   created() {
-    this.filterBy = JSON.parse(JSON.stringify(this.currFilter));
+    this.filterBy = JSON.parse(JSON.stringify(this.$store.getters.filterBy));
   },
 
   methods: {
-    emitfilterBy() {
-      this.$emit('filterChanged',this.filterBy);
-    }
+    setFilter() {
+      this.$store.dispatch({type:'setFilter', filterBy: this.filterBy});
+    },
   },
 
   components: {

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import UserStore from './modules/UserStore'
 import TripStore from './modules/TripStore'
-import MatchStore from './modules/MatchStore'
+import FriendStore from './modules/FriendStore'
 
 Vue.use(Vuex)
 
@@ -17,7 +17,7 @@ export default new Vuex.Store({
   
   modules: {
     UserStore,
-    MatchStore,
+    FriendStore,
     TripStore
   }
 

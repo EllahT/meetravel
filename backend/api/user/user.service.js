@@ -1,4 +1,5 @@
 const dbService = require('../../services/db.service')
+const utilService = require('../../services/util.service')
 const ObjectId = require('mongodb').ObjectId
 
 module.exports = {
@@ -23,22 +24,41 @@ async function query(filterBy = {}) {
         criteria.birthDate = { $gte: minBirthDate, $lte: maxBirthDate }
     }
 
+    if (filterBy.gender !== 'all') {
+        criteria.gender = filterBy.gender;
+    }
+
+    if (filterBy.minAge && filterBy.maxAge) {
+        const maxBirthDate = new Date().getFullYear() - filterBy.minAge;
+        const minBirthDate = new Date().getFullYear() - filterBy.maxAge;
+        criteria.birthDate = { $gte: minBirthDate, $lte: maxBirthDate }
+    }
+
     const collection = await dbService.getCollection('user')
 
     try {
-        const users = await collection.find(criteria).toArray();
+        let users = await collection.find(criteria).toArray();
 
         if (typeof(filterBy.distance) !== Number) {
             filterBy.distance = JSON.parse(filterBy.distance);
         }
 
         if (filterBy.distance) {
-            filteredUsers = filteredUsers.filter(user => {
-                const distance = GeocodeService.calulateDistance(location, user.currLocation);
-                return distance < filterBy.distance;
+            users = users.filter(user => {
+                if (user.location) {
+                    const distance = utilService.calulateDistance({ lat: filterBy.currLat, lng: filterBy.currLng }, user.location);
+                    return distance < filterBy.distance;
+                } else return false;
             })
+
+            if (filterBy.name !== 'null') {
+
+                users = users.filter(user => {
+                    return (user.name.first.toLowerCase().includes(filterBy.name.toLowerCase()) || user.name.last.toLowerCase().includes(filterBy.name.toLowerCase()))
+                })
+            }
         }
-        return users
+        return users;
 
     } catch (err) {
         console.log('ERROR: cannot find users')

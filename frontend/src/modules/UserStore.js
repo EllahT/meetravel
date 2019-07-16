@@ -5,13 +5,16 @@ export default {
     state: {
         users: [],
         loggedUser: {
-            "_id": "5d275b31d4e499ccc0a640ae",
-            "firstName": "Terri",
-            "lastName": "Holman",
-            "password": 100,
-            "isAdmin": true,
-            "gender": { "type": 'man', "display": '👨 Man' },
-            "profileImg": "https://api.adorable.io/avatars/100/1.png",
+            "_id": 'ObjectId("5d2c8782a896e921905c63c9")',
+            "name": {
+                "first": "Tabatha",
+                "last": "Ewing"
+            },
+            "password": "$2b$10$fHwEROYj/XCBjpJS4W2hRO.7gvOgDvaF3iySuwfJVZfURm29kKRVK",
+            "isAdmin": false,
+            "email": "tabatha.ewing@undefined.biz",
+            "gender": "woman",
+            "profileImg": "https://media.istockphoto.com/photos/laughing-woman-in-park-picture-id658617510?k=6&m=658617510&s=612x612&w=0&h=Ycl_BBwWQop7Wj1wWG3nyQqB5glPxRuqmb02WpKp0ao=",
             "galleryImgs": [{
                     "picture": "http://placehold.it/32x32"
                 },
@@ -22,53 +25,31 @@ export default {
                     "picture": "http://placehold.it/32x32"
                 }
             ],
-            "birthDate": 1969,
-            "description": "Ad quis dolor deserunt sit sint incididunt sit minim occaecat. Incididunt id in dolore ut laboris fugiat commodo fugiat ea labore dolor cupidatat. Minim incididunt proident ea proident minim labore ad Lorem consequat Lorem eiusmod anim tempor incididunt. Tempor tempor sunt labore pariatur enim reprehenderit. Magna anim ipsum duis laborum eu magna aliquip ut.",
-            "registered": "Saturday, October 7, 2017 8:28 PM",
-            "lastConnected": "Thursday, February 1, 2018 2:09 AM",
-            "currLocation": {
-                "lat": -82.87981,
-                "lng": 1.444387
-            },
+            "birthDate": 1992,
+            "description": "Ex qui ex commodo dolore consectetur ipsum dolor do elit. Est occaecat elit aliquip dolor Lorem non. Qui veniam culpa qui magna magna aliqua qui fugiat duis. Aliquip magna fugiat sint nulla do pariatur voluptate elit elit id reprehenderit aliquip Lorem. Fugiat nulla irure deserunt laboris aliqua eu veniam cillum laboris officia ex voluptate.",
+            "registered": "Saturday, January 14, 2017 5:29 AM",
+            "lastConnected": "Friday, November 14, 2014 6:03 AM",
             "residance": {
-                "city": "Afula",
+                "city": "Tel Aviv",
                 "country": "Jordan"
             },
-            "travelType": "sightseeing",
-            "likes": [{
-                    "id": 0,
-                    "name": "Walters Hanson",
-                    "picture": "http://placehold.it/32x32"
-                },
-                {
-                    "id": 1,
-                    "name": "Petersen Ayala",
-                    "picture": "http://placehold.it/32x32"
-                },
-                {
-                    "id": 2,
-                    "name": "Anna Miranda",
-                    "picture": "http://placehold.it/32x32"
-                }
-            ],
-            "trips": [{
-                    "id": 1000
-                },
-                {
-                    "id": 1001
-                },
-                {
-                    "id": 1002
-                }
+            "travelType": "hike",
+            "location": {
+                "lat": 35.6866331237007,
+                "lng": 139.775210100684
+            },
+            "bucketList": [
+                "Mexico"
             ]
         },
 
         notifications: [],
         filterBy: {
-            distance: 15000,
+            distance: 20,
             minAge: 20,
             maxAge: 80,
-            gender: 'all'
+            gender: 'all',
+            name: null
         },
         isLoadingUsers: false,
         location: { lat: 32.059391999999995, lng: 34.8512256, address: 'Kiryat Ono, Israel' }
@@ -93,10 +74,6 @@ export default {
 
         filterBy(state) {
             return state.filterBy;
-        },
-
-        notifications(state) {
-            return state.notifications;
         },
 
         userById: state => id => {
@@ -135,6 +112,10 @@ export default {
             state.filterBy = JSON.parse(JSON.stringify(filterBy));
         },
 
+        setFilterByName(state, { filterByName }) {
+            state.filterBy.name = filterByName;
+        },
+
         updateLocation(state, { location }) {
             state.location = location;
         }
@@ -150,10 +131,10 @@ export default {
                 })
         },
 
-        signup(context, { userData }) {
-            return UserService.add(userData)
+        signup(context, { user }) {
+            return UserService.add(user)
                 .then((addedUser) => {
-                    context.commit({ type: 'addUser', addedUser });
+                    context.commit({ type: 'addUser', user: addedUser });
                     return addedUser;
                 })
         },
@@ -174,15 +155,6 @@ export default {
                 })
         },
 
-        saveUser(context, { user }) {
-            return UserService.add(user)
-                .then(addedUser => {
-                    console.log('added user at store', addedUser);
-                    context.commit({ type: 'addUser', user: addedUser })
-                    return addedUser
-                })
-        },
-
         logout(context) {
             return UserService.logout().then(() => {
                 context.commit({ type: 'setLoggedUser', user: null });
@@ -193,11 +165,12 @@ export default {
         setFilter(context, { filterBy }) {
             // context.commit({ type: "setLoadingUsers", val: true });
             context.commit({ type: "setFilter", filterBy });
-            UserService.query(filterBy, context.state.location).then(filteredUsers => {
-                context.commit({ type: "setUsers", filteredUsers });
-                // context.commit({ type: "setLoadingUsers", val: false });
-            });
+            context.dispatch({ type: 'loadUsers' });
+        },
 
+        setFilterByName(context, { filterByName }) {
+            context.commit({ type: 'setFilterByName', filterByName });
+            context.dispatch({ type: 'loadUsers' });
         },
 
         updateProfile(context, { userData }) {
