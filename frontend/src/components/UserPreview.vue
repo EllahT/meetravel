@@ -5,7 +5,7 @@
       <router-link :to="detailsUrl">
         <h4>{{user.name.first}} {{user.name.last}}</h4>
         <img :src="user.profileImg"/>
-        <h5>location: {{user.currLocation}}</h5> 
+        <h5>location: {{distance}}km away</h5> 
       </router-link> 
       <div v-if="isAdminPage" class="actions">
         <router-link :to="editUrl">Edit</router-link> |
@@ -19,6 +19,7 @@
 
 <script>
 import GecoodeService from '@/services/GeocodeService.js';
+import UtilService from '@/services/UtilService.js';
 
 export default {
   props: {
@@ -52,6 +53,10 @@ export default {
 
     isAdminPageClass() {
       return (this.type === 'admin')? 'admin' : '';
+    },
+
+    distance() {
+      return UtilService.calulateDistance(this.$store.getters.location, this.user.location);
     }
   },
 
