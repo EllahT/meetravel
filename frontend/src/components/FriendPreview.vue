@@ -41,10 +41,6 @@ export default {
       return `/user/${url}`
     },
   },
-
-  methods: {
-    
-  }
 }
 
 </script>

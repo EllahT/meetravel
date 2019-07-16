@@ -52,8 +52,9 @@ export default {
 
         convertRequestToFriendship(state, {newFriend}) {
             const requestIdx = state.requests.findIndex(request => request._id === newFriend._id)
-            requests.splice(requestIdx, 1);
-            friends.unshift(newFriend);
+            state.requests.splice(requestIdx, 1);
+            state.friends.unshift(newFriend);
+            console.log(state.requests);
         }
     },
 

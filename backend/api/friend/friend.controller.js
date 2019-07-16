@@ -28,7 +28,7 @@ async function deleteFriendship(req, res) {
 }
 
 async function convertRequest(req, res) {
-    const requestId = req.params.requestId;
+    const requestId = req.params.id;
     const request = await friendService.getById(requestId);
     request.status = 'approved';
     await friendService.convertRequestToFriendship(request);

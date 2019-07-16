@@ -100,7 +100,7 @@ async function convertRequestToFriendship(request) {
     try {
         await collection.replaceOne({"_id":ObjectId(request._id)}, {$set : request})
         console.log('request was converted to friendship');
-        return friendship;
+        return request;
     } catch (err) {
         console.log(`ERROR: cannot convert the request ${request._id}`)
         throw err;
