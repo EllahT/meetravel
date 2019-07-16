@@ -13,7 +13,7 @@ var axios = Axios.create({
 
 async function ajax(endpoint, method = 'get', data = null) {
     try {
-        console.log('user at HTTP Service:', data)
+        // console.log('user at HTTP Service:', data)
         const res = await axios({
             url: `${BASE_URL}${endpoint}`,
             method,
