@@ -21,10 +21,13 @@ export default {
         login() {
             // console.log('Login', this.user)
             this.$store.dispatch({type: 'login', user: this.user})
-                .then (() => {
-                    if (user) this.$router.push('/user');
-                    else this.$router.push('/login')
-                })
+                .then ((user) => {
+                 this.$router.push('/user');
+                    //here we will activate a method to alert the user about the failed function
+                }).catch(err => {
+                    console.log('got here with a mistake');
+                    
+                    this.$router.push('/login')}) 
         }
 }
 }

@@ -5,8 +5,8 @@ const logger = require('../../services/logger.service')
 const saltRounds = 10
 async function login(firstName, password) {
     console.log('firstName at auth BE service', firstName);
-    logger.debug(`auth.service - login with firstName: ${firstName}`)
     if (!firstName || !password) return Promise.reject('email and password are required!')
+    logger.debug(`auth.service - login succesfull with firstName: ${firstName}`)
 
     const user = await userService.getByFirstName(firstName)
     if (!user) return Promise.reject('Invalid email or password')

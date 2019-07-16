@@ -10,7 +10,8 @@ async function login(req, res) {
         req.session.user = user;
         res.json(user)
     } catch (err) {
-        res.status(401).send({ error: err })
+        res.status(401).send()
+            // res.status(401).send({ error: err })
     }
 }
 
