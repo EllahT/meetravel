@@ -1,0 +1,59 @@
+.user-profile {
+  .cover {
+    color: white;
+    padding: 30px;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.315), rgba(44, 44, 44, 0.555)),
+      url('https://wallpapercave.com/wp/wp4414509.jpg');
+  }
+  h1 {
+    font-size: 2.2rem;
+  }
+  .profile-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+  }
+  a {
+    text-decoration: none;
+    color: azure;
+    i {
+      margin-right: 5px;
+    }
+  }
+  .actions {
+    margin: 30px;
+  }
+  .actions > * {
+    margin: 20px;
+  }
+  .user-info {
+    padding: 10px;
+    color: rgb(94, 94, 94);
+    h2 {
+      margin: 15px;
+      cursor: pointer;
+    }
+    p {
+      padding: 5px 10px 5px;
+      margin: 5px;
+    }
+    .tag {
+      border: 1px solid rgb(153, 153, 153);
+      border-radius: 25px;
+      
+    }
+    i {
+      margin-left: 5px;
+    }
+  }
+}
+ 
+@media screen and (max-width: 550px) {
+  .user-profile {
+    .user-info {
+      .flex {
+        justify-content: flex-start;
+      }
+    }
+  }
+}

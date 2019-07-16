@@ -1,0 +1,41 @@
+  @font-face {
+    font-family: 'latoregular';
+    src: url("../fonts/lato/Lato-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal; 
+  }
+
+  @font-face {
+    font-family: 'latolight';
+    src: url("../fonts/lato/Lato-Light.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal; 
+  }
+  
+  @font-face {
+    font-family: 'latobold';
+    src: url("../fonts/lato/Lato-Bold.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal; 
+  }
+  
+  /*----------  Eurof  ----------*/
+  @font-face {
+    font-family: 'eurofbold';
+    src: url("../fonts/euro/eurof55.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal; 
+  }
+
+  /*----------  IndieFlower  ----------*/
+
+  
+
+  .lato-light {
+    font-family: 'latolight';
+    letter-spacing: 0.1rem;
+  }
+
+  .Lato-bold {
+    font-family: 'latobold';
+  }

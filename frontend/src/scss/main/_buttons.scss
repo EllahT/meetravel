@@ -1,0 +1,101 @@
+.btn {
+  font-size: 16px;
+  font-family: "latobold";
+  text-transform: uppercase;
+  width: 300px;
+  letter-spacing: 0.1rem;
+  padding: 10px;
+  border: 1px solid rgba(44, 44, 44, 0.63);
+  text-shadow: 0.5px 0.5px 0.8px black;
+  border-radius: 25px;
+  opacity: 0.95;
+}
+
+.btn.primary {
+  background-color: $primary-color;
+  color: white;
+}
+
+.btn.primary-dark {
+  background-color: $primary-dark;
+  color: white;
+}
+
+
+.btn .success {
+}
+.btn .info {
+}
+.btn .warning {
+}
+.btn .danger {
+}
+.btn .neutral {
+}
+
+@mixin fade-transition($element) {
+  transition: $element 0.15s ease-in-out;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.shiny {
+  position: absolute;
+  z-index: 1;
+  text-align: center;
+  margin: 0 auto;
+  transform: translate(-50%, -50%);
+  
+  @include fade-transition(background);
+
+  &:hover {
+    background: rgb(11, 110, 177);
+  }
+}
+
+span.shiny {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 0;
+
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.03) 1%,
+    rgba(255, 255, 255, 0.6) 30%,
+    rgba(255, 255, 255, 0.952) 50%,
+    rgba(255, 255, 255, 0.925) 70%,
+    rgba(255, 255, 255, 0.85) 71%,
+    rgba(255, 255, 255, 0) 100%
+  ); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 */
+
+  width: 15%;
+  height: 100%;
+  transform: skew(-10deg, 0deg);
+  animation: move 2s;
+  animation-iteration-count: infinite;
+  animation-delay: 1s;
+}
+
+@keyframes move {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  5% {
+    opacity: 0;
+  }
+  48% {
+    opacity: 0.2;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    left: 82%;
+  }
+}
