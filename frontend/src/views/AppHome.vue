@@ -7,7 +7,6 @@
         <router-link to="/filterTravelers">Set Filters</router-link>
       
       <user-preview  v-if="users" :user="users[currUserIdx]" @nav="navUsers" @request="sendRequest"></user-preview>
-      <!-- <img v-if="loadingUsers" src="@/assets/loading.gif"/> -->
   </div>
 </template>
 
@@ -18,6 +17,7 @@ import ImageService from '@/services/ImageService.js';
 export default {
   created() {
     this.$store.dispatch({type: 'loadUsers'});
+    
   },
 
   data() {
@@ -30,10 +30,6 @@ export default {
   computed: {
       users() {
           return this.$store.getters.users;
-      },
-
-      loadingUsers() {
-        return this.$store.getters.isLoadingUsers;
       },
 
       location() {

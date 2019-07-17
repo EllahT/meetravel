@@ -73,10 +73,10 @@ export default {
     setLocation(lat, lng) {
       this.location.lat = lat;
       this.location.lng = lng;
-      console.log(this.location);
       this.goToUsers();
     },
     goToUsers() {
+      this.$store.dispatch({type: 'updateLocation', location: this.location})
       this.$router.push("/user");
     }
   },
