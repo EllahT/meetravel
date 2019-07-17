@@ -1,6 +1,6 @@
 <template>
         <section class="sign-up">
-            <form @submit.prevent="signUp">
+            <form @submit.prevent="doSignUp">
                 <input type="text" v-model="user.firstName" placeholder="Your first name">
                 <input type="text" v-model="user.lastName" placeholder="Your last name">
                 <input type="password" v-model="user.password" placeholder="Your password">
@@ -21,7 +21,7 @@ export default {
         }
     },
     methods: {
-        signUp() {
+        doSignUp() {
             // console.log('sign-up cmp', this.user)
             this.$store.dispatch({type: 'signup', user: this.user})
                 .then ((user) => {
