@@ -4,8 +4,7 @@ export default {
     strict: true,
     state: {
         users: [],
-        loggedUser: {},
-
+        loggedUser: null,
         notifications: [],
         filterBy: {
             distance: 20,
@@ -83,10 +82,10 @@ export default {
         login(context, { user }) {
             return UserService.login(user)
                 .then((user) => {
-                    console.log('i am user obj userStore', user)
+                    // console.log('i am user obj userStore', user)
                     if (!user) throw 'no user found'
                     else {
-                        console.log('logged-in user at store after promise:', user);
+                        // console.log('logged-in user at store after promise:', user);
                         context.commit({ type: 'setLoggedUser', user });
                         return user;
                     }
@@ -97,7 +96,7 @@ export default {
             // console.log('user in store:', user);
             return UserService.signup(user)
                 .then((addedUser) => {
-                    console.log('added user at store after promise:', addedUser);
+                    // console.log('added user at store after promise:', addedUser);
                     context.commit({ type: 'addUser', user: addedUser });
                     return addedUser;
                 })
@@ -159,6 +158,18 @@ export default {
         loadUserById(context, { userId }) {
             return UserService.getById(userId)
                 .then(user => user)
+        },
+
+        loadUserOrDefaultUser(context) {
+            return UserService.getLoggedUser() 
+            .then(user => {
+                (user)? context.commit({type: 'setLoggedUser',user})
+                :context.dispatch({ type: "login", user: { firstName: "Tabatha", password: "tabatha" } })
+                .then(() => {
+                    return {};
+                })
+            })
+            
         }
     }
 }

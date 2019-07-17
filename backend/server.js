@@ -56,11 +56,36 @@ const UserService = require("./api/user/user.service");
 const FriendService = require('./api/friend/friend.service');
 const UtilService = require('./services/util.service');
 
+
+// FriendService.query()
+// .then(friendships => {
+//     console.log(friendships.length);
+//     friendships.forEach(friendship => {
+//       console.log(typeof(friendship.sender.userId))
+      // FriendService.remove(friendship._id)
+      //   .then(() => {
+      //     if (typeof(friendship.sender.userId) !== String) {
+      //         friendship.sender.userId = JSON.stringify(friendship.sender.userId);
+      //     }
+      //     if (typeof(friendship.resipient.userId) !== String) {
+      //         friendship.resipient.userId = JSON.stringify(friendship.resipient.userId);
+      //     }
+      //     delete friendship.members;
+      //     delete friendship._id;
+          
+      //     FriendService.addRequest(friendship)
+      //     .then(() => {
+      //       console.log('done');
+      //   })
+      //   })
+//     })
+// })
+
 // let shrinkingUsers;
 // UserService.query()
 // .then(users => {
 //     console.log(users.length);
-//     shrinkingUsers = [Object.assign(users[0]), Object.assign(users[1]), Object.assign(users[2])];
+//     shrinkingUsers = [...users];
 //     shrinkingUsers.forEach((user, index) => {
 //         for (var i = 0; i < 2; i++) {
 //             const rand = UtilService.getRandomInt(0,5);
@@ -70,7 +95,6 @@ const UtilService = require('./services/util.service');
 //             const thisUser = {userId: user._id, name: user.name.first + ' ' + user.name.last}
 //             const randUser = {userId: shrinkingUsers[idx]._id, name: shrinkingUsers[idx].name.first + ' ' + shrinkingUsers[idx].name.last}
 //             let friendship = {
-//                 members: [user._id, shrinkingUsers[idx]._id], createdAt, location,
 //                 sender: (rand < 2)? thisUser : randUser,
 //                 status: (rand < 2)? 'pending' : 'approved',
 //                 resipient: (rand >= 2)? thisUser : randUser,

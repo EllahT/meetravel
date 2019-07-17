@@ -13,10 +13,8 @@ const getUsers = async (req, res) => {
     
     } catch (err) {
         logger.error('[GetUsers] ' + err)
-        res.status(500).send({ error: 'could not get users from DB, please try later' })
-        
-    }
-    
+        res.status(500).send({ error: 'could not get users from DB, please try later' })    
+    }  
 }
 
 async function deleteUser(req, res) {

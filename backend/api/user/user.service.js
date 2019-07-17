@@ -76,7 +76,7 @@ async function getByFirstName(firstName) {
     const collection = await dbService.getCollection('user')
     try {
         const user = await collection.findOne({ "name.first": firstName })
-        console.log('BE user-service getByFirstName: ', user);
+        // console.log('BE user-service getByFirstName: ', user);
         return user
     } catch (err) {
         console.log(`ERROR: while finding user ${firstName}`)

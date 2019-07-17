@@ -15,11 +15,10 @@ module.exports = {
 
 async function getUserFriendships(userId) {
     const collection = await dbService.getCollection('friendships')
-    const id = new ObjectId(userId);
     
     try {
         const friendships = await collection.find( 
-            {status: 'approved', members: { $in : [id]} }).toArray();
+            {status: 'approved', $or: [ { "resipient.userId": userId }, { "sender.userId": userId } ] }).toArray();
 
         return friendships;
     } catch (err) {
@@ -32,11 +31,10 @@ async function getUserFriendships(userId) {
 
 async function getUserRequests(userId) {
     const collection = await dbService.getCollection('friendships')
-    const id = new ObjectId(userId);
     
     try {
         const requests = await collection.find( 
-            { status: 'pending', "resipient.userId": id}).toArray();
+            { status: 'pending', "resipient.userId": userId}).toArray();
 
         return requests;
     } catch (err) {
@@ -85,6 +83,8 @@ async function remove(friendshipId) {
 
 async function update(friendship) {
     const collection = await dbService.getCollection('friendships')
+    const friendshipWithoutId = JSON.parse(JSON.stringify(friendship));
+    delete friendshipWithoutId._id;
     try {
         await collection.replaceOne({"_id":ObjectId(friendship._id)}, {$set : friendship})
         console.log('friendship was updated');

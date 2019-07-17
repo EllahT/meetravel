@@ -19,7 +19,19 @@ export default {
         },
 
         friendshipById: state => id => {
-            return state.friends.find(friends => friends._id === id);
+            return state.friends.find(friendship => friendship._id === id);
+        },
+
+        isFriendById: state => id => {
+            return  state.friends.find(friendship => (friendship.status === 'approved' && (friendship.sender.userId === id || friendship.resipient.userId === id)));
+        },
+
+        isRequestedById: state => id => {
+            return  state.requests.find(request => (request.status === 'pending' && request.sender.userId === id));
+        },
+
+        isRequesterById: state => id => {
+            return  state.requests.find(request => (request.status === 'pending' && request.resipient.userId === id));
         },
     },
 
