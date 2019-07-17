@@ -4,6 +4,7 @@
         <img :src="user.profileImg"/>
 
         <div class="details-body">
+          <p>{{user.description}}</p>
           <h2>Bucket List:</h2>
           <ul>
             <li v-for="place in user.bucketList" :key="place">{{place}}</li>
