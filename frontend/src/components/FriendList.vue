@@ -1,6 +1,6 @@
 <template>
-     <ul v-if="friends">
-        <friend-preview v-for="friend in fakeFriends" :friend="friend" :key="friend._id"></friend-preview>
+     <ul v-if="friendships">
+        <friend-preview v-for="friendship in friendships" :friendship="friendship" :key="friendship._id"></friend-preview>
     </ul>
 </template>
 
@@ -24,7 +24,7 @@ export default {
   },
 
   computed: {
-      friends() {
+      friendships() {
           return this.$store.getters.friends;
       }
   },

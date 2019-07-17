@@ -16,22 +16,37 @@ async function getFriendshipsByUser(req, res) {
     res.send(friendships);
 }
 
+async function getRequestsByUser(req, res) {
+    const userId = req.params.userId;
+    const requests = await friendService.getUserRequests(userId);
+    res.send(requests);
+}
 
 async function deleteFriendship(req, res) {
     await friendService.remove(req.params.id)
     res.send({})
 }
 
-async function addFriendship(req, res) {
-    const friendship = req.body;
-    const friendshipWithId = await friendService.add(friendship);
-    res.send({friendshipWithId});
+async function convertRequest(req, res) {
+    const requestId = req.params.id;
+    const request = await friendService.getById(requestId);
+    request.status = 'approved';
+    await friendService.convertRequestToFriendship(request);
+    res.send(request);
+}
+
+async function addRequest(req, res) {
+    const request = req.body;
+    const requestWithId = await friendService.addRequest(request);
+    res.send({requestWithId});
 }
 
 module.exports = {
     getFriendship,
     getFriendships,
     deleteFriendship,
-    addFriendship,
-    getFriendshipsByUser
+    addRequest,
+    getFriendshipsByUser,
+    getRequestsByUser,
+    convertRequest
 }

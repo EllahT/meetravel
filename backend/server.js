@@ -11,6 +11,7 @@ const http = require('http').createServer(app);
 const authRoutes = require('./api/auth/auth.routes')
 const userRoutes = require('./api/user/user.routes')
 const friendRoutes = require('./api/friend/friend.routes')
+const imageRoutes = require('./api/image/image.routes')
 
 const logger = require('./services/logger.service')
 const socketService = require('./services/socket.service')
@@ -37,6 +38,7 @@ if (process.env.NODE_ENV !== 'production') {
 app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/friend', friendRoutes)
+app.use('/api/image', imageRoutes)
 
 socketService.setup(http);
 
@@ -48,9 +50,5 @@ const port = process.env.PORT || 3000;
 http.listen(port, () => {
     logger.info('Server is running on port: ' + port)
 });
-
-
-
-
 
 

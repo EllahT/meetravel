@@ -2,9 +2,13 @@ const authService = require('./auth.service')
 const logger = require('../../services/logger.service')
 
 async function login(req, res) {
-    const { email, password } = req.body
+    console.log('auth controller BE', req.body);
+
+    const { firstName, password } = req.body
     try {
-        const user = await authService.login(email, password)
+        const user = await authService.login(firstName, password)
+        console.log('user at auth TRY: ', user);
+
         req.session.user = user;
         res.json(user)
     } catch (err) {
@@ -14,9 +18,9 @@ async function login(req, res) {
 
 async function signup(req, res) {
     try {
-        const { email, password, username } = req.body
-        logger.debug(email + ", " + username)
-        const user = await authService.signup(email, password, username)
+        const { firstName, lastName, password } = req.body
+        logger.debug(firstName + ", " + lastName + ", " + password)
+        const user = await authService.signup(firstName, lastName, password)
         logger.debug(`auth.route - new user created: ` + JSON.stringify(user))
         req.session.user = user
         res.status(200).send(user)
@@ -26,7 +30,7 @@ async function signup(req, res) {
     }
 }
 
-async function logout(req, res){
+async function logout(req, res) {
     try {
         req.session.destroy()
         res.send({ message: 'logged out successfully' })

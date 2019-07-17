@@ -4,6 +4,7 @@
         <h1 v-if="users">There are {{users.length}} Fellow Travelers in {{location}}</h1>
       </div>
         <input type="text" placeholder="Search travelers by name" v-model="filterByName" @input="setFilter"/>
+        <router-link to="/filterTravelers">Set Filters</router-link>
       
       <user-preview  v-if="users" :user="users[currUserIdx]" @nav="navUsers" @request="sendRequest"></user-preview>
       <!-- <img v-if="loadingUsers" src="@/assets/loading.gif"/> -->
@@ -12,6 +13,7 @@
 
 <script>
 import UserPreview from '@/components/UserPreview.vue';
+import ImageService from '@/services/ImageService.js';
 
 export default {
   created() {
@@ -49,8 +51,24 @@ export default {
         this.$store.dispatch({type: 'setFilterByName', filterByName: this.filterByName});
       },
 
-      sendRequest(userId) {
-        console.log('sent a request to ',userId);
+      sendRequest(resipient) {
+        ImageService.getRandomImg('friendship')
+        .then((imgSrc => {
+            let request = {
+                  members : [this.$store.getters.loggedInUser._id, resipient.userId],
+                  createdAt : new Date().getTime(),
+                  location: this.$store.getters.location,
+                  friendShipImg: imgSrc,
+                  sender: {userId: this.$store.getters.loggedInUser._id, name: this.$store.getters.loggedInUser.name.first + ' ' + this.$store.getters.loggedInUser.name.last},
+                  status : 'pending',
+                  resipient: resipient
+          }
+        
+          this.$store.dispatch({type: 'sendRequest', request})
+          .then(() => {
+            console.log('request sent to', resipient);
+          })
+        }))
       }
   },
 

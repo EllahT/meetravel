@@ -7,8 +7,8 @@ export default {
 
 const BASE_URL = 'image/';
 
-function getRandomImg() {
-    return HttpService.ajax(`${BASE_URL}setRandomImg`);
+function getRandomImg(term) {
+    return HttpService.ajax(`${BASE_URL}setRandomImg/${term}`);
 }
 
 async function uploadImg(ev) {

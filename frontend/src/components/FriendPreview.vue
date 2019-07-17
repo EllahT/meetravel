@@ -1,44 +1,53 @@
 <template>
-  <li class="friend-preview" v-if="friend">
-    <div>
-    <h4>{{friend.name}}</h4>
-    <h4>{{friend.city}}, {{friend.country}}</h4>
-    </div>
-    <img :src="friend.image"/>
-    
+  <li class="friend-preview" v-if="friendship">
+    <h4>You and <router-link :to="friendUrl">{{friendName}}</router-link></h4>
+    <img :src="friendship.friendshipImg"/>
+    <h5>friends since :{{time}}</h5>
+    <router-link :to="detailsUrl">talk and set a trip together!</router-link>
   </li>
 </template>
 
-
 <script>
+
+import moment from 'moment'
 
 export default {
   props: {
-      friend: {
+      friendship: {
           type: Object,
           require: true
       }
   },
-  
-  created (){    
-  },
 
   computed: {
+    detailsUrl() {
+      return `/inbox/friends/${this.friendship._id}`
+    },
 
+    time() {
+      return moment(this.friendship.createdAt).fromNow();
+    },
+
+    friendName() {
+      return (this.$store.getters.loggedInUser._id.includes(this.friendship.sender.userId))? 
+      this.friendship.resipient.name :
+      this.friendship.sender.name ;
+    },
+
+    friendUrl() {
+      const url = (this.$store.getters.loggedInUser._id.includes(this.friendship.sender.userId))? 
+      this.friendship.resipient.userId :
+      this.friendship.sender.userId ;
+      return `/user/${url}`
+    },
   },
-
-  methods: {
-
-  }
 }
 
-// <h5>{{friend.location}}</h5>
-//     <h5>{{friend.createdAt}}</h5>
-//     <h5>{{friend.members._id}}</h5>
+
 
 </script>
 
-<style >
+<style lang="scss">
 .friend-preview {
     max-width: 650px;
     margin-top:5px;
@@ -51,7 +60,11 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    cursor: pointer;
+
+    img {
+      max-width: 200px;
+      border-radius: 50%;
+    }
 }
 </style>
 

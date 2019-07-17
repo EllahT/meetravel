@@ -1,19 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HomePage from './views/HomePage.vue'
+import LogIn from './views/LogIn.vue'
+import SignUp from './views/SignUp.vue'
 import About from './views/About.vue'
 import AppHome from './views/AppHome.vue'
 import AdminPage from './views/AdminPage.vue'
 import EditUser from './views/EditUser.vue'
 import UserProfile from './views/UserProfile.vue'
 import UserDetails from './views/UserDetails.vue'
-import TripDetails from './views/TripDetails.vue'
-import TripList from './views/TripList.vue'
-import TripEdit from './views/TripEdit.vue'
+// import TripDetails from './views/TripDetails.vue'
+// import TripList from './views/TripList.vue'
+// import TripEdit from './views/TripEdit.vue'
 import FriendList from './components/FriendList.vue'
 import UserFilter from './views/UserFilter.vue'
 import UserInbox from './views/UserInbox.vue'
-import UserRequests from './components/UserRequests.vue'
+import RequestList from './components/RequestList.vue'
+import FriendDetails from './components/FriendDetails.vue'
 
 Vue.use(Router)
 
@@ -22,6 +25,16 @@ export default new Router({
             path: '/',
             name: 'home',
             component: HomePage
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: LogIn
+        },
+        {
+            path: '/signup',
+            name: 'signup',
+            component: SignUp
         },
         {
             path: '/about',
@@ -53,21 +66,21 @@ export default new Router({
             name: 'UserDetails',
             component: UserDetails
         },
-        {
-            path: '/trip/',
-            name: 'TripList',
-            component: TripList
-        },
-        {
-            path: '/trip/edit/:tripId?',
-            name: 'TripEdit',
-            component: TripEdit
-        },
-        {
-            path: '/trip/:tripId',
-            name: 'TripDetails',
-            component: TripDetails
-        },
+        // {
+        //     path: '/trip/',
+        //     name: 'TripList',
+        //     component: TripList
+        // },
+        // {
+        //     path: '/trip/edit/:tripId?',
+        //     name: 'TripEdit',
+        //     component: TripEdit
+        // },
+        // {
+        //     path: '/trip/:tripId',
+        //     name: 'TripDetails',
+        //     component: TripDetails
+        // },
         {
             path: '/inbox',
             name: 'UserInbox',
@@ -77,9 +90,15 @@ export default new Router({
                     component: FriendList
                 },
                 {
+                    path: 'friends/:friendId',
+                    component: FriendDetails
+                },
+
+                {
                     path: 'requests',
-                    component: UserRequests
-                }]
+                    component: RequestList
+                },
+            ]
         },
         {
             path: '/filterTravelers',
