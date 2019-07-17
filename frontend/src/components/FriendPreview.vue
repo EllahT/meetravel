@@ -1,10 +1,11 @@
 <template>
   <li class="friend-preview" v-if="friend">
-    <h4>{{friend._id}}</h4>
+    <div>
+    <h4>{{friend.name}}</h4>
+    <h4>{{friend.city}}, {{friend.country}}</h4>
+    </div>
     <img :src="friend.image"/>
-    <h5>{{friend.location}}</h5>
-    <h5>{{friend.createdAt}}</h5>
-    <h5>{{friend.members._id}}</h5>
+    
   </li>
 </template>
 
@@ -30,6 +31,10 @@ export default {
 
   }
 }
+
+// <h5>{{friend.location}}</h5>
+//     <h5>{{friend.createdAt}}</h5>
+//     <h5>{{friend.members._id}}</h5>
 
 </script>
 
