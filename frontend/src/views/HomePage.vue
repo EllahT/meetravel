@@ -61,7 +61,7 @@ export default {
     },
     goToUsers() {
       this.$store.dispatch({type: 'updateLocation', location: this.location})
-      this.$router.push("/users");
+      this.$router.push("/user");
     }
   },
 

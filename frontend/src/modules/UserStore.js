@@ -51,7 +51,6 @@ export default {
             gender: 'all',
             name: null
         },
-        isLoadingUsers: false,
         location: { lat: 32.059391999999995, lng: 34.8512256, address: 'Kiryat Ono, Israel' }
     },
 
@@ -62,10 +61,6 @@ export default {
 
         users(state) {
             return state.users;
-        },
-
-        isLoadingUsers(state) {
-            return state.isLoadingUsers;
         },
 
         isAdmin(state) {
@@ -187,8 +182,6 @@ export default {
         },
 
         loadUsers(context) {
-            // console.log('store:', context.state.loggedUser)
-            // context.dispatch({ type: "login", user: { fisrtName: context.state.loggedUser.name.first, password: context.state.loggedUser.password } })
             return UserService.query(context.state.filterBy, context.state.location)
                 .then(filteredUsers => {
                     context.commit({ type: "setUsers", filteredUsers });
