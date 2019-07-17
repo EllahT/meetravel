@@ -4,19 +4,33 @@
         <form @submit.prevent="saveUser">
             <div>
                 <label>First Name: </label>
-                <input type="text" v-model="user.firstName"/>
+                <input type="text" v-model="user.name.first"/>
             </div>
             <div>
                 <label>Last Name: </label>
-                <input type="text" v-model="user.lastName"/>
+                <input type="text" v-model="user.name.last"/>
             </div>
             <div>
                 <label>Gender: </label>
                 <gender-picker v-model="user.gender" :type="'picker'"></gender-picker>
             </div>
+            <!-- <div>
+                <label>Profile Image: </label>
+                <img :src="user.profileImg"/>
+            </div> -->
             <div>
                 <label>Description: </label>
                 <textarea v-model="user.description"></textarea>
+            </div>
+            <!-- <div>
+                <label>Bucket List:</label>
+                <ul>
+                    <li v-for="place in user.bucketList" :key="place">{{place}}</li>
+                </ul>
+            </div> -->
+            <div>
+                <label>BirthDate: </label>
+                <input type="number" v-model="user.birthDate"/>
             </div>
             <button class="submit-btn">{{btnText}}</button>
         </form>
