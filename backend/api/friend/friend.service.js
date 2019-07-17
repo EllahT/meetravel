@@ -15,7 +15,7 @@ module.exports = {
 
 async function getUserFriendships(userId) {
     const collection = await dbService.getCollection('friendships')
-    const id = new ObjectId(userId.slice(10, userId.length-2));
+    const id = new ObjectId(userId);
     
     try {
         const friendships = await collection.find( 
@@ -32,7 +32,7 @@ async function getUserFriendships(userId) {
 
 async function getUserRequests(userId) {
     const collection = await dbService.getCollection('friendships')
-    const id = new ObjectId(userId.slice(10, userId.length-2));
+    const id = new ObjectId(userId);
     
     try {
         const requests = await collection.find( 
@@ -108,8 +108,6 @@ async function convertRequestToFriendship(request) {
 }
 
 async function addRequest(request) {
-    var id = ObjectId(request.resipient.userId);
-    console.log(id);
     const collection = await dbService.getCollection('friendships')
     try {
         await collection.insertOne(request);
