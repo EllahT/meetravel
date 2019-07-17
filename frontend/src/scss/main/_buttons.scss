@@ -16,6 +16,15 @@
   font-size: 1rem;
 }
 
+.btn.flat {
+  background-color: $transparent-bg;
+  border: none;
+  border-radius: 0px;
+  border-bottom: 1px solid;
+  padding: 5px;
+  margin: 10px;
+}
+
 .btn.dark {
   background-color: rgba(0, 0, 0, 0.575);
   color: white;

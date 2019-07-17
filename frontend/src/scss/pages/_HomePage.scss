@@ -2,7 +2,7 @@
 
 .homepage {
   text-align: center;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0)),
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.842)),
     url("../../public/img/background2.jpg");
   background-position: center center;
   background-size: cover;
@@ -22,6 +22,7 @@
   }
   h4 {
     font-size: 1.4rem;
+    margin: 10px;
   }
   .container {
     padding-top: 10vh;
@@ -39,11 +40,16 @@
   .locations-container {
     position: relative;
   }
-  .btn.primary-dark {
-    top:140px;
-    left: 50%;
-    
+
+  .btn.primary-dark.flat {
+    color: $primary-dark;
   }
+
+  .btn.primary-dark { 
+    top:160px;
+    left: 50%;
+  }
+ 
   .card {
     height: 50px;
     width: 60px;
