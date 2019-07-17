@@ -1,12 +1,15 @@
 <template>
-        <section class="sign-up">
-            <form @submit.prevent="doSignUp">
-                <input type="text" v-model="user.firstName" placeholder="Your first name">
-                <input type="text" v-model="user.lastName" placeholder="Your last name">
-                <input type="password" v-model="user.password" placeholder="Your password">
-                <button>Sign-up</button>
-            </form>
-        </section>
+    <section class="sign-up">
+        <v-form @submit.prevent="doSignUp">
+            <v-text-field prepend-icon="person" v-model="user.firstName" label="First name" type="text"></v-text-field>
+            <v-text-field prepend-icon="person" v-model="user.lastName" label="Last name" type="text"></v-text-field>
+            <v-text-field prepend-icon="lock" v-model="user.password" label="Password" type="password"></v-text-field>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <button class="btn" type="submit">SignUp</button>
+              </v-card-actions>
+        </v-form>
+    </section>
 </template>
 
 <script>
