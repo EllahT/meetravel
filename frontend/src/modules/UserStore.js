@@ -145,6 +145,8 @@ export default {
         },
 
         loadUsers(context) {
+            console.log('at loadUsers in store');
+            
             return UserService.query(context.state.filterBy, context.state.location)
                 .then(filteredUsers => {
                     context.commit({ type: "setUsers", filteredUsers });

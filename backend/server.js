@@ -29,7 +29,7 @@ app.use(
 
 if (process.env.NODE_ENV !== "production") {
   const corsOptions = {
-    origin: ["http://localhost:8080"],
+    origin: ["http://localhost:8081"],
     credentials: true
   };
   app.use(cors(corsOptions));

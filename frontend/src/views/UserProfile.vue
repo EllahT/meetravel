@@ -1,7 +1,7 @@
 <template>
   <section class="user-profile lato-light" v-if="user">
     <div class="cover parallax">
-      <img class="profile-img" :src="user.profileImg" />
+      <div class="profile-img" :style="{'background-image': `url(${require(user.profileImg)})`}"></div>
       <h1>{{user.name.first}} {{user.name.last}}, {{age}}</h1>
       <p>{{user.residance.city}}, {{user.residance.country}}</p>
 
@@ -70,11 +70,5 @@ export default {
 </script>
 
 <style lang="scss">
-.user-profile {
-  text-align: center;
 
-  img {
-    border-radius: 50%;
-  }
-}
 </style>

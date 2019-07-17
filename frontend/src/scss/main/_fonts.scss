@@ -27,8 +27,57 @@
     font-style: normal; 
   }
 
+  @font-face {
+    font-family: 'goudy';
+    src: url("../fonts/GoudyBookletter.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal; 
+  }
+
+  @font-face {
+    font-family: 'penna';
+    src: url("../fonts/penna.otf") format("truetype");
+    font-weight: normal;
+    font-style: normal; 
+  }
+
+  @font-face {
+    font-family: 'sensations';
+    src: url("../fonts/Sensations.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal; 
+  }
+
+
+  @font-face {
+    font-family: 'titi';
+    src: url("../fonts/TitilliumWeb-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal; 
+  }
+
+
   /*----------  IndieFlower  ----------*/
 
+  .titi {
+    font-family: 'titi';
+    letter-spacing: 0.1rem;
+  }
+
+  .sensations {
+    font-family: 'sensations';
+    letter-spacing: 0.1rem;
+  }
+
+  .penna {
+    font-family: 'penna';
+    letter-spacing: 0.1rem;
+  }
+
+  .goudy {
+    font-family: 'goudy';
+    letter-spacing: 0.1rem;
+  }
   
 
   .lato-light {

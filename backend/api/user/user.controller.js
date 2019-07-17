@@ -9,9 +9,13 @@ const getUsers = async (req, res) => {
     try {
         const filterBy = req.query;
         const users = await userService.query(filterBy)
+        console.log('got here for test');
+        
         res.send(users);
     
     } catch (err) {
+        console.log('got error at "get users" function with',err);
+        
         logger.error('[GetUsers] ' + err)
         res.status(500).send({ error: 'could not get users from DB, please try later' })
         
