@@ -6,8 +6,8 @@ module.exports = {
   createSortFuncTxt,
   getRandomColors,
   calulateDistance,
-  randomGeo,
-  randomDate
+  getRandomGeo,
+  getRandomDate
 };
 
 function getRandomInt(min, max) {
@@ -123,7 +123,7 @@ function calulateDistance(originLocation, destinationLocation) {
   return d;
 }
 
-function randomGeo(center, radius) {
+function getRandomGeo(center, radius) {
   var y0 = center.lat;
   var x0 = center.lng;
   var rd = radius / 111300;
@@ -142,6 +142,6 @@ function randomGeo(center, radius) {
   };
 }
 
-function randomDate(start, end) {
+function getRandomDate(start, end) {
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 }

@@ -10,6 +10,9 @@
     <router-link to="/login">LogIn</router-link> | 
     <router-link to="/signup">SignUp</router-link> |
     <button @click="doLogOut">LogOut</button>
+    <div v-if="Object.keys(username).length">
+      Signed: {{username}}
+    </div>
   </header>
 </template>
 
@@ -35,6 +38,13 @@ export default {
     doLogOut() {
       this.$store.dispatch({type: 'logout'})
     },
+  },
+
+  computed: {
+    username() {
+      const logged = this.$store.getters.loggedInUser;
+      return (Object.keys(logged).length)? logged.name.first : '';
+    }
   }
 }
 </script>

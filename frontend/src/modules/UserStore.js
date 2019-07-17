@@ -4,44 +4,7 @@ export default {
     strict: true,
     state: {
         users: [],
-        loggedUser: {
-            "_id": 'ObjectId("5d2c8782a896e921905c63c9")',
-            "name": {
-                "first": "Tabatha",
-                "last": "Ewing"
-            },
-            "password": "$2b$10$fHwEROYj/XCBjpJS4W2hRO.7gvOgDvaF3iySuwfJVZfURm29kKRVK",
-            "isAdmin": false,
-            "email": "tabatha.ewing@undefined.biz",
-            "gender": "woman",
-            "profileImg": "https://media.istockphoto.com/photos/laughing-woman-in-park-picture-id658617510?k=6&m=658617510&s=612x612&w=0&h=Ycl_BBwWQop7Wj1wWG3nyQqB5glPxRuqmb02WpKp0ao=",
-            "galleryImgs": [{
-                    "picture": "http://placehold.it/32x32"
-                },
-                {
-                    "picture": "http://placehold.it/32x32"
-                },
-                {
-                    "picture": "http://placehold.it/32x32"
-                }
-            ],
-            "birthDate": 1992,
-            "description": "Ex qui ex commodo dolore consectetur ipsum dolor do elit. Est occaecat elit aliquip dolor Lorem non. Qui veniam culpa qui magna magna aliqua qui fugiat duis. Aliquip magna fugiat sint nulla do pariatur voluptate elit elit id reprehenderit aliquip Lorem. Fugiat nulla irure deserunt laboris aliqua eu veniam cillum laboris officia ex voluptate.",
-            "registered": "Saturday, January 14, 2017 5:29 AM",
-            "lastConnected": "Friday, November 14, 2014 6:03 AM",
-            "residance": {
-                "city": "Tel Aviv",
-                "country": "Jordan"
-            },
-            "travelType": "hike",
-            "location": {
-                "lat": 35.6866331237007,
-                "lng": 139.775210100684
-            },
-            "bucketList": [
-                "Mexico"
-            ]
-        },
+        loggedUser: {},
 
         notifications: [],
         filterBy: {
