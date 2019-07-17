@@ -21,7 +21,7 @@ async function login(firstName, password) {
 async function signup(first, last, password) {
     logger.debug(`auth.service - signup with firstName: ${first}, lastName: ${last}, password: ${password}`)
     if (!first || !last || !password) return Promise.reject('firts name, last name and password are required!')
-    console.log('password', password)
+    console.log('password at auth service', password)
     const hash = await bcrypt.hash(password, saltRounds)
     const user = await userService.add({ name: { first, last }, password: hash })
     delete user.password;

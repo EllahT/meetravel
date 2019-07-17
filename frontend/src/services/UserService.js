@@ -37,7 +37,6 @@ function login(userCred) { // TODO: add try and catch
     return HttpService.ajax('auth/login', 'post', userCred)
         .then(res => res)
         .catch(err => err)
-
 }
 
 function signup(userCred) {
