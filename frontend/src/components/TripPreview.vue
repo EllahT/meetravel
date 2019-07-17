@@ -42,7 +42,7 @@ export default {
 };
 </script>
   
-  <style lang="scss" (scoped)>
+  <style lang="scss" scoped>
 span {
   text-shadow: 1px 1px 1px black;
   background-color: rgb(50, 156, 255);
