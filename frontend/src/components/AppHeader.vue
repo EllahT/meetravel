@@ -43,7 +43,7 @@ export default {
   computed: {
     username() {
       const logged = this.$store.getters.loggedInUser;
-      return (logged)? logged.name.first : '';
+      return (Object.keys(logged).length)? logged.name.first : '';
     }
   }
 }
