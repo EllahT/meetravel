@@ -1,6 +1,6 @@
 <template>
   <section class="log-in">
-    <form @submit.prevent="logIn">
+    <form @submit.prevent="doLogIn">
       <input type="text" v-model="user.firstName" placeholder="Your first name" />
       <input type="password" v-model="user.password" placeholder="Your password" />
       <button>Login</button>
@@ -18,7 +18,7 @@ export default {
     };
   },
   methods: {
-    logIn() {
+    doLogIn() {
       // console.log('Login', this.user)
       this.$store
         .dispatch({ type: "login", user: this.user })

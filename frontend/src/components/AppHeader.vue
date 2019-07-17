@@ -1,14 +1,15 @@
 <template>
   <header>
     <v-toolbar-side-icon @click="sideNav = !sideNav"></v-toolbar-side-icon>
-    <router-link to="/">Home</router-link>|
-    <router-link to="/about">About</router-link>|
-    <router-link to="/user">Find Travelers</router-link>|
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link> |
+    <router-link to="/user">Find Travelers</router-link> |
     <router-link to="/profile">Profile</router-link> | 
     <router-link to="/admin">Admin</router-link> | 
     <router-link to="/inbox">Inbox</router-link> | 
     <router-link to="/login">LogIn</router-link> | 
-    <router-link to="/signup">SignUp</router-link>
+    <router-link to="/signup">SignUp</router-link> |
+    <button @click="doLogOut">LogOut</button>
   </header>
 </template>
 
@@ -29,8 +30,13 @@ export default {
       { icon: "info", title: "About", link: "/about" },
       { icon: "insert_chart_outlined", title: "Admin", link: "" }
     ]
-  })
-};
+  }),
+  methods: {
+    doLogOut() {
+      this.$store.dispatch({type: 'logout'})
+    },
+  }
+}
 </script>
 
 <style scoped>

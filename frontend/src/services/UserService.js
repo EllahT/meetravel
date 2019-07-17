@@ -45,6 +45,7 @@ function signup(userCred) {
 }
 
 function logout() {
+    // console.log('hi from log-out at front user-service');
     return HttpService.ajax('auth/logout', 'post');
 }
 
