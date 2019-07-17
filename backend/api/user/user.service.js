@@ -29,27 +29,27 @@ async function query(filterBy = {}) {
     try {
         let users = await collection.find(criteria).toArray();
 
-        if (typeof(filterBy.distance) !== Number) {
-            filterBy.distance = JSON.parse(filterBy.distance);
-        }
-
         if (filterBy.distance) {
+            if (typeof(filterBy.distance) !== Number) {
+                filterBy.distance = JSON.parse(filterBy.distance);
+            }
+
             users = users.filter(user => {
                 if (user.location) {
                     const distance = utilService.calulateDistance({ lat: filterBy.currLat, lng: filterBy.currLng }, user.location);
                     return distance < filterBy.distance;
                 } else return false;
             })
+        }
 
-            if (filterBy.name !== 'null') {
 
-                users = users.filter(user => {
-                    return (user.name.first.toLowerCase().includes(filterBy.name.toLowerCase()) || user.name.last.toLowerCase().includes(filterBy.name.toLowerCase()))
-                })
-            }
+        if (filterBy.name !== 'null') {
+
+            users = users.filter(user => {
+                return (user.name.first.toLowerCase().includes(filterBy.name.toLowerCase()) || user.name.last.toLowerCase().includes(filterBy.name.toLowerCase()))
+            })
         }
         return users;
-
     } catch (err) {
         console.log('ERROR: cannot find users')
         throw err;

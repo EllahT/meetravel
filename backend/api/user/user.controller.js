@@ -6,9 +6,17 @@ async function getUser(req, res) {
 }
   
 const getUsers = async (req, res) => {
-    const filterBy = req.query;
-    const users = await userService.query(filterBy)
-    res.send(users);
+    try {
+        const filterBy = req.query;
+        const users = await userService.query(filterBy)
+        res.send(users);
+    
+    } catch (err) {
+        logger.error('[GetUsers] ' + err)
+        res.status(500).send({ error: 'could not get users from DB, please try later' })
+        
+    }
+    
 }
 
 async function deleteUser(req, res) {

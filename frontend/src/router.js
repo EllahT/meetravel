@@ -9,13 +9,14 @@ import AdminPage from './views/AdminPage.vue'
 import EditUser from './views/EditUser.vue'
 import UserProfile from './views/UserProfile.vue'
 import UserDetails from './views/UserDetails.vue'
-import TripDetails from './views/TripDetails.vue'
-import TripList from './views/TripList.vue'
-import TripEdit from './views/TripEdit.vue'
+// import TripDetails from './views/TripDetails.vue'
+// import TripList from './views/TripList.vue'
+// import TripEdit from './views/TripEdit.vue'
 import FriendList from './components/FriendList.vue'
 import UserFilter from './views/UserFilter.vue'
 import UserInbox from './views/UserInbox.vue'
-import UserRequests from './components/UserRequests.vue'
+import RequestList from './components/RequestList.vue'
+import FriendDetails from './components/FriendDetails.vue'
 
 Vue.use(Router)
 
@@ -65,21 +66,21 @@ export default new Router({
             name: 'UserDetails',
             component: UserDetails
         },
-        {
-            path: '/trip/',
-            name: 'TripList',
-            component: TripList
-        },
-        {
-            path: '/trip/edit/:tripId?',
-            name: 'TripEdit',
-            component: TripEdit
-        },
-        {
-            path: '/trip/:tripId',
-            name: 'TripDetails',
-            component: TripDetails
-        },
+        // {
+        //     path: '/trip/',
+        //     name: 'TripList',
+        //     component: TripList
+        // },
+        // {
+        //     path: '/trip/edit/:tripId?',
+        //     name: 'TripEdit',
+        //     component: TripEdit
+        // },
+        // {
+        //     path: '/trip/:tripId',
+        //     name: 'TripDetails',
+        //     component: TripDetails
+        // },
         {
             path: '/inbox',
             name: 'UserInbox',
@@ -89,9 +90,14 @@ export default new Router({
                     component: FriendList
                 },
                 {
+                    path: 'friends/:friendId',
+                    component: FriendDetails
+                },
+
+                {
                     path: 'requests',
-                    component: UserRequests
-                }
+                    component: RequestList
+                },
             ]
         },
         {
