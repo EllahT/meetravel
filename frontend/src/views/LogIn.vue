@@ -27,7 +27,7 @@ export default {
           //TODO: activate a method to alert the user about the failed function
         })
         .catch(err => {
-          console.log("got here with a mistake");
+          console.log("got here with a mistake",err);
         });
     }
   }

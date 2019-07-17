@@ -22,7 +22,8 @@ async function ajax(endpoint, method = 'get', data = null) {
     } catch (err) {
         console.log('http service got error:', err);
         if (err.response.status === 401) {
-            router.push('/');
+            console.log('http service gottttt error:');
+            router.push('/login');
         } else {
             return Promise.reject('error happend: ', err)
         }

@@ -125,9 +125,13 @@ export default {
         login(context, { user }) {
             return UserService.login(user)
                 .then((user) => {
-                    console.log('logged-in user at store after promise:', user);
-                    context.commit({ type: 'setLoggedUser', user });
-                    return user;
+                    console.log('i am user obj userStore', user)
+                    if (!user) throw 'no user found'
+                    else {
+                        console.log('logged-in user at store after promise:', user);
+                        context.commit({ type: 'setLoggedUser', user });
+                        return user;
+                    }
                 })
         },
 

@@ -35,8 +35,9 @@ function remove(userId) {
 function login(userCred) { // TODO: add try and catch
     console.log('user cred at User Service:', userCred)
     return HttpService.ajax('auth/login', 'post', userCred)
-        .then(res => console.log('login at front-user-service after promise : ', res))
-        .catch(err => console.log('login error at front-user-service after promise: ', err))
+        .then(res => res)
+        .catch(err => err)
+
 }
 
 function signup(userCred) {
