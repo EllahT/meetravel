@@ -2,13 +2,23 @@
   font-size: 16px;
   font-family: "latobold";
   text-transform: uppercase;
-  width: 300px;
   letter-spacing: 0.1rem;
-  padding: 10px;
+  padding: 10px 15px;
   border: 1px solid rgba(44, 44, 44, 0.63);
   text-shadow: 0.5px 0.5px 0.8px black;
   border-radius: 25px;
   opacity: 0.95;
+  margin: 5px;
+}
+
+.btn.small {
+  font-family: "latolight";
+  font-size: 1rem;
+}
+
+.btn.dark {
+  background-color: rgba(0, 0, 0, 0.575);
+  color: white;
 }
 
 .btn.primary {

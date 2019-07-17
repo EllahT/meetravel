@@ -108,6 +108,8 @@ async function convertRequestToFriendship(request) {
 }
 
 async function addRequest(request) {
+    var id = ObjectId(request.resipient.userId);
+    console.log(id);
     const collection = await dbService.getCollection('friendships')
     try {
         await collection.insertOne(request);

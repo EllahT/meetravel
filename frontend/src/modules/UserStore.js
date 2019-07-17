@@ -196,7 +196,7 @@ export default {
                 });
         },
 
-        updateCurrLocation(context, { location }) {
+        updateLocation(context, { location }) {
             context.commit({ type: 'updateLocation', location })
         },
 
