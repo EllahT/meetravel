@@ -2,8 +2,7 @@
   <section class="homepage lato-light">
     <div class="container">
       <h1 class="logo">
-        Mee
-        <span class="Lato-bold">Travel</span>
+        Mee<span class="Lato-bold">Travel</span>
       </h1>
       <h4 class>Meet people. Have an adventure.</h4>
       <div class="app-presenting">
