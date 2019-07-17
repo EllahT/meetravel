@@ -14,7 +14,7 @@ async function login(firstName, password) {
         // console.log('line 14 auth BE', match);
     if (!match) return Promise.reject('Invalid first name or password')
     delete user.password;
-    console.log('user at auth-service BE:', user);
+    // console.log('user at auth-service BE:', user);
     return user;
 }
 

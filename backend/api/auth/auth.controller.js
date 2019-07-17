@@ -2,12 +2,12 @@ const authService = require('./auth.service')
 const logger = require('../../services/logger.service')
 
 async function login(req, res) {
-    console.log('auth-controller request: ', req.body);
+    // console.log('auth-controller request: ', req.body);
 
     const { firstName, password } = req.body
     try {
         const user = await authService.login(firstName, password)
-        console.log('user at auth-controller TRY: ', user);
+        // console.log('user at auth-controller TRY: ', user);
 
         req.session.user = user;
         res.json(user)
@@ -39,8 +39,13 @@ async function logout(req, res) {
     }
 }
 
+async function logged(req, res) {
+    res.send(req.session.user);
+}
+
 module.exports = {
     login,
     signup,
-    logout
+    logout,
+    logged
 }

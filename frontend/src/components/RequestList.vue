@@ -9,7 +9,7 @@ import RequestPreview from "@/components/RequestPreview.vue";
 
 export default {
   created() {
-    this.$store.dispatch({type: 'loadRequests'});
+    this.$store.dispatch({type: 'loadRequests'})
   },
 
   computed: {

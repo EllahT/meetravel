@@ -10,7 +10,7 @@
     <router-link to="/login">LogIn</router-link> | 
     <router-link to="/signup">SignUp</router-link> |
     <button @click="doLogOut">LogOut</button>
-    <div v-if="Object.keys(username).length">
+    <div v-if="(username !== null)">
       Signed: {{username}}
     </div>
   </header>
@@ -43,7 +43,8 @@ export default {
   computed: {
     username() {
       const logged = this.$store.getters.loggedInUser;
-      return (Object.keys(logged).length)? logged.name.first : '';
+      if (logged === null) return null;
+      return (Object.keys(logged).length)? logged.name.first : null;
     }
   }
 }

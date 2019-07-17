@@ -14,6 +14,10 @@
       }
     },
 
+    created() {
+      this.$store.dispatch({type: 'loadUserOrDefaultUser'})
+    },
+
     methods: {
       toggleNav(val) {
         this.showNav = val;
