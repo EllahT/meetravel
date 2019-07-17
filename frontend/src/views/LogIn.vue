@@ -1,10 +1,13 @@
 <template>
   <section class="log-in">
-    <form @submit.prevent="doLogIn">
-      <input type="text" v-model="user.firstName" placeholder="Your first name" />
-      <input type="password" v-model="user.password" placeholder="Your password" />
-      <button>Login</button>
-    </form>
+        <v-form @submit.prevent="doLogIn">
+            <v-text-field prepend-icon="person" v-model="user.firstName" label="First name" type="text"></v-text-field>
+            <v-text-field prepend-icon="lock" v-model="user.password" label="Password" type="password"></v-text-field>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <button class="btn" type="submit">LogIn</button>
+              </v-card-actions>
+        </v-form>
   </section>
 </template>
 
@@ -19,7 +22,7 @@ export default {
   },
   methods: {
     doLogIn() {
-      // console.log('Login', this.user)
+      console.log('Login', this.user)
       this.$store
         .dispatch({ type: "login", user: this.user })
         .then(user => {

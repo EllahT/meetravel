@@ -10,10 +10,10 @@
       </div>
     </div>
     <section class="locations-container Lato-bold">
-      <h2>Top Locations</h2>
-      <button class="btn small primary-dark" @click="setLocation(32.109333, 34.855499, 'Tel Aviv, Israel')">Tel Aviv</button>
-      <button class="btn small primary-dark"  @click="setLocation(35.652832, 139.839478, 'Tokyo, Japan')">Tokyo</button>
-      <button class="btn small primary-dark" @click="setLocation(40.73061, -73.935242, 'New York, USA')">New York</button>
+      <h4>TOP LOCATIONS:</h4>
+      <button class="btn small flat" @click="setLocation(32.109333, 34.855499)">Tel Aviv</button>
+      <button class="btn small flat"  @click="setLocation(35.652832, 139.839478)">Tokyo</button>
+      <button class="btn small flat" @click="setLocation(40.73061, -73.935242)">New York</button>
 
       <h4>OR</h4>
       <div class="btn primary-dark shiny" @click="getUserLocation">
@@ -37,26 +37,42 @@ export default {
 
   data() {
     return {
-      location: { lat: null, lng: null, address: null }
+      location: { lat: null, lng: null } ,
+      address: null,
     };
   },
 
+  computed: {
+    isAddress() {
+      return this.address === null;
+    }
+  },
+
   methods: {
-    getUserLocation() {
-      GeocodeService.getPosition().then(loc => {
-        this.location.lat = loc.coords.latitude;
-        this.location.lng = loc.coords.longitude;
-        GeocodeService.getCityByLatLng(this.location.lat, this.location.lng)
-        .then(address => {
-          this.location.address = address;
-          this.goToUsers();
+    changedLoggedUser() {
+      this.$store
+        .dispatch({
+          type: "login",
+          username: this.username,
+          password: this.password
         })
+        .then(() => {
+          this.username = "";
+          this.password = "";
+        });
+    },
+
+    getUserLocation() {
+      GeocodeService.getcoordsition().then(loc => {
+        console.log(loc);
+        this.location.lat = loc.coords.lat;
+        this.location.lng = loc.coords.lng;
+       // this.goToUsers();
       });
     },
-    setLocation(lat, lng, address) {
+    setLocation(lat, lng) {
       this.location.lat = lat;
       this.location.lng = lng;
-      this.location.address = address;
       this.goToUsers();
     },
     goToUsers() {
