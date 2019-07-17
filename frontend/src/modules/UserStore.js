@@ -4,12 +4,54 @@ export default {
     strict: true,
     state: {
         users: [],
-        loggedUser: { _id: 1, name: "Puki", trips: ["first trip", "sec trip"] },
-        likes: [],
-        matches: [],
+        loggedUser:  { "_id" : 'ObjectId("5d2c8782a896e921905c63c9")',
+        "name" : {
+            "first" : "Tabatha",
+            "last" : "Ewing"
+        },
+        "password" : "$2b$10$fHwEROYj/XCBjpJS4W2hRO.7gvOgDvaF3iySuwfJVZfURm29kKRVK",
+        "isAdmin" : false,
+        "email" : "tabatha.ewing@undefined.biz",
+        "gender" : "woman",
+        "profileImg" : "https://media.istockphoto.com/photos/laughing-woman-in-park-picture-id658617510?k=6&m=658617510&s=612x612&w=0&h=Ycl_BBwWQop7Wj1wWG3nyQqB5glPxRuqmb02WpKp0ao=",
+        "galleryImgs" : [ 
+            {
+                "picture" : "http://placehold.it/32x32"
+            }, 
+            {
+                "picture" : "http://placehold.it/32x32"
+            }, 
+            {
+                "picture" : "http://placehold.it/32x32"
+            }
+        ],
+        "birthDate" : 1992,
+        "description" : "Ex qui ex commodo dolore consectetur ipsum dolor do elit. Est occaecat elit aliquip dolor Lorem non. Qui veniam culpa qui magna magna aliqua qui fugiat duis. Aliquip magna fugiat sint nulla do pariatur voluptate elit elit id reprehenderit aliquip Lorem. Fugiat nulla irure deserunt laboris aliqua eu veniam cillum laboris officia ex voluptate.",
+        "registered" : "Saturday, January 14, 2017 5:29 AM",
+        "lastConnected" : "Friday, November 14, 2014 6:03 AM",
+        "residance" : {
+            "city" : "Tel Aviv",
+            "country" : "Jordan"
+        },
+        "travelType" : "hike",
+        "location" : {
+            "lat" : 35.6866331237007,
+            "lng" : 139.775210100684
+        },
+        "bucketList" : [ 
+            "Mexico"
+        ]},
+        
         notifications: [],
-        filters: {},
-        isLoadingUsers: false
+        filterBy: {
+            distance: 20,
+            minAge: 20,
+            maxAge: 80,
+            gender: 'all',
+            name: null
+        },
+        isLoadingUsers: false,
+        location: {lat: 32.059391999999995, lng: 34.8512256, address: 'Kiryat Ono, Israel'}
     },
 
     getters: {
@@ -29,25 +71,17 @@ export default {
             return state.loggedInUser.isAdmin;
         },
 
-        matchs(state) {
-            return state.matches;
-        },
-
-        likes(state) {
-            return state.likes;
-        },
-
-        filters(state) {
-            return state.filters;
-        },
-
-        notifications(state) {
-            return state.notifications;
+        filterBy(state) {
+            return state.filterBy;
         },
 
         userById: state => id => {
             return state.users.find(user => user._id === id);
         },
+
+        location(state) {
+            return state.location;
+        }
     },
 
     mutations: {
@@ -55,12 +89,8 @@ export default {
             state.loggedUser = user;
         },
 
-        setUsers(state, { users }) {
-            state.users = users;
-        },
-
-        clearLoggedUser(state) {
-            state.loggedUser = null;
+        setUsers(state, {filteredUsers}) {
+            state.users = filteredUsers;
         },
 
         updateUser(state, { updatedUser }) {
@@ -77,13 +107,17 @@ export default {
             state.users.splice(idx, 1);
         },
 
-        setFilter(state, { filters }) {
-            state.filters = JSON.parse(JSON.stringify(filters));
+        setFilter(state, { filterBy }) {
+            state.filterBy = JSON.parse(JSON.stringify(filterBy));
         },
 
-        addLike(state, { _id, username }) {
-            state.likes.push({ _id, username });
-        }
+        setFilterByName(state, {filterByName}) {
+            state.filterBy.name = filterByName;
+        },
+
+        updateLocation(state, {location}) {
+            state.location = location;
+          }
     },
 
     actions: {
@@ -94,10 +128,10 @@ export default {
             })
         },
 
-        signup(context, { userData }) {
-            return UserService.add(userData)
+        signup(context, { user }) {
+            return UserService.add(user)
                 .then((addedUser) => {
-                    context.commit({ type: 'addUser', addedUser });
+                    context.commit({ type: 'addUser', user: addedUser });
                     return addedUser;
                 })
         },
@@ -112,43 +146,28 @@ export default {
         updateUser(context, { user }) {
             return UserService.update(user)
                 .then(updatedUser => {
-                    console.log('added user at store', updatedUser);
+                    console.log('updated user at store', updatedUser);
                     context.commit({ type: 'updateUser', user: updatedUser })
                     return updatedUser
                 })
         },
 
-        saveUser(context, { user }) {
-            return UserService.add(user)
-                .then(addedUser => {
-                    console.log('added user at store', addedUser);
-                    context.commit({ type: 'addUser', user: addedUser })
-                    return addedUser
-                })
-        },
-
         logout(context) {
             return UserService.logout().then(() => {
-                context.commit({ type: 'clearLoggedUser' });
+                context.commit({ type: 'setLoggedUser', user: null });
                 return {};
             })
         },
 
-        likeUser(context, { userId }) {
-            UserService.getById(userId)
-                .then(({ _id, username }) => {
-                    context.commit({ type: 'addLike' }, { _id, username });
-                })
+        setFilter(context, { filterBy }) {
+            // context.commit({ type: "setLoadingUsers", val: true });
+            context.commit({ type: "setFilter", filterBy });
+            context.dispatch({type: 'loadUsers'});
         },
 
-        setFilter(context, { filters }) {
-            context.commit({ type: "setLoadingUsers", val: true });
-            context.commit({ type: "setFilter", filters });
-            UserService.query(filters).then(filteredUsers => {
-                context.commit({ type: "setUsers", filteredUsers });
-                context.commit({ type: "setLoadingUsers", val: false });
-            });
-
+        setFilterByName(context, {filterByName}) {
+            context.commit({type: 'setFilterByName', filterByName});
+            context.dispatch({type: 'loadUsers'});
         },
 
         updateProfile(context, { userData }) {
@@ -159,11 +178,15 @@ export default {
         },
 
         loadUsers(context) {
-            return UserService.query()
-                .then(users => {
-                    context.commit({ type: "setUsers", users });
-                    return users;
+            return UserService.query(context.state.filterBy, context.state.location)
+                .then(filteredUsers => {
+                    context.commit({ type: "setUsers", filteredUsers });
+                    return filteredUsers;
                 });
+        },
+
+        updateCurrLocation(context, {location}) {
+            context.commit({type: 'updateLocation', location})
         }
     }
 }

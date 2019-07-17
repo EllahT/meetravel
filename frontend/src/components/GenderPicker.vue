@@ -1,10 +1,10 @@
 <template>
-    <div class="picker" v-if="genders.length">
-        <button @click.prevent="toggleShowDropdownContent" class="dropbtn">{{value.display}}▼</button>
+    <div class="picker">
+        <button @click.prevent="toggleShowDropdownContent" class="dropbtn">{{display}}▼</button>
         <ul v-if="showContent" class="dropdown-content">
-            <li v-for="gender in genders" :key="gender.type"
-            @click.prevent="emitChangedValue(gender)" 
-            class="dropdown-item"> {{gender.display}}
+            <li v-for="gender in Object.entries(genders)" :key="gender[0]"
+            @click.prevent="emitChangedValue(gender[0])" 
+            class="dropdown-item"> {{gender[1]}}
             </li>
         </ul>
     </div>
@@ -15,7 +15,7 @@
     export default {
         props: {
             value: {
-                type: Object,
+                type: String,
                 require: true
             },
 
@@ -28,15 +28,13 @@
         data() {
             return {
                 showContent: false,
-                genders: []
+                genders: {woman: '👩 Woman', man: '👨 Man', other: 'Other'},
             }
         },
 
         created() {
-            if (this.type === 'picker') {
-                this.genders = this.$store.getters.genderTypes;
-            } else {
-                this.genders = this.$store.getters.gendersToFilter;
+            if (this.type !== 'picker') {
+                this.genders.all= 'All';
             }
         },
 
@@ -48,6 +46,12 @@
 
             toggleShowDropdownContent() {
                 this.showContent = !this.showContent;
+            }
+        },
+
+        computed: {
+            display() {
+                return this.genders[this.value];
             }
         }
     }
@@ -72,6 +76,7 @@
   z-index: 1;
   padding: 0;
   margin: 0;
+  list-style: none;
 }
 
 .dropdown-item {

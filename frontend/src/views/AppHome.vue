@@ -1,15 +1,16 @@
 <template>
-  <div>
+  <div class="app-home">
       <div class="top-bar">
-        <user-filter :currFilter="filters" @filterChanged="setFilter"></user-filter>
+        <h1 v-if="users">There are {{users.length}} Fellow Travelers in {{location}}</h1>
       </div>
-      <user-preview :user="users[currUserIdx]" @nav="navUsers"></user-preview>
+        <input type="text" placeholder="Search travelers by name" v-model="filterByName" @input="setFilter"/>
+      
+      <user-preview  v-if="users" :user="users[currUserIdx]" @nav="navUsers" @request="sendRequest"></user-preview>
       <!-- <img v-if="loadingUsers" src="@/assets/loading.gif"/> -->
   </div>
 </template>
 
 <script>
-import UserFilter from '@/components/UserFilter.vue';
 import UserPreview from '@/components/UserPreview.vue';
 
 export default {
@@ -19,7 +20,8 @@ export default {
 
   data() {
     return {
-      currUserIdx: 0
+      currUserIdx: 0,
+      filterByName: null
     }
   },
 
@@ -28,28 +30,41 @@ export default {
           return this.$store.getters.users;
       },
 
-      filters() {
-          return this.$store.getters.filters;
-      },
-
       loadingUsers() {
         return this.$store.getters.isLoadingUsers;
+      },
+
+      location() {
+        return this.$store.getters.location.address;
       }
   },
 
   methods: {
-      setFilter(filters) {
-        this.$store.dispatch({type:'setFilter', filters});
+      navUsers(diff) {
+        if ((this.currUserIdx === 0 && diff < 0) || (this.currUserIdx === this.users.length-1 && diff > 0)) return;
+        this.currUserIdx += diff;
       },
 
-      navUsers(diff) {
-        this.currUserIdx += diff;
+      setFilter() {
+        this.$store.dispatch({type: 'setFilterByName', filterByName: this.filterByName});
+      },
+
+      sendRequest(userId) {
+        console.log('sent a request to ',userId);
       }
   },
 
   components: {
-      UserFilter,
       UserPreview
   }
 };
 </script>
+
+<style>
+  .app-home {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+</style>

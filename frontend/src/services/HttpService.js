@@ -1,10 +1,11 @@
-import router from '@/router';
+import router from '@/router'
 
-const BASE_URL = (process.env.NODE_ENV !== 'development') 
-        ? '/' 
-        : 'http://localhost:3000/';
+const BASE_URL = process.env.NODE_ENV === 'production'
+    ? '/api/'
+    : '//localhost:3000/api/'
+
+
 import Axios from 'axios';
-
 var axios = Axios.create({
     withCredentials: true
 });
@@ -24,7 +25,6 @@ async function ajax(endpoint, method='get', data=null) {
         }
     }
 }
-
 
 export default {
     ajax

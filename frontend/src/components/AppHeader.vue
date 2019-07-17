@@ -3,9 +3,11 @@
     <v-toolbar-side-icon @click="sideNav = !sideNav"></v-toolbar-side-icon>
     <router-link to="/">Home</router-link>|
     <router-link to="/about">About</router-link>|
-    <router-link to="/users">Find Travelers</router-link>|
+    <router-link to="/user">Find Travelers</router-link>|
     <router-link to="/profile">Profile</router-link> | 
     <router-link to="/admin">Admin</router-link> | 
+    <router-link to="/filterTravelers">Filter</router-link> | 
+    <router-link to="/inbox">Inbox</router-link> 
   </header>
 </template>
 

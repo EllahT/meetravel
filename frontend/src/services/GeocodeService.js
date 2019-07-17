@@ -1,3 +1,5 @@
+// import HttpService from "./HttpService";
+
 export default {
     getCityByLatLng,
     getLatLngByAddress,
@@ -34,3 +36,4 @@ function getPosition() {
         navigator.geolocation.getCurrentPosition(resolve, reject)
     })
 }
+

@@ -12,6 +12,7 @@
       
     </div>
     <section class="locations-container Lato-bold">
+      <h1>Top Locations: </h1>
        <v-select 
        class="select"
            @change="goToUsers"
@@ -29,6 +30,8 @@
           <v-icon color="white" class="px-1">location_on</v-icon>Get My Location
           <span class="shiny"></span>
         </div>
+ 
+</template>
 
         <h4>OR</h4>
      
@@ -74,6 +77,12 @@ export default {
     }
   },
 
+  computed: {
+    isAddress() {
+      return (this.address === null);
+    }
+  },
+
   methods: {
     changedLoggedUser() {
       this.$store
@@ -94,7 +103,9 @@ export default {
         this.goToUsers()
       });
     },
-
+    setLocation() {
+      
+    }
     goToUsers() {
       this.$router.push("/users");
     }

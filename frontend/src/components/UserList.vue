@@ -3,7 +3,7 @@
       <ul class="users-list">
           <h3>Users list:</h3>
           <user-preview v-for="user in users" :type="type"
-          :user="user" :key="user._id" @liked="addLike"></user-preview>
+          :user="user" :key="user._id"></user-preview>
       </ul>
   </div>
 </template>
@@ -24,13 +24,6 @@ export default {
       }
   },
 
-
-  methods: {
-      addLike(userId) {
-          this.$store.dispatch({type: 'likeUser', userId})
-      }
-  },
-
   components: {
       UserPreview
   }
@@ -39,7 +32,8 @@ export default {
 
 <style>
 .users-list {
-    margin-top: 20px
+    margin-top: 20px;
+    border: none;
 }
     
 </style>
