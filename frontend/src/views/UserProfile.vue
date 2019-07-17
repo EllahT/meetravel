@@ -21,6 +21,7 @@
             <v-icon color="white">people</v-icon>Friends
           </router-link>
         </div>
+      </div>
     </div>
     <div class="user-info">
       <div>
@@ -32,7 +33,7 @@
       <div>
         <h2>About Me<v-icon>edit</v-icon></h2>
         <div class="flex">
-        <p>{{user.description}}</p>
+          <p>{{user.description}}</p>
         </div>
       </div>
     </div>
