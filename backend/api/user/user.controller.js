@@ -9,8 +9,6 @@ const getUsers = async (req, res) => {
     try {
         const filterBy = req.query;
         const users = await userService.query(filterBy)
-        console.log('got here for test');
-        
         res.send(users);
     
     } catch (err) {
