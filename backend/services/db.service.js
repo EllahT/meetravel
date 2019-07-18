@@ -21,7 +21,6 @@ async function connect() {
     }
 }
 
-
 async function getCollection(collectionName) {
     const db = await connect()
     return db.collection(collectionName);

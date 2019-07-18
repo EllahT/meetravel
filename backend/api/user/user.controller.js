@@ -12,11 +12,11 @@ const getUsers = async (req, res) => {
         res.send(users);
     
     } catch (err) {
-        logger.error('[GetUsers] ' + err)
-        res.status(500).send({ error: 'could not get users from DB, please try later' })
+        console.log('got error at "get users" function with',err);
         
-    }
-    
+        logger.error('[GetUsers] ' + err)
+        res.status(500).send({ error: 'could not get users from DB, please try later' })    
+    }  
 }
 
 async function deleteUser(req, res) {

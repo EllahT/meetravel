@@ -1,7 +1,7 @@
 <template>
   <section class="log-in">
         <v-form @submit.prevent="doLogIn">
-            <v-text-field prepend-icon="person" v-model="user.firstName" label="First name" type="text"></v-text-field>
+            <v-text-field prepend-icon="person" v-model="user.username" label="First name" type="text"></v-text-field>
             <v-text-field prepend-icon="lock" v-model="user.password" label="Password" type="password"></v-text-field>
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -17,7 +17,7 @@ import UserService from "../services/UserService.js";
 export default {
   data() {
     return {
-      user: { firstName: "", password: "" }
+      user: { username: "", password: "" }
     };
   },
   methods: {

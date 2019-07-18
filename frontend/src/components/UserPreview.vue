@@ -11,15 +11,18 @@
         <router-link :to="editUrl">Edit</router-link> |
         <button @click="emitDelete" title="delete user">x</button>
       </div>
-        <v-btn v-if="!isAdminPage" @click="emitRequest">Send a request</v-btn>
+        <v-btn v-if="!isAdminPage" @click="emitRequest" :disabled="possibleToRequest">{{btnText}}</v-btn>
     </div>
     <button  v-if="!isAdminPage" @click="emitNavUsers(1)"><v-icon>keyboard_arrow_right</v-icon></button>
+    <button @click="changePic">changePic</button>
   </li>
 </template>
 
 <script>
 import GecoodeService from '@/services/GeocodeService.js';
 import UtilService from '@/services/UtilService.js';
+import ImageService from '@/services/ImageService.js';
+import UserService from '@/services/UserService.js';
 
 export default {
   props: {
@@ -57,6 +60,21 @@ export default {
 
     distance() {
       return UtilService.calulateDistance(this.$store.getters.location, this.user.location);
+    },
+
+    btnText() {
+      const id = this.user._id;
+      return (this.$store.getters.isFriendById(id)) ? 'Your Friend' 
+      : (this.$store.getters.isRequestedById(id)) ? 'Pending, waiting for your approve' 
+      : (this.$store.getters.isRequesterById(id)) ? 'Pending, waiting for resipient approve'
+      : 'Send A Request';
+    },
+
+    possibleToRequest() {
+      const id = this.user._id;
+      return (!(!((this.$store.getters.isFriendById(id)) 
+      || (this.$store.getters.isRequestedById(id)) 
+      || (this.$store.getters.isRequesterById(id)))))
     }
   },
 
@@ -71,6 +89,18 @@ export default {
 
     emitNavUsers(diff) {
       this.$emit('nav', diff);
+    },
+
+    changePic() {
+      let newUser = JSON.parse(JSON.stringify(this.user));
+      ImageService.getRandomImg('travel')
+      .then(imgSrc => {
+        newUser.profileImg = imgSrc;
+        UserService.update(newUser)
+        .then(() => {
+          console.log('done')
+        })
+      })
     }
   },
 }

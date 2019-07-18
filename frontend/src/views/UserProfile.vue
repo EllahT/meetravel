@@ -1,15 +1,10 @@
 <template>
   <section class="user-profile lato-light" v-if="user">
     <div class="cover parallax">
-      <img
-        class="profile-img"
-        :src="user.profileImg"
-      />
-      <h1>{{user.name.first}} {{user.name.last}}</h1>
-      <p>City, Country</p>
-      <h3>Prefered Travel Type: {{user.travelType}}</h3>
-      <h3>Age: {{age}}</h3>
-      
+      <div class="profile-img" :style="{'background-image': `url(${require(user.profileImg)})`}"></div>
+      <h1>{{user.name.first}} {{user.name.last}}, {{age}}</h1>
+      <p>{{user.residance.city}}, {{user.residance.country}}</p>
+
       <div class="actions flex">
         <div>
           <router-link to="/profile/edit" class="flex wrap">
@@ -25,13 +20,20 @@
     </div>
     <div class="user-info">
       <div>
-        <h2>Wants to visit<v-icon >edit</v-icon></h2>
-          <ul class="flex wrap">
-            <li v-for="place in user.bucketList" :key="place" class="tag">{{place}} &times</li>
-          </ul>
+        <h2>Wants To Visit</h2>
+        <ul class="flex wrap">
+          <li v-for="place in user.bucketList" :key="place" class="tag">{{place}} &times</li>
+          <li>
+            <v-icon class="tag">add</v-icon>
+          </li>
+        </ul>
       </div>
+
       <div>
-        <h2>About me<v-icon>edit</v-icon></h2>
+        <h2>
+          About Me
+          <v-icon>edit</v-icon>
+        </h2>
         <div class="flex">
           <p>{{user.description}}</p>
         </div>
@@ -41,7 +43,7 @@
 </template>
 
 <script>
-import UtilService from '@/services/UtilService.js';
+import UtilService from "@/services/UtilService.js";
 
 export default {
   data() {
@@ -50,26 +52,23 @@ export default {
     };
   },
 
-    created() {
-        this.user = this.$store.getters.loggedInUser;
-        
-    },
+  created() {
+    this.user = this.$store.getters.loggedInUser;
+  },
 
-    computed: {
-        age() {
-        return new Date().getFullYear() - this.user.birthDate;
-        }
+  computed: {
+    age() {
+      return new Date().getFullYear() - this.user.birthDate;
+    }
   }
+};
 
-}
+//    <div>
+// <h2>Prefered Travel Type:</h2>
+// {{user.travelType}}
+//       </div>
 </script>
 
 <style lang="scss">
-.user-profile {
-  text-align: center;
 
-  img {
-    border-radius: 50%;
-  }
-}
 </style>

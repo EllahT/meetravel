@@ -14,6 +14,8 @@ export default {
 function query(filterBy, location) {
     filterBy.currLat = location.lat;
     filterBy.currLng = location.lng;
+    console.log(`user${_getQueryString(filterBy)}`);
+    
     return HttpService.ajax(`user${_getQueryString(filterBy)}`)
         .then(users => {
             return users;
@@ -33,7 +35,7 @@ function remove(userId) {
 }
 
 function login(userCred) { // TODO: add try and catch
-    console.log('user cred at User Service:', userCred)
+    // console.log('user cred at User Service:', userCred)
     return HttpService.ajax('auth/login', 'post', userCred)
         .then(res => res)
         .catch(err => err)
@@ -50,9 +52,8 @@ function logout() {
 }
 
 function getLoggedUser() {
-    return HttpService.ajax('user/logged');
+    return HttpService.ajax('auth/');
 }
-
 
 function _getQueryString(filterBy) {
     if (!filterBy) return;

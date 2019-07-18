@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
+  <v-app id="app">
     <app-header v-if="showNav"></app-header>
     <router-view @homepage="toggleNav"/>
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -12,6 +12,10 @@
       return {
         showNav: true
       }
+    },
+
+    created() {
+      this.$store.dispatch({type: 'loadUserOrDefaultUser'})
     },
 
     methods: {

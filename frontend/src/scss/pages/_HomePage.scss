@@ -1,44 +1,55 @@
 
 
 .homepage {
+  color: $primary-dark;
+  position: relative;
   text-align: center;
-  background: linear-gradient(0deg, rgba(255, 255, 255, 0.445), rgba(255, 255, 255, 0.116)),
-    url("../../public/img/background2.jpg");
+  background: linear-gradient(0deg, rgba(158, 148, 148, 0.274), rgba(100, 142, 233, 0.445)),
+    url("https://a.imge.to/2019/07/18/1EfYs.jpg");
+    
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
-  width: 100vw;
-  position: fixed;
+ 
   .select {
-    width: 280px;
+    width: 230px;
     margin: 0 auto;
-    position: relative;
-
   }
  
   h1 {
     font-size: 4rem;
+    border-bottom: 1px solid $primary-dark;
+    width: 200px;
+    margin: 0 auto;
+    font-weight: 100;
   }
   h4 {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     margin: 10px;
   }
   .container {
-    padding-top: 10vh;
+    padding: 5vh 0px;
     margin: 0 auto;
   }
   .app-presenting {
+    display: flex;
+    justify-content: center;
     margin: 40px auto;
-    color: $primary-dark;
-    opacity: 0.8;
-    font-size: 2.2rem;
+    opacity: 1;
+    font-size: 2rem;
     text-shadow: 0.2px 0.2px 1px rgba(0, 0, 0, 0.897);
+    p {
+      margin: 10px;
+    }
     
   }
 
   .locations-container {
-    position: relative;
+    position: absolute;
+    top:62vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
   .btn.primary-dark.flat {
@@ -46,9 +57,15 @@
   }
 
   .btn.primary-dark.shiny {
-    width: 250px; 
-    top:160px;
+    width: 220px; 
+    top:180px;
     left: 50%;
+    font-family: "latolight";
+    i {
+      font-size: 1.3rem;
+      opacity: 0.8;
+    }
+    
   }
  
   .card {
@@ -67,29 +84,20 @@
 
 @media screen and (max-width: 800px) {
   .homepage {
-    background-position: top right;
+    background-position: center right;
+    height: 50vh;
     p {
-      margin: 20px auto;
-      width: 200px;
-      font-size: 1.5rem;
+      font-size: 1rem;
+      margin: 5px auto; 
     }
   }
 }
 
-@media screen and (max-width: 460px) {
+@media screen and (max-width: 650px) {
   html {
     font-size: 12px;
   }
-  .homepage {
-    .app-presenting {
-      margin: 25px auto;
-    }
-    p {
-      width: 150px;
-      font-family: 'latobold';
-      margin: 5px;
-      padding: 8px;
-      text-shadow: 0.5px 0.5px 1.5px rgb(226, 226, 226);
-    }
-  }
+  
+  
+  
 }
