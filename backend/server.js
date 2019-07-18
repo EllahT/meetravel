@@ -4,7 +4,6 @@ const cors = require("cors");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
-const dbService = require('./services/db.service');
 
 const app = express();
 const http = require("http").createServer(app);
@@ -30,7 +29,7 @@ app.use(
 
 if (process.env.NODE_ENV !== "production") {
   const corsOptions = {
-    origin: ["http://localhost:8081"],
+    origin: ["http://localhost:8081", "http://localhost:8080"],
     credentials: true
   };
   app.use(cors(corsOptions));
