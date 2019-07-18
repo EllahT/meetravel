@@ -36,3 +36,10 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.log-in{
+    margin: 10px;
+    padding: 10px
+}
+</style>

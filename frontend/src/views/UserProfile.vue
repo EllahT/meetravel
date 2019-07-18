@@ -25,13 +25,13 @@
     </div>
     <div class="user-info">
       <div>
-        <h2>Wants To Visit<v-icon >edit</v-icon></h2>
+        <h2>Wants to visit<v-icon >edit</v-icon></h2>
           <ul class="flex wrap">
             <li v-for="place in user.bucketList" :key="place" class="tag">{{place}} &times</li>
           </ul>
       </div>
       <div>
-        <h2>About Me<v-icon>edit</v-icon></h2>
+        <h2>About me<v-icon>edit</v-icon></h2>
         <div class="flex">
           <p>{{user.description}}</p>
         </div>

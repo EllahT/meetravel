@@ -19,6 +19,8 @@ export default {
 
     getters: {
         loggedInUser(state) {
+            console.log('from store', state.loggedUser);
+
             return state.loggedUser;
         },
 

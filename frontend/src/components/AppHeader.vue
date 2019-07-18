@@ -10,7 +10,7 @@
     <router-link to="/login">LogIn</router-link> | 
     <router-link to="/signup">SignUp</router-link> |
     <button @click="doLogOut">LogOut</button>
-    <div v-if="Object.keys(username).length">
+    <div v-if="Object.keys(username).length" class="signed">
       Signed: {{username}}
     </div>
   </header>
@@ -52,6 +52,10 @@ export default {
 <style scoped>
 .v-navigation-drawer {
   transition: none !important;
+}
+
+.signed{
+  margin-left: 20px
 }
 
 .lightbox {
