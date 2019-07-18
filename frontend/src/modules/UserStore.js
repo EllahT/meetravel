@@ -164,7 +164,7 @@ export default {
             return UserService.getLoggedUser() 
             .then(user => {
                 (user)? context.commit({type: 'setLoggedUser',user})
-                :context.dispatch({ type: "login", user: { firstName: "Tabatha", password: "tabatha" } })
+                :context.dispatch({ type: "login", user: { username: "TabathaEwing", password: "tabathaewing" } })
                 .then(() => {
                     return {};
                 })
