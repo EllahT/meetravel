@@ -2,25 +2,33 @@ import socket from '../services/SocketService.js'
 
 export default {
     state: {
-        msgs: []
+        notifications: []
     },
     getters: {
-        msgs(state) {
-            return state.msgs; 
+        notifications(state) {
+            return state.notifications; 
         }
     },
     mutations: {
-        addMsg(state, {msg}) {
-            state.msgs.push(msg);
-        }
+        addNotification(state, {notification}) {
+            state.notifications.push(notification);
+        },
+
     },
     actions: {
-        chatJoin({commit}) {
-            socket.emit('chat join', 'Y')
-            socket.on('chat newMsg', msg=>commit({type: 'addMsg', msg }));
+        appLogin({commit, rootGetters}) {
+            socket.emit('app login', {username: rootGetters.loggedInUser.username, userId: rootGetters.loggedInUser._id});
+            socket.on('app newNotification', notification=>commit({type: 'addNotification', notification }));
+            socket.on('app history', notifications => {
+                notifications.forEach(notification => {
+                    commit({type: 'addNotification', notification })        
+                });
+            });  
         },
-        sendMsg(context, {txt}) {
-            socket.emit('chat msg', txt)
+
+        sendNotification(context, {notification}) {
+            console.log('got inside send notification', notification);
+            socket.emit('app notification', notification)
         },
         
     }

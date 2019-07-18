@@ -21,6 +21,7 @@ export default {
       if (this.$store.getters.loggedInUser._id === this.users[this.currUserIdx]._id) this.currUserIdx++;
       this.$store.dispatch({type: 'loadFriends'});
       this.$store.dispatch({type: 'loadRequests'});
+      this.$store.dispatch({type: 'loadRequestsSent'});
     })
     
   },

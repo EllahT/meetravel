@@ -22,6 +22,12 @@ async function getRequestsByUser(req, res) {
     res.send(requests);
 }
 
+async function getRequestsSentByUser(req, res) {
+    const userId = req.params.userId;
+    const requests = await friendService.getUserSentRequests(userId);
+    res.send(requests);
+}
+
 async function deleteFriendship(req, res) {
     await friendService.remove(req.params.id)
     res.send({})
@@ -37,8 +43,13 @@ async function convertRequest(req, res) {
 
 async function addRequest(req, res) {
     const request = req.body;
-    const requestWithId = await friendService.addRequest(request);
-    res.send({requestWithId});
+    try {
+        const requestWithId = await friendService.addRequest(request);
+        res.send(requestWithId);
+    }
+    catch(err) {
+        res.status(500).send(err);
+    }   
 }
 
 module.exports = {
@@ -48,5 +59,6 @@ module.exports = {
     addRequest,
     getFriendshipsByUser,
     getRequestsByUser,
-    convertRequest
+    convertRequest,
+    getRequestsSentByUser
 }

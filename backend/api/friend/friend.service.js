@@ -10,6 +10,7 @@ module.exports = {
     addRequest,
     getUserFriendships,
     getUserRequests,
+    getUserSentRequests,
     convertRequestToFriendship
 }
 
@@ -45,6 +46,23 @@ async function getUserRequests(userId) {
     }
 }
 
+async function getUserSentRequests(userId) {
+    const collection = await dbService.getCollection('friendships')
+    
+    try {
+        const sentRequests = await collection.find( 
+            { status: 'pending', "sender.userId": userId}).toArray();
+
+        return sentRequests;
+    } catch (err) {
+
+        console.log(`ERROR: cannot find requests for user ${userId}`);
+
+        throw err;
+    }
+}
+
+
 async function query() {
     const criteria = {};
 
@@ -63,8 +81,8 @@ async function query() {
 async function getById(friendshipId) {
     const collection = await dbService.getCollection('friendships')
     try {
-        const user = await collection.findOne({"_id":ObjectId(friendshipId)})
-        return user
+        const friendship = await collection.findOne({"_id":ObjectId(friendshipId)});
+        return friendship;
     } catch (err) {
         console.log(`ERROR: while finding friendship ${friendshipId}`)
         throw err;
@@ -110,6 +128,8 @@ async function convertRequestToFriendship(request) {
 async function addRequest(request) {
     const collection = await dbService.getCollection('friendships')
     try {
+        const friendship = await collection.findOne({$or: [ {"resipient.userId": request.sender.userId, "sender.userId": request.resipient.userId}, {"sender.userId": request.sender.userId, "resipient.userId": request.resipient.userId} ]});
+        if (friendship) throw 'ERROR: already friends or request already sent!';
         await collection.insertOne(request);
         return request;
     } catch (err) {

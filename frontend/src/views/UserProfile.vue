@@ -1,7 +1,7 @@
 <template>
   <section class="user-profile lato-light" v-if="user">
     <div class="cover parallax">
-      <div class="profile-img" :style="{'background-image': `url(${require(user.profileImg)})`}"></div>
+      <div class="profile-img"><img :src="user.profileImg"/></div>
       <h1>{{user.name.first}} {{user.name.last}}, {{age}}</h1>
       <p>{{user.residance.city}}, {{user.residance.country}}</p>
 
