@@ -54,6 +54,7 @@ export default {
         },
 
         updateUser(state, { updatedUser }) {
+            console.log('state & updated user at store mutation', state, updatedUser);
             const idx = state.users.findIndex(user => user._id === updatedUser._id);
             state.users.splice(idx, 1, updatedUser);
         },
@@ -114,7 +115,7 @@ export default {
         updateUser(context, { user }) {
             return UserService.update(user)
                 .then(updatedUser => {
-                    console.log('updated user at store', updatedUser);
+                    console.log('updated user at store action after promise', updatedUser);
                     context.commit({ type: 'updateUser', user: updatedUser })
                     return updatedUser
                 })
@@ -147,7 +148,7 @@ export default {
 
         loadUsers(context) {
             console.log('at loadUsers in store');
-            
+
             return UserService.query(context.state.filterBy, context.state.location)
                 .then(filteredUsers => {
                     context.commit({ type: "setUsers", filteredUsers });
@@ -165,15 +166,14 @@ export default {
         },
 
         loadUserOrDefaultUser(context) {
-            return UserService.getLoggedUser() 
-            .then(user => {
-                (user)? context.commit({type: 'setLoggedUser',user})
-                :context.dispatch({ type: "login", user: { username: "TabathaEwing", password: "tabathaewing" } })
-                .then(() => {
-                    return {};
+            return UserService.getLoggedUser()
+                .then(user => {
+                    (user) ? context.commit({ type: 'setLoggedUser', user }): context.dispatch({ type: "login", user: { username: "TabathaEwing", password: "tabathaewing" } })
+                        .then(() => {
+                            return {};
+                        })
                 })
-            })
-            
+
         }
     }
 }

@@ -1,7 +1,7 @@
 <template>
   <section class="user-profile lato-light" v-if="user">
     <div class="cover parallax">
-      <div class="profile-img" :style="{'background-image': `url(${require(user.profileImg)})`}"></div>
+      <!-- <div class="profile-img" :style="{'background-image': `url(${require(user.profileImg)})`}"></div> -->
       <h1>{{user.name.first}} {{user.name.last}}, {{age}}</h1>
       <p>{{user.residance.city}}, {{user.residance.country}}</p>
 
@@ -20,7 +20,7 @@
     </div>
     <div class="user-info">
       <div>
-        <h2>Wants To Visit</h2>
+        <h2>Wants to visit</h2>
         <ul class="flex wrap">
           <li v-for="place in user.bucketList" :key="place" class="tag">{{place}} &times</li>
           <li>
@@ -30,25 +30,55 @@
       </div>
 
       <div>
-        <h2>
-          About Me
-          <v-icon>edit</v-icon>
-        </h2>
+    <v-layout row justify-center>
+      <v-dialog v-model="dialog" persistent max-width="600px">
+        <template v-slot:activator="{ on }">
+          <h2>
+          About me
+          <v-icon v-on="on">edit</v-icon>
+           </h2>
+        </template>
+        <v-card>
+          <v-card-title>
+            <span class="headline">Edit about me:</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container grid-list-md>
+              <v-layout wrap>
+                <v-flex>
+                  <v-textarea 
+                  hint="edit info"
+                  v-model="user.description"
+                  ></v-textarea>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" flat @click="editInfo(); dialog = false">Save</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-layout>
+
         <div class="flex">
           <p>{{user.description}}</p>
         </div>
+        
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import UtilService from "@/services/UtilService.js";
+// import UtilService from "@/services/UtilService.js";
 
 export default {
   data() {
     return {
-      user: null
+      user: null,
+      dialog: false
     };
   },
 
@@ -60,13 +90,18 @@ export default {
     age() {
       return new Date().getFullYear() - this.user.birthDate;
     }
-  }
-};
+  },
+    methods: {
+      editInfo (){
+      this.$store.dispatch({ type: "updateUser", user: this.user }).then(() => {
+        console.log("updated user");
+      });
+    },
+        
+      }
+    
+}
 
-//    <div>
-// <h2>Prefered Travel Type:</h2>
-// {{user.travelType}}
-//       </div>
 </script>
 
 <style lang="scss">

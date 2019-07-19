@@ -10,7 +10,7 @@
     <router-link to="/login">LogIn</router-link> | 
     <router-link to="/signup">SignUp</router-link> |
     <button @click="doLogOut">LogOut</button>
-    <div v-if="(username !== null)">
+    <div class="signed" v-if="(username !== null)">
       Signed: {{username}}
     </div>
   </header>
