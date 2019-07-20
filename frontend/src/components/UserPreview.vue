@@ -66,7 +66,7 @@ export default {
       const id = this.user._id;
       return (this.$store.getters.isFriendById(id)) ? 'Your Friend' 
       : (this.$store.getters.isRequestedById(id)) ? 'Pending, waiting for your approve' 
-      : (this.$store.getters.isRequesterById(id)) ? 'Pending, waiting for resipient approve'
+      : (this.$store.getters.isRequesterById(id)) ? 'Pending, waiting for recipient approve'
       : 'Send A Request';
     },
 

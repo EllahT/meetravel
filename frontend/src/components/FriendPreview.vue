@@ -9,7 +9,7 @@
 
 <script>
 
-import moment from 'moment'
+import moment from 'moment';
 
 export default {
   props: {
@@ -26,7 +26,7 @@ export default {
 
     friendImg() {
       const friendId = (this.$store.getters.loggedInUser._id.includes(this.friendship.sender.userId))? 
-          this.friendship.resipient.userId :
+          this.friendship.recipient.userId :
           this.friendship.sender.userId ;
       let friend = (this.$store.getters.userById(friendId));
       if (friend) {
@@ -45,13 +45,13 @@ export default {
 
     friendName() {
       return (this.$store.getters.loggedInUser._id.includes(this.friendship.sender.userId))? 
-      this.friendship.resipient.name :
+      this.friendship.recipient.name :
       this.friendship.sender.name ;
     },
 
     friendUrl() {
       const url = (this.$store.getters.loggedInUser._id.includes(this.friendship.sender.userId))? 
-      this.friendship.resipient.userId :
+      this.friendship.recipient.userId :
       this.friendship.sender.userId ;
       return `/user/${url}`
     },

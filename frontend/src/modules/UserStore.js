@@ -1,11 +1,12 @@
-import UserService from '../services/UserService'
+import UserService from '../services/UserService';
+import socket from '../services/SocketService.js';
+import Vue from 'vue';
 
 export default {
     strict: true,
     state: {
         users: [],
         loggedUser: null,
-        notifications: [],
         filterBy: {
             distance: 20,
             minAge: 20,
@@ -18,15 +19,15 @@ export default {
 
     getters: {
         loggedInUser(state) {
-            return state.loggedUser;
+            return state.loggedUser || {};
         },
 
         users(state) {
             return state.users;
         },
 
-        isAdmin(state) {
-            return state.loggedInUser.isAdmin;
+        isAdmin(state, getters) {
+            return !!(getters.loggedInUser.isAdmin);
         },
 
         filterBy(state) {
@@ -39,6 +40,14 @@ export default {
 
         location(state) {
             return state.location;
+        },
+
+        notifications(state, getters) {
+            return getters.loggedInUser.notifications;
+        },
+
+        unreadNotifications(state) {
+            return state.loggedUser.notifications.filter(notification => !notification.readStatus).length;
         }
     },
 
@@ -75,6 +84,14 @@ export default {
 
         updateLocation(state, { location }) {
             state.location = location;
+        },
+
+        addNotification(state, {notification}) {
+            state.loggedUser.notifications.push(notification);
+        },
+
+        updateReadNotification(state, {index}) {
+            state.loggedUser.notifications[index].readStatus = true;
         }
     },
 
@@ -86,6 +103,7 @@ export default {
                     else {
                         context.commit({ type: 'setLoggedUser', user });
                         context.dispatch({type: 'appLogin', root: true });
+                        context.dispatch({type: 'loadFrienships'});
                         return user;
                     }
                 })
@@ -163,12 +181,26 @@ export default {
                     context.commit({type: 'setLoggedUser',user})
                 } else {
                    context.dispatch({ type: "login", user: { username: "TabathaEwing", password: "tabathaewing" } })
-                    .then(() => {
-                        return {};
-                    })
                 }
+            })   
+        },
+        
+        appLogin({getters, commit}) {
+            socket.emit('app login', {username: getters.loggedInUser.username, userId: getters.loggedInUser._id});
+            socket.on('app newNotification', notification => { 
+                console.log("before", notification);
+                commit({type: 'addNotification', notification });
+                console.log("after", notification);
+            });
+        },
+
+        readNotification(context, {index}) {
+            let user = context.state.loggedUser;
+            user.notifications[index].readStatus = true;
+            UserService.update(user)
+            .then(() => {
+                context.commit({type: 'updateReadNotification', index});
             })
-            
         }
     }
 }

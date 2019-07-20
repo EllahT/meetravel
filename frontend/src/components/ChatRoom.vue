@@ -1,18 +1,15 @@
 <template>
-  <div class="toy-chat-box">
+  <div class="chat-box">
     <header>
       <slot name="box-header"></slot>
     </header>
     <slot></slot>
     <div>
       <ul ref="msgsList">
-        <li v-for="(chat, i) in chats" :key="i">{{chat.from}}: {{chat.txt}}</li>
+        <li v-for="(message, i) in messages" :key="i">{{message.from}}: {{message.txt}}</li>
       </ul>
-      <input type="text" v-model="txt" @change="sendMsg" />
+      <input type="text" v-model="txt" @change="sendMessage" placeholder="say something"/>
     </div>
-    <footer>
-      <slot name="box-footer"></slot>
-    </footer>
   </div>
 </template>
 
@@ -23,47 +20,46 @@ export default {
   data() {
     return {
       txt: "",
-      chats: [],
+      messages: [],
       socket: io('localhost:3000')
     };
   },
 
-  props: ['matchId'],
+  props: ['friendshipId', 'history'],
 
   created() {
-    this.socket.emit('chat join', {user: this.user, matchId: this.matchId});
+    this.history.forEach(msg => {
+      this.messages.push(msg);
+    })
+
+    this.socket.emit('chat join', {user: this.user, friendshipId: this.friendshipId});
+    
     this.socket.on('chat newMsg', (msg)=>{
-        this.chats.push(msg);
+        this.messages.push(msg);
         setTimeout(() => {
             if (this.$refs.msgsList) {
                 this.$refs.msgsList.scrollTo({top: this.$refs.msgsList.scrollHeight, behavior: 'smooth'});
             }
         }, 20);
-        
-    });
-    this.socket.on('chat history', (msgs) =>{
-        msgs.forEach(msg => {
-            this.chats.push(msg);
-        });
     });
   },
 
   computed: {
       user() {
-          return this.$store.getters.loggedInUser.name;
+          return this.$store.getters.loggedInUser.username;
       }
   },
 
   methods: {
-    sendMsg() {
+    sendMessage() {
         const msg = {from: this.user, txt: this.txt};
-        this.socket.emit('chat msg', msg);
+        this.socket.emit('chat msg', {msg, friendshipId: this.friendshipId});
         this.txt = "";
     }
   },
 
   destroyed() {
-    this.chats = [];
+    this.messages = [];
   }
 };
 </script>
@@ -80,6 +76,7 @@ export default {
   box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.5);
  
   ul {
+    list-style: none;
     display: flex;
     flex-direction: column;
     padding: 5px;

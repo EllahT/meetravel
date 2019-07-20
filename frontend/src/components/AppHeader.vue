@@ -9,7 +9,9 @@
     <router-link to="/inbox">Inbox</router-link> | 
     <router-link to="/login">LogIn</router-link> | 
     <router-link to="/signup">SignUp</router-link> |
-    <button @click="doLogOut">LogOut</button>
+    <button @click="doLogOut">LogOut</button> | 
+    <button @click="toggleShowNotifications" v-if="username" :class="classByUnread">Notifications ({{unread}})</button>
+    <user-notifications v-if="showNotifications"></user-notifications>
     <div v-if="(username !== null)">
       Signed: {{username}}
     </div>
@@ -17,27 +19,35 @@
 </template>
 
 <script>
+import UserNotifications from '@/components/UserNotifications';
+
 export default {
   data: () => ({
-    sideNav: true,
-    width: 300,
-    items: [
-      { icon: "home", title: "Home", link: "/" },
-      { icon: "photo_library", title: "Trip Images", link: "" },
-      { icon: "location_on", title: "Find Nearby", link: "/users" },
-      { icon: "notifications", title: "Notification", link: "" },
-      { divider: true },
-      { icon: "account_circle", title: "Edit Profile", link: "/profile" },
-      { icon: "flight_takeoff", title: "My Trips", link: "" },
-      { icon: "how_to_reg", title: "My Matches", link: "" },
-      { icon: "info", title: "About", link: "/about" },
-      { icon: "insert_chart_outlined", title: "Admin", link: "" }
-    ]
-  }),
+      sideNav: true,
+      width: 300,
+      items: [
+        { icon: "home", title: "Home", link: "/" },
+        { icon: "photo_library", title: "Trip Images", link: "" },
+        { icon: "location_on", title: "Find Nearby", link: "/users" },
+        { icon: "notifications", title: "Notification", link: "" },
+        { divider: true },
+        { icon: "account_circle", title: "Edit Profile", link: "/profile" },
+        { icon: "flight_takeoff", title: "My Trips", link: "" },
+        { icon: "how_to_reg", title: "My Matches", link: "" },
+        { icon: "info", title: "About", link: "/about" },
+        { icon: "insert_chart_outlined", title: "Admin", link: "" }
+      ],
+      showNotifications: false
+    }),
+
   methods: {
     doLogOut() {
       this.$store.dispatch({type: 'logout'})
     },
+
+    toggleShowNotifications() {
+      this.showNotifications = !this.showNotifications;
+    }
   },
 
   computed: {
@@ -45,7 +55,19 @@ export default {
       const logged = this.$store.getters.loggedInUser;
       if (logged === null) return null;
       return (Object.keys(logged).length)? logged.name.first : null;
+    },
+
+    unread() {
+      return this.$store.getters.unreadNotifications;
+    },
+
+    classByUnread() {
+      return this.unread? 'unread' : 'allread';
     }
+  },
+
+  components: {
+    UserNotifications
   }
 }
 </script>
@@ -67,4 +89,9 @@ export default {
     transparent 72px
   );
 }
+
+.unread {
+  font-weight: bold
+}
+
 </style>

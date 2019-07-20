@@ -6,8 +6,7 @@ export default {
     state: {
         friends: [],
         requests: [],
-        requestsSent: [],
-        allFriends: []
+        requestsSent: []
     },
 
     getters: {
@@ -24,7 +23,7 @@ export default {
         },
 
         isFriendById: state => id => {
-            return  state.friends.find(friendship => (friendship.status === 'approved' && (friendship.sender.userId === id || friendship.resipient.userId === id)));
+            return  state.friends.find(friendship => (friendship.status === 'approved' && (friendship.sender.userId === id || friendship.recipient.userId === id)));
         },
 
         isRequestedById: state => id => {
@@ -32,7 +31,7 @@ export default {
         },
 
         isRequesterById: state => id => {
-            return  state.requestsSent.find(request => (request.status === 'pending' && request.resipient.userId === id));
+            return  state.requestsSent.find(request => (request.status === 'pending' && request.recipient.userId === id));
         },
     },
 
@@ -49,10 +48,6 @@ export default {
             state.requestsSent = requestsSent;
         },
 
-        setAllFriends(state, { allFriends }) {
-            state.allFriends = allFriends;
-        },
-
         updateFriend(state, { updatedFriend }) {
             const idx = state.friends.findIndex(friend => friend._id === updatedFriend._id);
             state.friends.splice(idx, 1, updatedFriend);
@@ -65,9 +60,15 @@ export default {
 
         convertRequestToFriendship(state, {newFriend}) {
             const requestIdx = state.requests.findIndex(request => request._id === newFriend._id)
-            state.requests.splice(requestIdx, 1);
+            if (requestIdx) {
+                state.requests.splice(requestIdx, 1);
+            } 
+            
             state.friends.unshift(newFriend);
-            console.log(state.requests);
+        },
+
+        addRequest(state, {newRequest}) {
+            state.requests.push(newRequest);
         }
     },
 
@@ -96,12 +97,10 @@ export default {
                 });
         },
 
-        loadAllFriendships(context) {
-            return FriendService.query()
-            .then(allFriends => {
-                context.commit({type: 'setallFriends', allFriends});
-                return allFriends;
-            })
+        loadFrienships(context) {
+            context.dispatch({type: 'loadFriends'});
+            context.dispatch({type: 'loadRequests'});
+            context.dispatch({type: 'loadRequestsSent'});
         },
 
         deleteFriend(context, { friendId }) {
@@ -121,12 +120,9 @@ export default {
         },
 
         sendRequest(context, {request}) {
-            FriendService.sendRequest(request)
-            .then((newRequest) => {
-                context.dispatch({type: 'sendNotification', 
-                notification: {type: 'request', from: context.rootGetters.loggedInUser.username, to: newRequest.resipient.userId}, 
-                root: true })
-                return newRequest;
+            return FriendService.sendRequest(request)
+            .then(newRequest => {
+                context.commit({type: 'addRequest', newRequest})
             })
         },
 
@@ -134,6 +130,13 @@ export default {
             FriendService.approveRequest(requestId)
             .then(newFriendship => {
                 context.commit({type: 'convertRequestToFriendship', newFriendship})
+            })
+        },
+
+        loadFriendshipById(context, {friendshipId}) {
+            return FriendService.getById(friendshipId)
+            .then(friendship => {
+                return friendship;
             })
         }
     }

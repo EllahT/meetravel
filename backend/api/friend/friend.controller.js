@@ -1,7 +1,7 @@
 const friendService = require('./friend.service')
 
 async function getFriendship(req, res) {
-    const friendship = await friendService.getById(req.params.id)
+    const friendship = await friendService.getById(req.params.id);
     res.send(friendship);
 }
   
@@ -35,21 +35,35 @@ async function deleteFriendship(req, res) {
 
 async function convertRequest(req, res) {
     const requestId = req.params.id;
+    const loggedUser = req.session.user;
     const request = await friendService.getById(requestId);
     request.status = 'approved';
-    await friendService.convertRequestToFriendship(request);
+    await friendService.convertRequestToFriendship(request, loggedUser);
     res.send(request);
 }
 
 async function addRequest(req, res) {
     const request = req.body;
+    const loggedUser = req.session.user;
     try {
-        const requestWithId = await friendService.addRequest(request);
+        const requestWithId = await friendService.addRequest(request, loggedUser);
         res.send(requestWithId);
     }
     catch(err) {
         res.status(500).send(err);
     }   
+}
+
+async function updateFriendship(req, res) {
+    const friendship = req.body;
+    try {
+        await friendService.update(friendship);
+        res.send({friendship});
+    }
+
+    catch(err) {
+        res.status(500).send(err);
+    }
 }
 
 module.exports = {
@@ -60,5 +74,6 @@ module.exports = {
     getFriendshipsByUser,
     getRequestsByUser,
     convertRequest,
-    getRequestsSentByUser
+    getRequestsSentByUser,
+    updateFriendship
 }

@@ -10,8 +10,9 @@ function placeInRoom(username, id) {
         room.members.find(member => member === username);
     } else {
         room = {
-            id: id,
-            members: [username]
+            id,
+            members: [username],
+            msgs: []
         };
     }
 

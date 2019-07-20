@@ -2,7 +2,6 @@
   <v-app id="app">
     <app-header v-if="showNav"></app-header>
     <router-view @homepage="toggleNav" />
-    {{notifications}}
   </v-app>
 </template>
 
@@ -20,12 +19,6 @@ export default {
     this.$store.dispatch({ type: "loadUserOrDefaultUser" });
   },
 
-  computed: {
-    notifications() {
-      return this.$store.getters.notifications;
-    }
-  },
-
   methods: {
     toggleNav(val) {
       this.showNav = val;
@@ -37,4 +30,3 @@ export default {
   }
 };
 </script>
-

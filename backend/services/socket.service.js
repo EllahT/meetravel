@@ -1,83 +1,84 @@
-
 const socketIO = require('socket.io');
-const roomService = require('./room.service');
+const UserService = require('../api/user/user.service');
+const FriendService = require('../api/friend/friend.service');
 
 var io;
-const msgDB = [];
-const notificationsDB = [];
-var activeUsersCount = 0;
 
 function setup(http) {
     io = socketIO(http);
     io.on('connection', function (socket) {
         console.log('a user connected');
-        var room, connectedUser;
-    
-        activeUsersCount++;
-    
-        // socket.on('disconnect', () => {
-        //     console.log('user disconnected', connectedUser);
-        //     const msg = {
-        //         from: 'System',
-        //         txt: `${connectedUser} Left`
-        //     }
-        //     io.to(room.id).emit('chat newMsg', msg);
-        //     activeUsersCount--;
-        // });
-    
-        // socket.on('chat join', ({
-        //     user,
-        //     friendshipId
-        // }) => {
-        //     room = roomService.placeInRoom(user, friendshipId);
-        //     connectedUser = user;
-        //     console.log('Placed', user, 'in room:', room);
-        //     socket.join(room.id);
-        //     if (!msgsDB[room.id]) msgsDB[room.id] = [];
-        //     console.log(msgsDB[room.id]);
-        //     io.to(room.id).emit('chat history', msgsDB[room.id]);
-    
-        //     const msg = {
-        //         from: 'System',
-        //         txt: `${user} Joined`
-        //     }
-        //     io.to(room.id).emit('chat newMsg', msg);
-        // });
-    
-        // socket.on('chat msg', (msg) => {
-        //     console.log(`got message ${msg.txt} from ${msg.from}`);
-        //     if (msgsDB[room.id]) msgsDB[room.id].push(msg);
-        //     io.to(room.id).emit('chat newMsg', msg);
-        // });
 
-        socket.on('app login', ({
-            username,
-            userId
-        }) => {
-            room = roomService.placeInRoom(username, userId);
-            connectedUser = username;
-            console.log('Placed', username, 'in room:', room);
-            socket.join(room.id);
-            if (!notificationsDB[room.id]) notificationsDB[room.id] = [];
-            console.log(notificationsDB[room.id]);
-            io.to(room.id).emit('app history', notificationsDB[room.id]);
+        socket.on('chat join', (payload) => _onChatJoin(payload, socket));
     
-            const notification = {
-                from: 'System',
-                txt: `${username} Logged In`
-            }
-            io.to(room.id).emit('app newNotification', notification);
-        });
-    
-        socket.on('app notification', (notification) => {
-            console.log(`new notification ${notification.type} from ${notification.from}, to ${notification.to}`);
-            let msg = {txt: `new ${notification.type} from ${notification.from}`, timestamp: new Date().getMilliseconds()};
-            if (notificationsDB[notification.to]) notificationsDB[notification.to].push({msg});
-            io.to(notification.to).emit('new notification', msg);
-        });
+        socket.on('chat msg', (payload) => _onNewChatMsg(payload, socket));
+
+        socket.on('app login', (payload) => _onAppLogin(payload, socket));
     });    
 }
 
+function _onAppLogin({username, userId}, socket) {    
+    socket.join(`notifications_${userId}`);
+    console.log(`user ${username} logged in and joined notifications_${userId}`);
+}
+
+async function sendNotification({type, sender, recipient, loggedUser}) {
+    console.log(`got new notification ${type} from ${sender.userId}, to ${recipient.userId}`);
+    const other = (sender.userId === loggedUser._id)? recipient.name : sender.name;
+    const message = {
+        "request": `Hey! ${sender.name} just asked you to be friends!`,
+        "friendship": `You're now friends with ${other}!`
+    }
+    const msg = {
+        type,
+        message: message[type],
+        timestamp: new Date().getTime(),
+        readStatus: false
+    };
+    
+    console.log(`sending ${msg.message}, to notifications_${recipient.userId}`);
+    io.to(`notifications_${recipient.userId}`).emit('app newNotification', msg);
+    const recipientObj = await UserService.getById(recipient.userId);
+    recipientObj.notifications.push(msg);
+    UserService.update(recipientObj)
+    .then((updatedUser) => {
+        console.log(`updated nofitications at ${updatedUser._id}`);
+    })
+
+    if (msg.type === 'friendship') {
+        const senderMsg = Object.assign(msg);
+        const nonother = (sender.userId === loggedUser._id)? sender.name : recipient.name;
+        senderMsg.message = `You're now friends with ${nonother}!`;
+        console.log(`sending ${senderMsg.message}, to notifications_${sender.userId}`);
+        io.to(`notifications_${sender.userId}`).emit('app newNotification', senderMsg);
+        const senderObj = await UserService.getById(sender.userId);
+        senderObj.notifications.push(senderMsg);
+        const updatedUser = await UserService.update(senderObj)
+        console.log(`updated nofitications at ${updatedUser._id}`);
+    }
+}
+
+async function _onChatJoin({user, friendshipId}, socket) {
+    console.log('Placed', user, 'in room:', friendshipId);
+    socket.join(friendshipId);
+
+    // const msg = {
+    //     from: 'System',
+    //     txt: `${user} Joined`
+    // }
+
+    // io.to(friendshipId).emit('chat newMsg', msg);
+}
+
+async function _onNewChatMsg({msg, friendshipId}) {
+    console.log(`got message ${msg.txt} from ${msg.from}, on friendship ${friendshipId}`);
+    io.to(friendshipId).emit('chat newMsg', msg);
+    const friendship = await FriendService.getById(friendshipId);
+    friendship.messages.push(msg);
+    FriendService.update(friendship);
+}
+
 module.exports = {
-    setup
+    setup,
+    sendNotification
 }
