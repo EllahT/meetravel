@@ -14,8 +14,6 @@ export default {
 function query(filterBy, location) {
     filterBy.currLat = location.lat;
     filterBy.currLng = location.lng;
-    console.log(`user${_getQueryString(filterBy)}`);
-    
     return HttpService.ajax(`user${_getQueryString(filterBy)}`)
         .then(users => {
             return users;

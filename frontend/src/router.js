@@ -90,7 +90,7 @@ export default new Router({
                     component: FriendList
                 },
                 {
-                    path: 'friends/:friendId',
+                    path: 'friends/:friendshipId',
                     component: FriendDetails
                 },
 

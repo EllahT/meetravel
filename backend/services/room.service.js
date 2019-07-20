@@ -4,14 +4,15 @@ module.exports = {
 
 const gRooms = [];
 
-function placeInRoom(user, toyId) {
-    let room = gRooms.find(room => room.id === toyId);
+function placeInRoom(username, id) {
+    let room = gRooms.find(room => room.id === id);
     if (room) {
-        room.members.find(member => member === user);
+        room.members.find(member => member === username);
     } else {
         room = {
-            id: toyId,
-            members: [user]
+            id,
+            members: [username],
+            msgs: []
         };
     }
 

@@ -1,6 +1,6 @@
 <template>
      <ul v-if="requests">
-        <request-preview v-for="request in requests" :request="request" :key="request._id"></request-preview>
+        <request-preview v-for="request in requests" :request="request" :key="(request || {})._id"></request-preview>
     </ul>
 </template>
 
@@ -14,7 +14,7 @@ export default {
 
   computed: {
       requests() {
-          return this.$store.getters.requests;
+          return this.$store.getters.requests || [];
       }
   },
 
