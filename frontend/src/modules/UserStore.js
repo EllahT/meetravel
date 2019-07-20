@@ -61,6 +61,7 @@ export default {
         },
 
         updateUser(state, { updatedUser }) {
+            console.log('state & updated user at store mutation', state, updatedUser);
             const idx = state.users.findIndex(user => user._id === updatedUser._id);
             state.users.splice(idx, 1, updatedUser);
         },
@@ -127,7 +128,7 @@ export default {
         updateUser(context, { user }) {
             return UserService.update(user)
                 .then(updatedUser => {
-                    console.log('updated user at store', updatedUser);
+                    console.log('updated user at store action after promise', updatedUser);
                     context.commit({ type: 'updateUser', user: updatedUser })
                     return updatedUser
                 })
