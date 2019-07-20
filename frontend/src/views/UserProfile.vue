@@ -23,9 +23,9 @@
         <h2>Wants to visit</h2>
         <ul class="flex wrap">
           <li v-for="place in user.bucketList" :key="place" class="tag">{{place}} &times</li>
-          <li>
-            <v-icon class="tag">add</v-icon>
-          </li>
+          <!-- <li>
+            <v-icon class="tag" @click="addPlace">add</v-icon>
+          </li> -->
         </ul>
       </div>
 
@@ -97,6 +97,11 @@ export default {
         console.log("updated user");
       });
     },
+
+    // addPlace(){
+    //   console.log('add place pushed');
+      
+    // }
         
       }
     
