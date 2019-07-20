@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import UserService from '../services/UserService.js'
 
 export default {
     data(){
@@ -37,3 +36,10 @@ export default {
 }
 }
 </script>
+
+<style lang="scss">
+.sign-up{
+    margin: 10px;
+    padding: 10px
+}
+</style>

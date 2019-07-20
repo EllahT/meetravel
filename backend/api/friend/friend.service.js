@@ -1,6 +1,7 @@
 
-const dbService = require('../../services/db.service')
-const ObjectId = require('mongodb').ObjectId
+const dbService = require('../../services/db.service');
+const ObjectId = require('mongodb').ObjectId;
+const SocketService = require('../../services/socket.service');
 
 module.exports = {
     query,
@@ -10,15 +11,16 @@ module.exports = {
     addRequest,
     getUserFriendships,
     getUserRequests,
+    getUserSentRequests,
     convertRequestToFriendship
-}
+};
 
 async function getUserFriendships(userId) {
     const collection = await dbService.getCollection('friendships')
     
     try {
         const friendships = await collection.find( 
-            {status: 'approved', $or: [ { "resipient.userId": userId }, { "sender.userId": userId } ] }).toArray();
+            {status: 'approved', $or: [ { "recipient.userId": userId }, { "sender.userId": userId } ] }).toArray();
 
         return friendships;
     } catch (err) {
@@ -34,9 +36,25 @@ async function getUserRequests(userId) {
     
     try {
         const requests = await collection.find( 
-            { status: 'pending', "resipient.userId": userId}).toArray();
+            { status: 'pending', "recipient.userId": userId}).toArray();
 
         return requests;
+    } catch (err) {
+
+        console.log(`ERROR: cannot find requests for user ${userId}`);
+
+        throw err;
+    }
+}
+
+async function getUserSentRequests(userId) {
+    const collection = await dbService.getCollection('friendships')
+    
+    try {
+        const sentRequests = await collection.find( 
+            { status: 'pending', "sender.userId": userId}).toArray();
+
+        return sentRequests;
     } catch (err) {
 
         console.log(`ERROR: cannot find requests for user ${userId}`);
@@ -63,8 +81,8 @@ async function query() {
 async function getById(friendshipId) {
     const collection = await dbService.getCollection('friendships')
     try {
-        const user = await collection.findOne({"_id":ObjectId(friendshipId)})
-        return user
+        const friendship = await collection.findOne({"_id":ObjectId(friendshipId)});
+        return friendship;
     } catch (err) {
         console.log(`ERROR: while finding friendship ${friendshipId}`)
         throw err;
@@ -82,11 +100,12 @@ async function remove(friendshipId) {
 }
 
 async function update(friendship) {
-    const collection = await dbService.getCollection('friendships')
+    const collection = await dbService.getCollection('friendships');
     const friendshipWithoutId = JSON.parse(JSON.stringify(friendship));
+    console.log('id: ', friendship._id);
     delete friendshipWithoutId._id;
     try {
-        await collection.replaceOne({"_id":ObjectId(friendship._id)}, {$set : friendship})
+        await collection.replaceOne({"_id":ObjectId(friendship._id)}, {$set : friendshipWithoutId})
         console.log('friendship was updated');
         return friendship;
     } catch (err) {
@@ -95,11 +114,12 @@ async function update(friendship) {
     }
 }
 
-async function convertRequestToFriendship(request) {
+async function convertRequestToFriendship(request, loggedUser) {
     const collection = await dbService.getCollection('friendships')
     try {
         await collection.replaceOne({"_id":ObjectId(request._id)}, {$set : request})
         console.log('request was converted to friendship');
+        SocketService.sendNotification({type: 'friendship', sender: request.sender, recipient: request.recipient, loggedUser});
         return request;
     } catch (err) {
         console.log(`ERROR: cannot convert the request ${request._id}`)
@@ -107,13 +127,25 @@ async function convertRequestToFriendship(request) {
     }
 }
 
-async function addRequest(request) {
+async function addRequest(request, loggedUser) {
     const collection = await dbService.getCollection('friendships')
     try {
+        const friendship = await collection.findOne({$or: [
+            {
+                "recipient.userId": request.sender.userId,
+                "sender.userId": request.recipient.userId
+            }, {
+                "sender.userId": request.sender.userId, 
+                "recipient.userId": request.recipient.userId
+            }
+        ]});
+        if (friendship) throw 'ERROR: already friends or request already sent!';
         await collection.insertOne(request);
+        console.log('request was sent to ',request.recipient.userId);
+        SocketService.sendNotification({type: 'request', sender: request.sender, recipient: request.recipient, loggedUser});
         return request;
     } catch (err) {
-        console.log(`ERROR: cannot insert request`)
+        console.log(`ERROR: cannot insert request`, err);
         throw err;
     }
 }

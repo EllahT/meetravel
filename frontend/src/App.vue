@@ -1,32 +1,32 @@
 <template>
   <v-app id="app">
     <app-header v-if="showNav"></app-header>
-    <router-view @homepage="toggleNav"/>
+    <router-view @homepage="toggleNav" />
   </v-app>
 </template>
 
 <script>
-  import AppHeader from '@/components/AppHeader.vue'
-  export default {
-    data() {
-      return {
-        showNav: true
-      }
-    },
+import AppHeader from "@/components/AppHeader.vue";
 
-    created() {
-      this.$store.dispatch({type: 'loadUserOrDefaultUser'})
-    },
+export default {
+  data() {
+    return {
+      showNav: true
+    };
+  },
 
-    methods: {
-      toggleNav(val) {
-        this.showNav = val;
-      }
-    },
+  created() {
+    this.$store.dispatch({ type: "loadUserOrDefaultUser" });
+  },
 
-    components: {
-      AppHeader
+  methods: {
+    toggleNav(val) {
+      this.showNav = val;
     }
-  }
-</script>
+  },
 
+  components: {
+    AppHeader
+  }
+};
+</script>

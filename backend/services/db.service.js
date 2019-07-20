@@ -7,13 +7,24 @@ const config  =  require('../config')
 const dbName = 'MEETRAVEL';
 
 var dbConn = null;
+var gClient = null;
 
 async function connect() {
     if (dbConn) return dbConn;
     try {
-        const client = await MongoClient.connect(config.dbURL, {useNewUrlParser: true});
+        const client = await MongoClient.connect(
+            config.dbURL,
+            {useNewUrlParser: true}
+        );
+        
+        gClient = client;
+
         const db = client.db(dbName);
         dbConn = db;
+        
+        process.on('SIGINT', closeDatabaseConnectionAndExit);
+        process.on('SIGTERM', closeDatabaseConnectionAndExit);
+
         return db;
     } catch(err) {
         console.log('Cannot Connect to DB', err)
@@ -21,10 +32,14 @@ async function connect() {
     }
 }
 
-
 async function getCollection(collectionName) {
     const db = await connect()
     return db.collection(collectionName);
+}
+
+function closeDatabaseConnectionAndExit() {
+    gClient.close();
+    process.exit();
 }
 
 module.exports = {

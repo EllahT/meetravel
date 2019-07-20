@@ -19,8 +19,6 @@ export default {
     this.$store.dispatch({type: 'loadUsers'})
     .then(() => {
       if (this.$store.getters.loggedInUser._id === this.users[this.currUserIdx]._id) this.currUserIdx++;
-      this.$store.dispatch({type: 'loadFriends'});
-      this.$store.dispatch({type: 'loadRequests'});
     })
     
   },
@@ -45,8 +43,8 @@ export default {
   methods: {
       navUsers(diff) {
         if ((this.currUserIdx === 0 && diff < 0) || (this.currUserIdx === this.users.length-1 && diff > 0)) return;
-        if ((this.currUserIdx+diff === 0 && diff < 0) || (this.currUserIdx+diff === this.users.length-1 && diff > 0) 
-        && (this.$store.getters.loggedInUser._id === this.users[this.currUserIdx+diff]._id)) return;
+        // if ((this.currUserIdx+diff === 0 && diff < 0) || (this.currUserIdx+diff === this.users.length-1 && diff > 0) 
+        // && (this.$store.getters.loggedInUser._id === this.users[this.currUserIdx+diff]._id)) return;
         if (this.$store.getters.loggedInUser._id === this.users[this.currUserIdx+diff]._id) this.currUserIdx+=diff;
         this.currUserIdx += diff;
       },
@@ -55,18 +53,19 @@ export default {
         this.$store.dispatch({type: 'setFilterByName', filterByName: this.filterByName});
       },
 
-      sendRequest(resipient) {
+      sendRequest(recipient) {
           let request = {
             createdAt : new Date().getTime(),
             location: this.$store.getters.location,
             sender: {userId: this.$store.getters.loggedInUser._id, name: this.$store.getters.loggedInUser.name.first + ' ' + this.$store.getters.loggedInUser.name.last},
             status : 'pending',
-            resipient: resipient
+            recipient: recipient,
+            messages: []
           }
         
           this.$store.dispatch({type: 'sendRequest', request})
           .then(() => {
-            console.log('request sent to', resipient);
+            console.log('request sent to', recipient);
           })
       }
   },

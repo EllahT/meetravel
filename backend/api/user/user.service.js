@@ -5,7 +5,7 @@ const ObjectId = require('mongodb').ObjectId
 module.exports = {
     query,
     getById,
-    getByFirstName,
+    getByUsername,
     remove,
     update,
     add
@@ -71,15 +71,13 @@ async function getById(userId) {
     }
 }
 
-async function getByFirstName(firstName) {
-    // console.log('first name at BE user service: ', firstName);
+async function getByUsername(username) {
     const collection = await dbService.getCollection('user')
     try {
-        const user = await collection.findOne({ "name.first": firstName })
-        // console.log('BE user-service getByFirstName: ', user);
-        return user
+        const user = await collection.findOne({ "username": username });
+        return user;
     } catch (err) {
-        console.log(`ERROR: while finding user ${firstName}`)
+        console.log(`ERROR: while finding user ${username}`)
         throw err;
     }
 }
@@ -98,10 +96,9 @@ async function update(user) {
     const collection = await dbService.getCollection('user')
     const userWithoutId = JSON.parse(JSON.stringify(user));
     delete userWithoutId._id;
-    const id = new ObjectId(user._id.slice(10, user._id.length-2));
     try {
         
-        await collection.replaceOne({ "_id": ObjectId(id) }, { $set: userWithoutId })
+        await collection.replaceOne({ "_id": ObjectId(user._id) }, { $set: userWithoutId })
         return user
     } catch (err) {
         console.log(`ERROR: cannot update user ${user._id}`)

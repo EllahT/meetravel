@@ -14,12 +14,15 @@
         <v-btn v-if="!isAdminPage" @click="emitRequest" :disabled="possibleToRequest">{{btnText}}</v-btn>
     </div>
     <button  v-if="!isAdminPage" @click="emitNavUsers(1)"><v-icon>keyboard_arrow_right</v-icon></button>
+    <button @click="changePic">changePic</button>
   </li>
 </template>
 
 <script>
 import GecoodeService from '@/services/GeocodeService.js';
 import UtilService from '@/services/UtilService.js';
+import ImageService from '@/services/ImageService.js';
+import UserService from '@/services/UserService.js';
 
 export default {
   props: {
@@ -63,7 +66,7 @@ export default {
       const id = this.user._id;
       return (this.$store.getters.isFriendById(id)) ? 'Your Friend' 
       : (this.$store.getters.isRequestedById(id)) ? 'Pending, waiting for your approve' 
-      : (this.$store.getters.isRequesterById(id)) ? 'Pending, waiting for resipient approve'
+      : (this.$store.getters.isRequesterById(id)) ? 'Pending, waiting for recipient approve'
       : 'Send A Request';
     },
 
@@ -86,6 +89,18 @@ export default {
 
     emitNavUsers(diff) {
       this.$emit('nav', diff);
+    },
+
+    changePic() {
+      let newUser = JSON.parse(JSON.stringify(this.user));
+      ImageService.getRandomImg('travel')
+      .then(imgSrc => {
+        newUser.profileImg = imgSrc;
+        UserService.update(newUser)
+        .then(() => {
+          console.log('done')
+        })
+      })
     }
   },
 }

@@ -8,7 +8,8 @@ export default {
     getFriends,
     getRequests,
     sendRequest,
-    approveRequest
+    approveRequest,
+    getRequestsSent
 }
 
 function query() {
@@ -32,6 +33,13 @@ function getRequests(userId) {
     })
 }
 
+function getRequestsSent(userId) {
+    return HttpService.ajax(`friend/sent/byuser/${userId}`)
+    .then(requestsSent => {
+        return requestsSent;
+    })
+}
+
 function getById(friendId) {
     return HttpService.ajax(`friend/${friendId}`);
 }
@@ -45,7 +53,13 @@ function remove(friendId) {
 }
 
 function sendRequest(request) {
-    return HttpService.ajax('friend/', 'post', request);
+    return HttpService.ajax('friend/', 'post', request)
+    .then(() => {
+        return request;
+    })
+    .catch((err) => {
+        console.log(err);
+    })
 }
 
 function approveRequest(requestId) {

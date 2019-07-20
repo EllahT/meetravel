@@ -1,114 +1,100 @@
 <template>
-    <div class="user-edit" v-if="user">
-        <h1>Edit General User Info</h1>
-        <form @submit.prevent="saveUser">
-            <div>
-                <label>First Name: </label>
-                <input type="text" v-model="user.name.first"/>
-            </div>
-            <div>
-                <label>Last Name: </label>
-                <input type="text" v-model="user.name.last"/>
-            </div>
-            <div>
-                <label>Gender: </label>
-                <gender-picker v-model="user.gender" :type="'picker'"></gender-picker>
-            </div>
-            <!-- <div>
-                <label>Profile Image: </label>
-                <img :src="user.profileImg"/>
-            </div> -->
-            <div>
-                <label>Description: </label>
-                <textarea v-model="user.description"></textarea>
-            </div>
-            <!-- <div>
-                <label>Bucket List:</label>
-                <ul>
-                    <li v-for="place in user.bucketList" :key="place">{{place}}</li>
-                </ul>
-            </div> -->
-            <div>
-                <label>BirthDate: </label>
-                <input type="number" v-model="user.birthDate"/>
-            </div>
-            <button class="submit-btn">{{btnText}}</button>
-        </form>
+  <div class="user-edit lato-light" v-if="user">
+    <h1 class="title">Edit profile settings</h1>
+    <form @submit.prevent="saveUser">
+      <v-text-field prepend-icon="email" v-model="user.email" label="email" type="email"></v-text-field>
 
-    </div>
+      <v-select
+        prepend-icon="people"
+        v-model="user.gender"
+        :items="items"
+        label="Gender"
+        data-vv-name="select"
+      ></v-select>
+
+      <v-text-field
+        prepend-icon="edit_location"
+        v-model="user.residance.city"
+        label="Location (City)"
+        type="text"
+      ></v-text-field>
+
+      <v-text-field
+        prepend-icon="edit_location"
+        v-model="user.residance.country"
+        label="Location (Country)"
+        type="text"
+      ></v-text-field>
+
+      <v-text-field
+        prepend-icon="event"
+        v-model="user.birthDate"
+        label="Year of birth"
+        type="number"
+      ></v-text-field>
+
+      <button class="btn" type="submit">{{btnText}}</button>
+    </form>
+  </div>
 </template>
 
 <script>
-import GenderPicker from '@/components/GenderPicker.vue';
-import {ValidationProvider} from 'vee-validate';
-import Vue from 'vue';
-Vue.component('ValidationProvider', ValidationProvider);
-
 export default {
-    created() {
-        this.user = this.$store.getters.loggedInUser;
-    },
+  created() {
+    getUser()
+  },
 
-    data() {
-        return {
-            user: null
+  data() {
+    return {
+      user: {
+        residance: {
+          city: null,
+          country: null
         }
-    },
+      },
+      gender: null,
+      items: ["", "Man", "Woman", "Other"]
+    };
+  },
 
-    computed: {
-        btnText() {
-            return (this.user._id)? 'Save' : 'Add';
-        }
-    },
-
-    methods: {
-        saveUser() {
-            this.$store.dispatch({type: 'updateUser', user:this.user})
-            .then(() => {
-                console.log('updated user');
-                this.$router.push('/user');
-              })
-        }
-    },
-
-    components: {
-        GenderPicker,
-        ValidationProvider
+  computed: {
+    btnText() {
+      return this.user._id ? "Update" : "Add";
     }
+  },
+
+  methods: {
+    saveUser() {
+      this.$store.dispatch({ type: "updateUser", user: this.user }).then(() => {
+        console.log("updated user");
+        this.$router.push("/user");
+      });
+    },
+    getUser() {
+      var user = this.$store.getters.loggedInUser;
+      console.log("user", user);
+      this.user = user;
+    }
+  },
+
+  components: {}
 };
 </script>
 
 <style lang="scss">
-.user-edit {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    h1 {
-        margin-bottom: 20px;
-    }
-
-    div {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-        
-        label {
-            display: flex;
-            align-items: center;
-            margin: 5px;
-        }
-
-        input, textarea, .picker {
-            padding: 5px;
-        }
-    }
-
-    button {
-        border: 1px solid black;
-    }
+.title {
+  color: white;
+  background-color: green;
+  padding: 5px;
+  position: left;
+  max-width: 250px;
+  text-align: center;
+  border-radius: 10px;
 }
-
+.user-edit {
+  margin: 10px;
+  padding: 10px;
+}
 </style>
 
 

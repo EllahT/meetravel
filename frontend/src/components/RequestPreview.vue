@@ -52,6 +52,9 @@ export default {
       this.$store.dispatch({type: 'approveRequest', requestId: this.request._id})
       .then(() => {
         console.log('request approved, user is now in your friends list');
+        setTimeout(() => {
+          this.$router.push('/inbox/friends');
+        }, 100)
       })
     }
   }
