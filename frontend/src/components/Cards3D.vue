@@ -30,10 +30,11 @@
         </v-carousel> -->
         <div class="cards-container">
           <div
-            v-for="card in cards"
+            v-for="(card, index) in cards"
             :key="card.title"
             class="card"
             :style="{ backgroundImage: `url('${card.imgUrl}')` }"
+            @click="emitLocation(index)"
           >
             <div class="description">
               <div class>
@@ -102,6 +103,12 @@ export default {
         },
       ]
     };
+  },
+
+  methods: {
+    emitLocation(index) {
+      this.$emit('setLocation', this.cards[index]);
+    }
   }
 };
 </script>

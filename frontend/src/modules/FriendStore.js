@@ -125,6 +125,7 @@ export default {
             .then(newRequest => {
                 context.commit({type: 'addRequest', newRequest});
                 socket.emit('send notification', {type: "request", sender: request.sender, recipient: request.recipient, loggedUser: context.getters.loggedInUser._id});
+                context.commit({type: 'loadFrienships'});
                 return newRequest;
             })
         },
@@ -132,9 +133,9 @@ export default {
         approveRequest(context, {requestId}) {
             return FriendService.approveRequest(requestId)
             .then(newFriendship => {
-                console.log(newFriendship)
                 context.commit({type: 'convertRequestToFriendship', newFriendship});
                 socket.emit('send notification', {type: "friendship", sender: newFriendship.sender, recipient: newFriendship.recipient, loggedUser: context.getters.loggedInUser._id});
+                context.commit({type: 'loadFrienships'});
                 return newFriendship;
             })
         },
