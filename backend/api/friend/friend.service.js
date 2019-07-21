@@ -1,7 +1,7 @@
 
 const dbService = require('../../services/db.service');
 const ObjectId = require('mongodb').ObjectId;
-const SocketController = require('../socket.controller');
+// const SocketController = require('../socket.controller');
 
 module.exports = {
     query,

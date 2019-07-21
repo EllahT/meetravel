@@ -63,6 +63,7 @@ async function sendNotification({ type, sender, recipient, loggedUser }) {
       senderMsg
     );
     const senderObj = await UserService.getById(sender.userId);
+    console.log(senderObj);
     senderObj.notifications.push(senderMsg);
     const updatedUser = await UserService.update(senderObj);
     console.log(`updated nofitications at ${updatedUser._id}`);
@@ -79,11 +80,8 @@ async function _onNewChatMsg({ msg, friendshipId }) {
     `got message ${msg.txt} from ${msg.from}, on friendship ${friendshipId}`
   );
   io.to(friendshipId).emit("chat newMsg", msg);
-  console.log("befre GETBYID ******");
   try {
-    FriendService.test();
     const friendship = await FriendService.getById(friendshipId);
-    console.log("after GETBYID ******");
     friendship.messages.push(msg);
     FriendService.update(friendship);
   } catch (err) {
