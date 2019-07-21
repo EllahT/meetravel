@@ -8,7 +8,7 @@
     >
       <v-layout align-center column justify-center class="main-container">
         <h1 class="display-2 font-weight-thin mb-3">Top Locations</h1>
-        <h4 class="subheading">Popular locations in our travelers community</h4>
+        <h4 class="font-weight-thin">Popular locations in our travelers community</h4>
         <!-- <v-carousel>
           <v-carousel-item class="cards-container"  :key="i" v-for="i in 3">
             <v-layout row>
@@ -28,6 +28,7 @@
             </v-layout>
           </v-carousel-item>
         </v-carousel> -->
+        <div style="overflow-x: scroll;">
         <div class="cards-container">
           <div
             v-for="card in cards"
@@ -41,6 +42,7 @@
               </div>
             </div>
           </div>
+        </div>
         </div>
       </v-layout>
     </v-parallax>

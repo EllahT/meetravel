@@ -5,8 +5,8 @@
   align-items: center;
   .top-bar.bg {
     margin-bottom: 20px;
-    background-image: linear-gradient(#000000c5, rgba(26, 26, 26, 0.493)),
-      url("../../public/img/backgrounds/9.jpg");
+    background-image: linear-gradient(#4b4b4bc5, rgba(78, 78, 78, 0.027));
+      // url("../../public/img/backgrounds/9.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -35,6 +35,7 @@
       padding: 0 20px;
     }
   }
+  
 }
 
 @media screen and (max-width: 650px) {

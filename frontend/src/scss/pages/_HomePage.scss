@@ -20,7 +20,7 @@
       font-weight: 100;
     }
     h4 {
-      font-size: 1rem;
+      font-size: 1.5rem;
       color: $primary-dark;
       margin: 10px;
     }
@@ -29,6 +29,7 @@
       display: flex;
       justify-content: center;
       opacity: 1;
+      font-weight: bold;
       font-size: 4rem;
       text-shadow: 0.1rem 0.1rem 0.7rem rgba(15, 11, 73, 0.842);
       p {
@@ -58,31 +59,40 @@
   }
 
   .secondery-container {
-    background-color: $primary-dark;
+    // background-color: $primary-dark;
+    h1 {
+      color: $primary-dark;
+      font-size: 4rem;
+      max-width: 450px;
+      font-weight: 100;
+      margin: 20px auto;
+    }
     align-items: center;
+    span {
+      color: rgb(36, 36, 36);
+      font-size: 1.5rem;
+    }
     .bg {
-      margin: 2px;
-      background-image: linear-gradient(#000000c5, rgba(48, 47, 47, 0.459)),
-        url("https://wallpapercave.com/wp/wp4409147.jpg");
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center center;
+      margin: 20px;
+      // background-image: linear-gradient(#000000c5, rgba(48, 47, 47, 0.459)),
+      //   url("https://wallpapercave.com/wp/wp4409147.jpg");
+      // background-repeat: no-repeat;
+      // background-size: cover;
+      // background-position: center center;
       width: 100%;
       padding: 60px;
-      span {
-        color: rgb(255, 255, 255);
-      }
+      
     }
     .select {
-      width: 100%;
+      width: 60%;
       align-items: baseline;
       input {
         height: 40px;
-        border-bottom: 1px solid white;
+        border-bottom: 1px solid rgb(53, 53, 53);
       }
       .btn {
         
-        background-color: rgb(255, 255, 255);
+        background-color: $primary-dark;
         cursor: pointer;
         color: white;
         align-self: baseline;
@@ -116,6 +126,9 @@
       justify-content: space-between;
     }
     .secondery-container {
+      .select {
+        width: 80%; 
+      }
       .google-map {
         height: 400px;
       }
@@ -129,9 +142,9 @@
   }
   .homepage {
     .main-container {
-      h1 {
-        font-size: 3rem;
-      }
+      // h1 {
+      //   font-size: 3rem;
+      // }
       .app-presenting {
         font-size: 2rem;
         margin: 20px;
@@ -146,6 +159,7 @@
         height: 250px;
       }
       .select {
+        width: 100%;
         margin: 10px auto;
         padding: 0px;
       }

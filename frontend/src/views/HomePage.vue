@@ -19,13 +19,12 @@
         </div>
       </section>
     </div>
-    <cards-3D></cards-3D>
     <div class="flex column secondery-container">
+      <h1 class="">Find travelers</h1>
+        <span class="">Search for travelers in a chosen location</span>
       <div class="flex column bg">
-        <span class="my-4">Find travelers in a chosen location</span>
         <div class="flex select">
           <v-autocomplete
-            dark
             class="input"
             full-width
             clearable
@@ -40,13 +39,13 @@
           ></v-autocomplete>
 
           <button class="btn flex">
-            <v-icon left>search</v-icon>
+            <v-icon left color="white">search</v-icon>
           </button>
           <!-- <button dark class="btn primary-dark"><v-icon dark >send</v-icon>Search</button> -->
         </div>
       </div>
 
-      <div class="google-map">
+      <!-- <div class="google-map">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8745488.946747249!2d146.31465659135952!3d-29.679446207610866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2b2bfd076787c5df%3A0x538267a1955b1352!2z15DXldeh15jXqNec15nXlA!5e0!3m2!1siw!2sil!4v1563661210201!5m2!1siw!2sil"
           width="100%"
@@ -55,8 +54,9 @@
           style="border:0"
           allowfullscreen
         ></iframe>
-      </div>
+      </div>-->
     </div>
+    <cards-3D></cards-3D>
   </section>
 </template>
 <script>

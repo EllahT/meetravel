@@ -1,7 +1,7 @@
 <template>
   <div class="app-home">
     <div class="top-bar bg">
-      <h1 class="lato-light fadeIn" v-if="users">There are <b>{{users.length}}</b> Fellow Travelers in {{location}}</h1>
+      <h1 class="lato-light" v-if="users">There are <b>{{users.length}}</b> Fellow Travelers in {{location}}</h1>
     <div class="flex user-filters">
       
     <v-text-field

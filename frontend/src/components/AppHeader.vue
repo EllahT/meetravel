@@ -1,48 +1,85 @@
 <template>
   <header>
-    <v-toolbar-side-icon @click="sideNav = !sideNav"></v-toolbar-side-icon>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link> |
-    <router-link to="/user">Find Travelers</router-link> |
-    <router-link to="/profile">Profile</router-link> | 
-    <router-link to="/admin">Admin</router-link> | 
-    <router-link to="/inbox">Inbox</router-link> | 
-    <router-link to="/login">LogIn</router-link> | 
-    <router-link to="/signup">SignUp</router-link> |
-    <button @click="doLogOut">LogOut</button> | 
-    <button @click="toggleShowNotifications" v-if="username" :class="classByUnread">Notifications ({{unread}})</button>
-    <user-notifications v-if="showNotifications"></user-notifications>
-    <div v-if="(username !== null)">
-      Signed: {{username}}
-    </div>
+    <v-layout class="app-header">
+      <v-container class="flex hamburger-container">
+        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+        <v-spacer></v-spacer>
+        <!-- <v-icon color="black">notifications</v-icon> -->
+      </v-container>
+      <div style=" margin-bottom: 80px;"></div>
+      <v-navigation-drawer class="nav-container" v-model="drawer" absolute temporary>
+        <v-list class="pa-1">
+          <v-list-tile avatar v-if="(username !== null)">
+            <v-list-tile-avatar>
+              <img :src="imgProfile" />
+            </v-list-tile-avatar>
+
+            <v-list-tile-content>
+              <v-list-tile-title>{{username}}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+
+        <v-list class="pt-0" dense>
+          <v-divider></v-divider>
+
+          <button
+            @click.stop="toggleShowNotifications"
+            v-if="username"
+            :class="classByUnread"
+          >Notifications ({{unread}})</button>
+          <user-notifications v-if="showNotifications"></user-notifications>
+
+          <v-list-tile class="nav-item" v-for="item in items" :key="item.title">
+            <router-link :to="item.link">
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  <v-icon color="black" left>{{ item.icon }}</v-icon>
+                  {{ item.title }}
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </router-link>
+          </v-list-tile>
+          <v-list-tile class="nav-item">
+            <router-link to>
+              <v-list-tile-content @click="doLogOut">
+                <v-list-tile-title>
+                  <v-icon color="black" left>person</v-icon>LogOut
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </router-link>
+          </v-list-tile>
+        </v-list>
+      </v-navigation-drawer>
+    </v-layout>
   </header>
 </template>
 
 <script>
-import UserNotifications from '@/components/UserNotifications';
+import UserNotifications from "@/components/UserNotifications";
 
 export default {
   data: () => ({
-      sideNav: true,
-      width: 300,
-      items: [
-        { icon: "home", title: "Home", link: "/" },
-        { icon: "photo_library", title: "Trip Images", link: "" },
-        { icon: "location_on", title: "Find Nearby", link: "/users" },
-        { icon: "notifications", title: "Notification", link: "" },
-        { divider: true },
-        { icon: "account_circle", title: "Edit Profile", link: "/profile" },
-        { icon: "flight_takeoff", title: "My Trips", link: "" },
-        { icon: "how_to_reg", title: "My Matches", link: "" },
-        { icon: "info", title: "About", link: "/about" },
-        { icon: "insert_chart_outlined", title: "Admin", link: "" }
-      ],
-      showNotifications: false
-    }),
+    drawer: null,
+    width: 300,
+    items: [
+      { icon: "home", title: "Home", link: "/" },
+      { icon: "location_on", title: "Find Nearby", link: "/user" },
+      { icon: "account_circle", title: "Edit Profile", link: "/profile" },
+      // { icon: "notifications", title: "Notification", link: "" },
+      { icon: "inbox", title: "Inbox", link: "/inbox" },
+      { divider: true },
+      { icon: "info", title: "About", link: "/about" },
+      { icon: "insert_chart_outlined", title: "Admin", link: "" },
+      { icon: "person", title: "Login", link: "/login" },
+      { icon: "person", title: "Signup", link: "/signup" }
+    ],
+    showNotifications: false
+  }),
 
   methods: {
     doLogOut() {
-      this.$store.dispatch({type: 'logout'})
+      this.$store.dispatch({ type: "logout" });
     },
 
     toggleShowNotifications() {
@@ -54,7 +91,12 @@ export default {
     username() {
       const logged = this.$store.getters.loggedInUser;
       if (logged === null) return null;
-      return (Object.keys(logged).length)? logged.name.first : null;
+      return Object.keys(logged).length ? logged.name.first : null;
+    },
+    imgProfile() {
+      const logged = this.$store.getters.loggedInUser;
+      if (logged === null) return null;
+      return Object.keys(logged).length ? logged.profileImg : null;
     },
 
     unread() {
@@ -62,23 +104,49 @@ export default {
     },
 
     classByUnread() {
-      return this.unread? 'unread' : 'allread';
+      return this.unread ? "unread" : "allread";
     }
   },
 
   components: {
     UserNotifications
   }
-}
+};
 </script>
 
-<style scoped>
+<style style lang="scss">
+.app-header {
+  img {
+    object-fit: cover;
+  }
+  .nav-item {
+    a {
+      text-decoration: none;
+      color: black;
+      width: 100%;
+      padding: 5px;
+      &:hover {
+        background-color: rgb(221, 221, 221);
+      }
+    }
+    // display: inline;
+  }
+  .hamburger-container {
+    position: fixed;
+    z-index: 4;
+   
+  }
+  .nav-container {
+    position: fixed;
+  }
+}
+
 .v-navigation-drawer {
   transition: none !important;
 }
 
-.signed{
-  margin-left: 20px
+.signed {
+  margin-left: 20px;
 }
 
 .lightbox {
@@ -91,7 +159,6 @@ export default {
 }
 
 .unread {
-  font-weight: bold
+  font-weight: bold;
 }
-
 </style>
