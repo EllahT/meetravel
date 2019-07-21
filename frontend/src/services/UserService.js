@@ -25,7 +25,9 @@ function getById(userId) {
 }
 
 function update(user) {
-    return HttpService.ajax(`user/${user._id}`, 'put', user);
+    return HttpService.ajax(`user/${user._id}`, 'put', user)
+        .then(res => res)
+        .catch(err => err)
 }
 
 function remove(userId) {

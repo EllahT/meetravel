@@ -8,7 +8,7 @@
         prepend-icon="people"
         v-model="user.gender"
         :items="items"
-        label="Gender"
+        label="Update gender"
         data-vv-name="select"
       ></v-select>
 
@@ -41,7 +41,7 @@
 <script>
 export default {
   created() {
-    getUser()
+    this.getUser()
   },
 
   data() {
