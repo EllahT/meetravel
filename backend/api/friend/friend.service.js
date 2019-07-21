@@ -1,7 +1,7 @@
 
 const dbService = require('../../services/db.service');
 const ObjectId = require('mongodb').ObjectId;
-const SocketService = require('../../services/socket.service');
+const SocketController = require('../socket.controller');
 
 module.exports = {
     query,
@@ -78,7 +78,7 @@ async function query() {
     }
 }
 
-async function getById(friendshipId) {
+async function getById(friendshipId) {    
     const collection = await dbService.getCollection('friendships')
     try {
         const friendship = await collection.findOne({"_id":ObjectId(friendshipId)});
@@ -119,7 +119,7 @@ async function convertRequestToFriendship(request, loggedUser) {
     try {
         await collection.replaceOne({"_id":ObjectId(request._id)}, {$set : request})
         console.log('request was converted to friendship');
-        SocketService.sendNotification({type: 'friendship', sender: request.sender, recipient: request.recipient, loggedUser});
+        SocketController.sendNotification({type: 'friendship', sender: request.sender, recipient: request.recipient, loggedUser: loggedUser._id});
         return request;
     } catch (err) {
         console.log(`ERROR: cannot convert the request ${request._id}`)
@@ -141,11 +141,12 @@ async function addRequest(request, loggedUser) {
         ]});
         if (friendship) throw 'ERROR: already friends or request already sent!';
         await collection.insertOne(request);
+        SocketController.sendNotification({type: 'request', sender: request.sender, recipient: request.recipient, loggedUser: loggedUser._id});
         console.log('request was sent to ',request.recipient.userId);
-        SocketService.sendNotification({type: 'request', sender: request.sender, recipient: request.recipient, loggedUser});
         return request;
     } catch (err) {
         console.log(`ERROR: cannot insert request`, err);
         throw err;
     }
 }
+
