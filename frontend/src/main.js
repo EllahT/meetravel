@@ -7,6 +7,7 @@ import './filters';
 import  './scss/main.scss';
 import './registerServiceWorker';
 import * as VueGoogleMaps from 'vue2-google-maps';
+import VueNoty from 'vuejs-noty';
  
 Vue.use(VueGoogleMaps, {
   load: {
@@ -22,3 +23,10 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app');
+
+Vue.use(VueNoty, {
+  timeout: 4000,
+  progressBar: true,
+  layout: 'bottomRight',
+  theme: 'relax'
+})

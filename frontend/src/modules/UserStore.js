@@ -13,7 +13,8 @@ export default {
             gender: 'all',
             name: null
         },
-        location: { lat: 32.059391999999995, lng: 34.8512256, address: 'Kiryat Ono, Israel' }
+        location: { lat: 32.059391999999995, lng: 34.8512256, address: 'Kiryat Ono, Israel' },
+        newNotification: null
     },
 
     getters: {
@@ -47,6 +48,10 @@ export default {
 
         unreadNotifications(state) {
             return state.loggedUser.notifications.filter(notification => !notification.readStatus).length;
+        },
+
+        newNotification (state) {
+            return state.newNotification;
         }
     },
 
@@ -92,7 +97,12 @@ export default {
 
         updateReadNotification(state, { index }) {
             state.loggedUser.notifications[index].readStatus = true;
+        },
+
+        setNewNotification(state, {notification}) {
+            state.newNotification = notification;
         }
+
     },
 
     actions: {
@@ -188,7 +198,8 @@ export default {
         appLogin({ getters, commit }) {
             socket.emit('app login', { username: getters.loggedInUser.username, userId: getters.loggedInUser._id });
             socket.on('app newNotification', notification => {
-                commit({ type: 'addNotification', notification });
+                commit({ type: 'addNotification', notification});
+                commit({type: 'setNewNotification', notification})
             });
         },
 
@@ -199,6 +210,10 @@ export default {
                 .then(() => {
                     context.commit({ type: 'updateReadNotification', index });
                 })
+        },
+
+        clearNewNotification({commit}) {
+            commit({type: 'setNewNotification', notification: null});
         }
     }
 }

@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import 'vuejs-noty/dist/vuejs-noty.css';
 import UserNotifications from '@/components/UserNotifications';
 
 export default {
