@@ -3,12 +3,16 @@
     <h4>You and <router-link :to="friendUrl">{{friendName}}</router-link></h4>
     <img :src="friendImg"/>
     <h5>friends since :{{time}}</h5>
-    <router-link :to="detailsUrl">talk and set a trip together!</router-link>
+    <!-- <router-link :to="detailsUrl">talk and set a trip together!</router-link> -->
+    <button @click="toggleShowChat">talk and set a trip together!</button>
+    <chat-room  v-if="showChat && friendship" :friendshipId="friendship._id" :history="friendship.messages" :friendImg="friendImg" :friendName="friendName" @close="toggleShowChat">
+      <div></div>
+    </chat-room>
   </li>
 </template>
 
 <script>
-
+import ChatRoom from '@/components/ChatRoom.vue';
 import moment from 'moment';
 
 export default {
@@ -19,24 +23,23 @@ export default {
       }
   },
 
+  data() {
+    return {
+      showChat: false
+    }
+  },
+
   computed: {
     detailsUrl() {
       return `/inbox/friends/${this.friendship._id}`
     },
 
     friendImg() {
-      const friendId = (this.$store.getters.loggedInUser._id.includes(this.friendship.sender.userId))? 
-          this.friendship.recipient.userId :
-          this.friendship.sender.userId ;
-      let friend = (this.$store.getters.userById(friendId));
-      if (friend) {
-        return friend.profileImg;
-      } else {
-        (this.$store.dispatch({type: 'loadUserById', userId: friendId}))
-        .then(friend => {
-            return friend.profileImg;
-        })
-      }
+      const friendId = (this.$store.getters.loggedInUser._id.includes(this.friendship.sender.userId))
+        ? this.friendship.recipient.userId 
+        : this.friendship.sender.userId ;
+      let friend = this.$store.getters.userById(friendId);
+      return friend.profileImg;
     },
 
     time() {
@@ -56,9 +59,17 @@ export default {
       return `/user/${url}`
     },
   },
+
+  methods: {
+    toggleShowChat() {
+      this.showChat = !this.showChat;
+    }
+  },
+
+  components: {
+    ChatRoom
+  }
 }
-
-
 
 </script>
 

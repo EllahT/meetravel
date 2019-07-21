@@ -98,10 +98,10 @@ export default {
                 });
         },
 
-        loadFrienships(context) {
+        loadFriendships(context) {
             context.dispatch({type: 'loadFriends'});
             context.dispatch({type: 'loadRequests'});
-            context.dispatch({type: 'loadRequestsSent'});
+            return context.dispatch({type: 'loadRequestsSent'});    
         },
 
         deleteFriend(context, { friendId }) {
@@ -125,7 +125,7 @@ export default {
             .then(newRequest => {
                 context.commit({type: 'addRequest', newRequest});
                 socket.emit('send notification', {type: "request", sender: request.sender, recipient: request.recipient, loggedUser: context.getters.loggedInUser._id});
-                context.commit({type: 'loadFrienships'});
+                context.dispatch({type: 'loadFriendships'});
                 return newRequest;
             })
         },
@@ -135,7 +135,7 @@ export default {
             .then(newFriendship => {
                 context.commit({type: 'convertRequestToFriendship', newFriendship});
                 socket.emit('send notification', {type: "friendship", sender: newFriendship.sender, recipient: newFriendship.recipient, loggedUser: context.getters.loggedInUser._id});
-                context.commit({type: 'loadFrienships'});
+                context.dispatch({type: 'loadFriendships'});
                 return newFriendship;
             })
         },
