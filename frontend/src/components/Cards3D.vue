@@ -5,7 +5,6 @@
       dark
       style="height:80vh;"
       src="https://wallpapercave.com/wp/wp2013491.jpg"
-      gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
     >
       <v-layout align-center column justify-center class="main-container">
         <h1 class="display-2 font-weight-thin mb-3">Top Locations</h1>

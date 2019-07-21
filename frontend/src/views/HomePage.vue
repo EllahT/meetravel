@@ -23,37 +23,35 @@
     <div class="flex column secondery-container">
       <div class="flex column bg">
         <span class="my-4">Find travelers in a chosen location</span>
-      <div class="flex select">
-        <v-select
-        dark
-          class="input"
-          full-width
-          
-          :items="items"
-          v-model="selectedLocation"
-          label="Search location"
-     
-          hint="Enter your location"
-          item-text="address"
-          item-value="location"
-          return-object
-          autocomplete
-        ></v-select>
+        <div class="flex select">
+          <v-autocomplete
+            dark
+            class="input"
+            full-width
+            clearable
+            :items="items"
+            v-model="selectedLocation"
+            label="Search location"
+            hint="Enter your location"
+            item-text="address"
+            item-value="location"
+            return-object
+            autocomplete
+          ></v-autocomplete>
 
-        <button class="btn flex">
-          <v-icon left>search</v-icon>
-        </button>
-        <!-- <button dark class="btn primary-dark"><v-icon dark >send</v-icon>Search</button> -->
-      </div>
+          <button class="btn flex">
+            <v-icon left>search</v-icon>
+          </button>
+          <!-- <button dark class="btn primary-dark"><v-icon dark >send</v-icon>Search</button> -->
+        </div>
       </div>
 
       <div class="google-map">
-     
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d21400389.58724644!2d65.6337965997839!3d41.63515979462646!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1siw!2sil!4v1563487820454!5m2!1siw!2sil"
-          frameborder="0"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8745488.946747249!2d146.31465659135952!3d-29.679446207610866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2b2bfd076787c5df%3A0x538267a1955b1352!2z15DXldeh15jXqNec15nXlA!5e0!3m2!1siw!2sil!4v1563661210201!5m2!1siw!2sil"
           width="100%"
           height="100%"
+          frameborder="0"
           style="border:0"
           allowfullscreen
         ></iframe>

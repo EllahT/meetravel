@@ -1,13 +1,14 @@
 .cards-list {
     .v-parallax__content {
         padding:0px;
-        background-image: linear-gradient(45deg, #ff797941, #000000d2);
+        background-image: linear-gradient(45deg, #ff79795b, #000000e1);
     }
 //   z-index: 4;
   .cards-parallax {
     .main-container {
       padding: 20px;
       width: 100vw;
+      height:80vh;
       
       // overflow-x: scroll;
       h1 {
