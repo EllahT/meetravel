@@ -65,7 +65,6 @@ async function _onSendNotification({ type, sender, recipient, loggedUser }) {
       senderMsg
     );
     const senderObj = await UserService.getById(sender.userId);
-    console.log(senderObj);
     senderObj.notifications.push(senderMsg);
     const updatedUser = await UserService.update(senderObj);
     console.log(`updated nofitications at ${updatedUser._id}`);

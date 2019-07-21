@@ -15,11 +15,12 @@
     <div v-if="(username !== null)">
       Signed: {{username}}
     </div>
+    <new-notification v-if="newNotification !== null" :newNotification="newNotification"></new-notification>
   </header>
 </template>
 
 <script>
-import 'vuejs-noty/dist/vuejs-noty.css';
+import NewNotification from '@/components/NewNotification';
 import UserNotifications from '@/components/UserNotifications';
 
 export default {
@@ -64,11 +65,16 @@ export default {
 
     classByUnread() {
       return this.unread? 'unread' : 'allread';
+    },
+
+    newNotification() {
+      return this.$store.getters.newNotification;
     }
   },
 
   components: {
-    UserNotifications
+    UserNotifications,
+    NewNotification
   }
 }
 </script>

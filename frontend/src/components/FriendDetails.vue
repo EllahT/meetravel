@@ -1,9 +1,9 @@
 <template>
     <div v-if="friendship">
         <chat-room :friendshipId="friendship._id" :history="friendship.messages">
-        <h1 slot="box-header">Chat With {{friendName}}</h1>
-        <div></div>
-      </chat-room>
+            <h1 slot="box-header">Chat With {{friendName}}</h1>
+            <div></div>
+        </chat-room>
     </div>
 </template>
 
