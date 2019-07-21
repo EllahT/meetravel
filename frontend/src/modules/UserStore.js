@@ -87,11 +87,11 @@ export default {
             state.location = location;
         },
 
-        addNotification(state, {notification}) {
+        addNotification(state, { notification }) {
             state.loggedUser.notifications.push(notification);
         },
 
-        updateReadNotification(state, {index}) {
+        updateReadNotification(state, { index }) {
             state.loggedUser.notifications[index].readStatus = true;
         }
     },
@@ -103,8 +103,8 @@ export default {
                     if (!user) throw 'no user found'
                     else {
                         context.commit({ type: 'setLoggedUser', user });
-                        context.dispatch({type: 'appLogin', root: true });
-                        context.dispatch({type: 'loadFrienships'});
+                        context.dispatch({ type: 'appLogin', root: true });
+                        context.dispatch({ type: 'loadFrienships' });
                         return user;
                     }
                 })
@@ -129,7 +129,7 @@ export default {
             return UserService.update(user)
                 .then(updatedUser => {
                     console.log('updated user at store action after promise', updatedUser);
-                    context.commit({ type: 'updateUser', user: updatedUser })
+                    context.commit({ type: 'updateUser', updatedUser })
                     return updatedUser
                 })
         },
@@ -176,32 +176,32 @@ export default {
         },
 
         loadUserOrDefaultUser(context) {
-            return UserService.getLoggedUser() 
-            .then(user => {
-                if (user) {
-                    context.commit({type: 'setLoggedUser',user})
-                } else {
-                   context.dispatch({ type: "login", user: { username: "TabathaEwing", password: "tabathaewing" } })
-                }
-            })   
+            return UserService.getLoggedUser()
+                .then(user => {
+                    if (user) {
+                        context.commit({ type: 'setLoggedUser', user })
+                    } else {
+                        context.dispatch({ type: "login", user: { username: "TabathaEwing", password: "tabathaewing" } })
+                    }
+                })
         },
-        
-        appLogin({getters, commit}) {
-            socket.emit('app login', {username: getters.loggedInUser.username, userId: getters.loggedInUser._id});
-            socket.on('app newNotification', notification => { 
+
+        appLogin({ getters, commit }) {
+            socket.emit('app login', { username: getters.loggedInUser.username, userId: getters.loggedInUser._id });
+            socket.on('app newNotification', notification => {
                 console.log("before", notification);
-                commit({type: 'addNotification', notification });
+                commit({ type: 'addNotification', notification });
                 console.log("after", notification);
             });
         },
 
-        readNotification(context, {index}) {
+        readNotification(context, { index }) {
             let user = context.state.loggedUser;
             user.notifications[index].readStatus = true;
             UserService.update(user)
-            .then(() => {
-                context.commit({type: 'updateReadNotification', index});
-            })
+                .then(() => {
+                    context.commit({ type: 'updateReadNotification', index });
+                })
         }
     }
 }
