@@ -12,6 +12,18 @@
 @import 'pages/HomePage';
 @import 'pages/UserProfile';
 @import 'pages/friendsPrev';
+@import 'pages/appHome';
+
+//components
+@import 'components/backgroundGallery';
+@import 'components/UserSlider';
+@import 'components/UserPrev';
+
+body {
+    box-sizing: border-box;
+}
+
+
 
 
 

@@ -1,0 +1,105 @@
+.user-preview {
+  .btn.primary {
+    position: fixed;
+    bottom: 30px;
+    box-shadow: 10px 20px 60px rgb(0, 0, 0);
+  }
+  .user-nav {
+    width: 100vw;
+  }
+  .btn-arrow {
+    
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    i {
+      box-shadow: 5px 5px 10px rgb(100, 100, 100);
+      font-size: 3rem;
+      background-color: $primary-color;
+      border-radius: 50%;
+    }
+  }
+
+  .img-container {
+    text-shadow: 0.5px 1px 3px rgba(0, 0, 0, 0.884);
+    text-align: left;
+    color: rgb(255, 255, 255);
+    width: calc(10vw + 500px);
+    height: calc(10vw + 320px);
+    justify-content: space-between;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    transition: all 1s ease-out;
+    margin: 20px;
+    &:hover {
+      // background-size: 115% 105%;
+      transform: scale(0.98);
+      // box-shadow: 10px 20px 60px rgb(0, 0, 0);
+      opacity: 0.7;
+    }
+    .personal-details {
+      padding: 30px;
+      width: 100%;
+      background-image: linear-gradient(
+        rgba(255, 255, 255, 0),
+        rgba(0, 0, 0, 0.678)
+      );
+    }
+    .user-location {
+      background-image: linear-gradient(
+        rgba(0, 0, 0, 0.466),
+        rgba(255, 255, 255, 0)
+      );
+
+      padding: 30px;
+      width: 100%;
+    }
+    i { 
+      color: rgba(255, 255, 255, 0.932);
+      font-size: 1.4rem;
+    }
+  }
+  h4 {
+    font-size: 2.5rem;
+  }
+
+  h5 {
+    font-size: 1.2rem;
+  }
+  .details-container {
+    letter-spacing: 1px;
+    color: rgb(78, 78, 78);
+    width: calc(10vw + 500px);
+    text-align: left;
+    li {
+      list-style: none;
+    }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .user-preview {
+    .img-container {
+      width: calc(100vw - 80px);
+      height: calc(80vw - 80px);
+      margin: 0  4px 20px;
+      h4 {
+        font-size: 2rem;
+      }
+    }
+    .details-container {
+      width: calc(100vw - 80px);
+    }
+    .btn-arrow {
+      height: 30px;
+      width: 30px;
+      cursor: pointer;
+      i {
+        font-size: 2rem;
+        // border: 1.5px solid rgb(133, 133, 133);
+        border-radius: 50%;
+      }
+    }
+  }
+}

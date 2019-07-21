@@ -8,13 +8,12 @@
   }
   h1 {
     font-size: 2.2rem;
-  }
+  } 
   .profile-img {
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    background-position: center center;
-    background-size: cover;
+    object-fit: cover;
   }
   a {
     text-decoration: none;
@@ -33,7 +32,7 @@
     padding: 10px;
     color: rgb(94, 94, 94);
     h2 {
-      margin: 15px;
+      margin: 15px; 
       cursor: pointer;
     }
     li {

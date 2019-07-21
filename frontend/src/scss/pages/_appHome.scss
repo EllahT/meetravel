@@ -1,0 +1,49 @@
+.app-home {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .top-bar.bg {
+    margin-bottom: 20px;
+    background-image: linear-gradient(#000000c5, rgba(26, 26, 26, 0.493)),
+      url("../../public/img/backgrounds/9.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    width: 100%;
+    padding: 30px;
+    h1 {
+      color: rgb(255, 255, 255);
+      font-size: 1.7rem;
+      b {
+        font-family: "latobold";
+      }
+    }
+  }
+  .user-filters {
+    width: 100%;
+    padding: 10px 40px;
+    i {
+        padding: 5px;
+        &:hover {
+            background-color: $primary-color;
+            
+        }
+    }
+    .v-input__control {
+      margin-right: 20px;
+      padding: 0 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .app-home {
+    .top-bar.bg {
+      padding: 10px;
+      .user-filters {
+        padding: 10px;
+    }
+    }
+  }
+}

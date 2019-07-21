@@ -1,94 +1,124 @@
-
-
 .homepage {
-  color: $primary-dark;
-  position: relative;
-  text-align: center;
-  background: linear-gradient(0deg, rgba(158, 148, 148, 0.274), rgba(100, 142, 233, 0.445)),
-    url("https://a.imge.to/2019/07/18/1EfYs.jpg");
-    
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 100vh;
- 
-  .select {
-    width: 230px;
-    margin: 0 auto;
-  }
- 
-  h1 {
-    font-size: 4rem;
-    border-bottom: 1px solid $primary-dark;
-    width: 200px;
-    margin: 0 auto;
-    font-weight: 100;
-  }
-  h4 {
-    font-size: 1.2rem;
-    margin: 10px;
-  }
-  .container {
+  //app description
+
+  .main-container {
+    text-align: center;
     padding: 5vh 0px;
+    color: rgb(255, 255, 255);
+    position: relative;
     margin: 0 auto;
-  }
-  .app-presenting {
-    display: flex;
-    justify-content: center;
-    margin: 40px auto;
-    opacity: 1;
-    font-size: 2rem;
-    text-shadow: 0.2px 0.2px 1px rgba(0, 0, 0, 0.897);
-    p {
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+    z-index: 2;
+
+    h1 {
+      color: $primary-dark;
+      font-size: 5rem;
+      border-bottom: 0.1rem solid $primary-dark;
+      margin: 0 auto;
+      font-weight: 100;
+    }
+    h4 {
+      font-size: 1rem;
+      color: $primary-dark;
       margin: 10px;
     }
-    
-  }
 
-  .locations-container {
-    position: absolute;
-    top:62vh;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .btn.primary-dark.flat {
-    color: $primary-dark;
-  }
-
-  .btn.primary-dark.shiny {
-    width: 220px; 
-    top:180px;
-    left: 50%;
-    font-family: "latolight";
-    i {
-      font-size: 1.3rem;
-      opacity: 0.8;
+    .app-presenting {
+      display: flex;
+      justify-content: center;
+      opacity: 1;
+      font-size: 4rem;
+      text-shadow: 0.1rem 0.1rem 0.7rem rgba(15, 11, 73, 0.842);
+      p {
+        margin: 0;
+        padding: 0;
+      }
     }
-    
+
+    // location btn
+
+    .location-container.flex {
+      align-items: center;
+      z-index: 4;
+      .btn.primary-dark {
+        font-size: 1.2rem;
+        width: 250px;
+        margin: 10px;
+        position: relative;
+      }
+      i {
+        font-size: 1.2rem;
+        opacity: 0.8;
+        margin-right: 5px;
+        padding: 2px;
+      }
+    }
   }
- 
-  .card {
-    height: 50px;
-    width: 60px;
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    color: rgba(255, 255, 255, 0.952);
-    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.801);
-    margin-top: 10vh;
-    
-    cursor: pointer;
+
+  .secondery-container {
+    background-color: $primary-dark;
+    align-items: center;
+    .bg {
+      margin: 2px;
+      background-image: linear-gradient(#000000c5, rgba(48, 47, 47, 0.459)),
+        url("https://wallpapercave.com/wp/wp4409147.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+      width: 100%;
+      padding: 60px;
+      span {
+        color: rgb(255, 255, 255);
+      }
+    }
+    .select {
+      width: 100%;
+      align-items: baseline;
+      input {
+        height: 40px;
+        border-bottom: 1px solid white;
+      }
+      .btn {
+        
+        background-color: rgb(255, 255, 255);
+        cursor: pointer;
+        color: white;
+        align-self: baseline;
+        max-width: 90px;
+        margin: 5px;
+        border: 1px solid rgba(117, 117, 117, 0.116);
+        &:hover {
+          background-color: $primary-color;
+        }
+        i {
+          font-size: 1.2rem;
+          opacity: 0.8;
+          margin-right: 5px;
+          padding: 2px;
+        }
+      }
+    }
+    .google-map {
+     
+      // border: 4px solid $primary-dark;
+      width: 100%;
+      height: 500px;
+    }
   }
 }
 
 @media screen and (max-width: 800px) {
   .homepage {
-    background-position: center right;
-    height: 50vh;
-    p {
-      font-size: 1rem;
-      margin: 5px auto; 
+    .main-container {
+      height: 100vh;
+      justify-content: space-between;
+    }
+    .secondery-container {
+      .google-map {
+        height: 400px;
+      }
     }
   }
 }
@@ -97,7 +127,28 @@
   html {
     font-size: 12px;
   }
-  
-  
-  
+  .homepage {
+    .main-container {
+      h1 {
+        font-size: 3rem;
+      }
+      .app-presenting {
+        font-size: 2rem;
+        margin: 20px;
+      }
+    }
+    .secondery-container {
+      .bg {
+        padding: 10px;
+      }
+      .google-map {
+        margin: 0;
+        height: 250px;
+      }
+      .select {
+        margin: 10px auto;
+        padding: 0px;
+      }
+    }
+  }
 }

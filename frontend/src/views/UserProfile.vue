@@ -14,6 +14,7 @@
 <br>
             <!-- <div class="profile-img"> <img :src="user.profileImg"/></div> -->
       <!-- <div class="profile-img" :style="{'background-image': `url(${require(user.profileImg)})`}"></div> -->
+      <img :src="user.profileImg" class="profile-img"/>
       <h1>{{user.name.first}} {{user.name.last}}, {{age}}</h1>
       <p>{{user.residance.city}}, {{user.residance.country}}</p>
 
@@ -23,7 +24,7 @@
             <v-icon color="white">edit</v-icon>Edit general info
           </router-link>
         </div>
-        <div>
+        <div> 
           <router-link to="/friends">
             <v-icon color="white">people</v-icon>Friends
           </router-link>
@@ -32,7 +33,7 @@
     </div>
     <div class="user-info">
       <div>
-        <h2>Wants to visit</h2>
+        <h2>Bucket List</h2>
         <ul class="flex wrap">
           <li v-for="place in user.bucketList" :key="place" class="tag">{{place}} &times</li>
           <!-- <li>

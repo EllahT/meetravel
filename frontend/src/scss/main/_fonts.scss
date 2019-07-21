@@ -51,13 +51,38 @@
 
   @font-face {
     font-family: 'titi';
-    src: url("../fonts/TitilliumWeb-Regular.ttf") format("truetype");
+    src: url("../fonts/titi/TitilliumWeb-Regular.ttf") format("truetype");
     font-weight: normal;
     font-style: normal; 
   }
 
 
-  /*----------  IndieFlower  ----------*/
+  @font-face {
+    font-family: 'quickbold';
+    src: url("../fonts/Quicksand/Quicksand-Bold.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal; 
+  }
+
+  @font-face {
+    font-family: 'quick';
+    src: url("../fonts/Quicksand/Quicksand-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal; 
+  }
+
+  /*----------  class  ----------*/
+
+  .quick {
+    font-family: 'quick';
+    letter-spacing: 0.1rem;
+  }
+
+  .quick-bold {
+    font-family: 'quickbold';
+    letter-spacing: 0.1rem;
+  }
+
 
   .titi {
     font-family: 'titi';

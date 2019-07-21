@@ -1,4 +1,5 @@
-import FriendService from '../services/FriendService.js'
+import FriendService from '../services/FriendService';
+// import SocketService from '../services/SocketService';
 
 export default {
     strict: true,
