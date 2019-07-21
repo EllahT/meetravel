@@ -2,19 +2,13 @@
   <section class="user-profile lato-light" v-if="user">
     <div class="cover parallax">
 
-      <div class="profile-img">
+      <!-- <div>
           <div class="actions">
-          <h6 v-if="isLoadingPic">Image is coming soon</h6>
-          <img :src="user.profileImg"/>
-          <button @click.prevent="openFileInput" class="upload-btn">Update image</button>
-          <input v-if="isFileUpload" @change="uploadImage" type="file"/>
-          </div>
-      </div>
-<br>
-<br>
+          <h6 v-if="isLoadingPic">Image is coming soon</h6> -->
+          <img :src="user.profileImg" class="profile-img"/>
+         
             <!-- <div class="profile-img"> <img :src="user.profileImg"/></div> -->
       <!-- <div class="profile-img" :style="{'background-image': `url(${require(user.profileImg)})`}"></div> -->
-      <img :src="user.profileImg" class="profile-img"/>
       <h1>{{user.name.first}} {{user.name.last}}, {{age}}</h1>
       <p>{{user.residance.city}}, {{user.residance.country}}</p>
 
@@ -118,13 +112,12 @@ export default {
 
    uploadImage(event) {
      console.log('upload event pushed', event);
-     
-    //  this.isLoadingPic = true;
-    //  this.$store.dispatch({type: 'uploadImg', event})
-    //  .then(profileImg => {
-    //    this.user.profileImg = profileImg;
-    //    this.isLoadingPic = false;
-    //  })
+     this.isLoadingPic = true;
+     this.$store.dispatch({type: 'uploadImg', event})
+     .then(profileImg => {
+       this.user.profileImg = profileImg;
+       this.isLoadingPic = false;
+     })
 
     // addPlace(){
     //   console.log('add place pushed');

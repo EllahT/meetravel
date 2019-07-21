@@ -1,4 +1,5 @@
 import UserService from '../services/UserService';
+import ImageService from '../services/ImageService';
 import socket from '../services/SocketService.js';
 
 export default {
@@ -174,6 +175,15 @@ export default {
                     return filteredUsers;
                 });
         },
+
+        // uploadImg(context, event) {
+        //     console.log('at store: upload image pushed. event-value:', event.target.value)
+        // return ImageService.uploadImg(context.state.filterBy, context.state.location)
+        //     .then(filteredUsers => {
+        //         context.commit({ type: "setUsers", filteredUsers });
+        //         return filteredUsers;
+        //     });
+        // },
 
         updateLocation(context, { location }) {
             context.commit({ type: 'updateLocation', location })
