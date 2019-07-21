@@ -35,18 +35,16 @@ async function deleteFriendship(req, res) {
 
 async function convertRequest(req, res) {
     const requestId = req.params.id;
-    const loggedUser = req.session.user;
     const request = await friendService.getById(requestId);
     request.status = 'approved';
-    await friendService.convertRequestToFriendship(request, loggedUser);
+    await friendService.convertRequestToFriendship(request);
     res.send(request);
 }
 
 async function addRequest(req, res) {
     const request = req.body;
-    const loggedUser = req.session.user;
     try {
-        const requestWithId = await friendService.addRequest(request, loggedUser);
+        const requestWithId = await friendService.addRequest(request);
         res.send(requestWithId);
     }
     catch(err) {

@@ -15,6 +15,8 @@ function setup(http) {
 
     socket.on("app login", payload => _onAppLogin(payload, socket));
 
+    socket.on("send notification", payload => _onSendNotification(payload));
+
     socket.on("disconnect", () => {
       console.log("user disconnected");
     });
@@ -26,7 +28,7 @@ function _onAppLogin({ username, userId }, socket) {
   console.log(`user ${username} logged in and joined notifications_${userId}`);
 }
 
-async function sendNotification({ type, sender, recipient, loggedUser }) {
+async function _onSendNotification({ type, sender, recipient, loggedUser }) {
   console.log(
     `got new notification ${type} from ${sender.userId}, to ${recipient.userId}`
   );
@@ -42,7 +44,7 @@ async function sendNotification({ type, sender, recipient, loggedUser }) {
     readStatus: false
   };
 
-  console.log(`sending ${msg.message}, to notifications_${recipient.userId}`);
+  console.log(`sending ${msg.message}, to recipient's notifications_${recipient.userId}`);
   io.to(`notifications_${recipient.userId}`).emit("app newNotification", msg);
   const recipientObj = await UserService.getById(recipient.userId);
   recipientObj.notifications.push(msg);
@@ -56,13 +58,14 @@ async function sendNotification({ type, sender, recipient, loggedUser }) {
       sender.userId === loggedUser ? sender.name : recipient.name;
     senderMsg.message = `You're now friends with ${nonother}!`;
     console.log(
-      `sending ${senderMsg.message}, to notifications_${sender.userId}`
+      `sending ${senderMsg.message}, to sender's notifications_${sender.userId}`
     );
     io.to(`notifications_${sender.userId}`).emit(
       "app newNotification",
       senderMsg
     );
     const senderObj = await UserService.getById(sender.userId);
+    console.log(senderObj);
     senderObj.notifications.push(senderMsg);
     const updatedUser = await UserService.update(senderObj);
     console.log(`updated nofitications at ${updatedUser._id}`);
@@ -79,11 +82,8 @@ async function _onNewChatMsg({ msg, friendshipId }) {
     `got message ${msg.txt} from ${msg.from}, on friendship ${friendshipId}`
   );
   io.to(friendshipId).emit("chat newMsg", msg);
-  console.log("befre GETBYID ******");
   try {
-    FriendService.test();
     const friendship = await FriendService.getById(friendshipId);
-    console.log("after GETBYID ******");
     friendship.messages.push(msg);
     FriendService.update(friendship);
   } catch (err) {
@@ -92,6 +92,5 @@ async function _onNewChatMsg({ msg, friendshipId }) {
 }
 
 module.exports = {
-  setup,
-  sendNotification
+  setup
 };

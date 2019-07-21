@@ -1,7 +1,6 @@
 import UserService from '../services/UserService';
 import ImageService from '../services/ImageService';
 import socket from '../services/SocketService.js';
-import Vue from 'vue';
 
 export default {
     strict: true,
@@ -199,9 +198,7 @@ export default {
         appLogin({ getters, commit }) {
             socket.emit('app login', { username: getters.loggedInUser.username, userId: getters.loggedInUser._id });
             socket.on('app newNotification', notification => {
-                console.log("before", notification);
                 commit({ type: 'addNotification', notification });
-                console.log("after", notification);
             });
         },
 
