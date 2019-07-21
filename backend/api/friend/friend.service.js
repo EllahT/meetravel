@@ -1,7 +1,6 @@
 
 const dbService = require('../../services/db.service');
 const ObjectId = require('mongodb').ObjectId;
-// const SocketController = require('../socket.controller');
 
 module.exports = {
     query,
@@ -114,12 +113,11 @@ async function update(friendship) {
     }
 }
 
-async function convertRequestToFriendship(request, loggedUser) {
+async function convertRequestToFriendship(request) {
     const collection = await dbService.getCollection('friendships')
     try {
         await collection.replaceOne({"_id":ObjectId(request._id)}, {$set : request})
         console.log('request was converted to friendship');
-        SocketController.sendNotification({type: 'friendship', sender: request.sender, recipient: request.recipient, loggedUser: loggedUser._id});
         return request;
     } catch (err) {
         console.log(`ERROR: cannot convert the request ${request._id}`)
@@ -127,7 +125,7 @@ async function convertRequestToFriendship(request, loggedUser) {
     }
 }
 
-async function addRequest(request, loggedUser) {
+async function addRequest(request) {
     const collection = await dbService.getCollection('friendships')
     try {
         const friendship = await collection.findOne({$or: [
@@ -141,7 +139,6 @@ async function addRequest(request, loggedUser) {
         ]});
         if (friendship) throw 'ERROR: already friends or request already sent!';
         await collection.insertOne(request);
-        SocketController.sendNotification({type: 'request', sender: request.sender, recipient: request.recipient, loggedUser: loggedUser._id});
         console.log('request was sent to ',request.recipient.userId);
         return request;
     } catch (err) {

@@ -1,5 +1,5 @@
 import FriendService from '../services/FriendService';
-// import SocketService from '../services/SocketService';
+import socket from '../services/SocketService.js';
 
 export default {
     strict: true,
@@ -59,13 +59,13 @@ export default {
             state.friends.splice(idx, 1);
         },
 
-        convertRequestToFriendship(state, {newFriend}) {
-            const requestIdx = state.requests.findIndex(request => request._id === newFriend._id)
+        convertRequestToFriendship(state, {newFriendship}) {
+            const requestIdx = state.requests.findIndex(request => request._id === newFriendship._id)
             if (requestIdx) {
                 state.requests.splice(requestIdx, 1);
             } 
             
-            state.friends.unshift(newFriend);
+            state.friends.unshift(newFriendship);
         },
 
         addRequest(state, {newRequest}) {
@@ -123,14 +123,19 @@ export default {
         sendRequest(context, {request}) {
             return FriendService.sendRequest(request)
             .then(newRequest => {
-                context.commit({type: 'addRequest', newRequest})
+                context.commit({type: 'addRequest', newRequest});
+                socket.emit('send notification', {type: "request", sender: request.sender, recipient: request.recipient, loggedUser: context.getters.loggedInUser._id});
+                return newRequest;
             })
         },
 
         approveRequest(context, {requestId}) {
-            FriendService.approveRequest(requestId)
+            return FriendService.approveRequest(requestId)
             .then(newFriendship => {
-                context.commit({type: 'convertRequestToFriendship', newFriendship})
+                console.log(newFriendship)
+                context.commit({type: 'convertRequestToFriendship', newFriendship});
+                socket.emit('send notification', {type: "friendship", sender: newFriendship.sender, recipient: newFriendship.recipient, loggedUser: context.getters.loggedInUser._id});
+                return newFriendship;
             })
         },
 

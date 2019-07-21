@@ -63,5 +63,11 @@ function sendRequest(request) {
 }
 
 function approveRequest(requestId) {
-    return HttpService.ajax(`friend/request/${requestId}`, 'put');
+    return HttpService.ajax(`friend/request/${requestId}`, 'put')
+    .then((newFriendship) => {
+        return newFriendship;
+    })
+    .catch((err) => {
+        console.log(err);
+    })
 }
