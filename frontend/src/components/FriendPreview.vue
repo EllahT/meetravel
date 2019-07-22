@@ -1,7 +1,7 @@
 <template>
   <li class="friend-preview" v-if="friendship">
     <h4>You and <router-link :to="friendUrl">{{friendName}}</router-link></h4>
-    <!-- <img :src="friendImg"/> -->
+    <img v-if="friendImg" :src="friendImg"/>
     <h5>friends since :{{time}}</h5>
     <!-- <router-link :to="detailsUrl">talk and set a trip together!</router-link> -->
     <button @click="toggleShowChat">Chat and set a trip together!</button>
@@ -31,7 +31,7 @@ export default {
 
   computed: {
     detailsUrl() {
-      return `/inbox/friends/${this.friendship._id}`
+      return `/inbox/friends/${this.friendship._id}`;
     },
 
     friendImg() {
@@ -39,7 +39,7 @@ export default {
         ? this.friendship.recipient.userId 
         : this.friendship.sender.userId ;
       let friend = this.$store.getters.userById(friendId);
-      return friend.profileImg;
+      return (friend)? friend.profileImg : null;
     },
 
     time() {

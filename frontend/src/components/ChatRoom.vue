@@ -1,7 +1,7 @@
 <template>
   <div class="chat-box">
       <header>
-        <img :src="friendImg"/><h3>{{friendName}}</h3><button @click="emitToggleShowChat">&times</button></h3>
+        <img v-if="friendImg" :src="friendImg"/><h3>{{friendName}}</h3><button @click="emitToggleShowChat">&times</button></h3>
       </header>
     <div class="chat-body">
       <ul ref="msgsList" class="chat-area">

@@ -79,7 +79,7 @@ export default {
       { icon: "location_on", title: "Find Nearby", link: "/user" },
       { icon: "account_circle", title: "Edit Profile", link: "/profile" },
       // { icon: "notifications", title: "Notification", link: "" },
-      { icon: "inbox", title: "Inbox", link: "/inbox" },
+      { icon: "inbox", title: "Inbox", link: "/inbox/friends" },
       // { divider: true },
       { icon: "info", title: "About", link: "/about" },
       { icon: "insert_chart_outlined", title: "Admin", link: "/admin" },
