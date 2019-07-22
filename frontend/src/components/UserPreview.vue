@@ -39,7 +39,7 @@
       :disabled="possibleToRequest"
     >
       {{btnText}}
-      <span class="shiny"></span>
+      <!-- <span class="shiny"></span> -->
     </button>
     <!-- <div
         class="img-container flex column lato-light"
