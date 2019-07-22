@@ -113,7 +113,7 @@ export default {
                     else {
                         context.commit({ type: 'setLoggedUser', user });
                         context.dispatch({ type: 'appLogin', root: true });
-                        context.dispatch({ type: 'loadFrienships' });
+                        context.dispatch({ type: 'loadFriendships' });
                         return user;
                     }
                 })
@@ -197,6 +197,8 @@ export default {
                 .then(user => {
                     if (user) {
                         context.commit({ type: 'setLoggedUser', user })
+                        context.dispatch({ type: 'appLogin', root: true });
+                        context.dispatch({ type: 'loadFriendships' });
                     } else {
                         context.dispatch({ type: "login", user: { username: "TabathaEwing", password: "tabathaewing" } })
                     }

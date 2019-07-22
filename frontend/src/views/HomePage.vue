@@ -19,6 +19,7 @@
         </div>
       </section>
     </div>
+    <cards-3D @setLocation="setLocation"></cards-3D>
     <div class="flex column secondery-container">
       <h1 class="">Find travelers</h1>
         <span class="">Search for travelers in a chosen location</span>
@@ -36,6 +37,7 @@
             item-value="location"
             return-object
             autocomplete
+            @input="setLocation(selectedLocation)"
           ></v-autocomplete>
 
           <button class="btn flex">
@@ -153,8 +155,14 @@ export default {
           address: "Orlando, Florida",
           coords: { lat: 28.538336, lng: -81.379234 }
         },
-        { address: "Oslo, Norway", coords: { lat: 59.913868, lng: 10.752245 } },
-        { address: "Rome, Italy", coords: { lat: 41.902782, lng: 12.496365 } },
+        { 
+          address: "Oslo, Norway", 
+          coords: { lat: 59.913868, lng: 10.752245 } 
+        },
+        { 
+          address: "Rome, Italy", 
+          coords: { lat: 41.902782, lng: 12.496365 } 
+        },
         {
           address: "Zurich, Switzerland",
           coords: { lat: 47.369019, lng: 8.53803 }
@@ -184,9 +192,9 @@ export default {
       });
     },
 
-    setLocation(lat, lng, address) {
-      this.location.lat = lat;
-      this.location.lng = lng;
+    setLocation({coords, address}) {
+      this.location.lat = coords.lat;
+      this.location.lng = coords.lng;
       this.location.address = address;
       this.goToUsers();
     },

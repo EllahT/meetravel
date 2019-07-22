@@ -49,7 +49,7 @@ async function _onSendNotification({ type, sender, recipient, loggedUser }) {
   const recipientObj = await UserService.getById(recipient.userId);
   recipientObj.notifications.push(msg);
   UserService.update(recipientObj).then(updatedUser => {
-    console.log(`updated nofitications at ${updatedUser._id}`);
+    console.log(`updated nofitications at ${updatedUser._id}, ${recipient.name}`);
   });
 
   if (msg.type === "friendship") {
@@ -58,7 +58,7 @@ async function _onSendNotification({ type, sender, recipient, loggedUser }) {
       sender.userId === loggedUser ? sender.name : recipient.name;
     senderMsg.message = `You're now friends with ${nonother}!`;
     console.log(
-      `sending ${senderMsg.message}, to sender's notifications_${sender.userId}`
+      `sending ${senderMsg.message}, to sender's notifications_${sender.userId}, ${sender.name}`
     );
     io.to(`notifications_${sender.userId}`).emit(
       "app newNotification",
