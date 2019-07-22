@@ -32,9 +32,9 @@
     </h3>
 
     <div class="flex user-gallery">
-      <img :src="currMin.profileImg" @click="navUsers(-1)"/>
+      <img v-if="currMin" :src="currMin.profileImg" @click="navUsers(-1)"/>
       <user-preview v-if="users" :user="users[currUserIdx]" @nav="navUsers" @request="sendRequest"></user-preview>
-      <img :src="currMax.profileImg" @click="navUsers(1)"/>
+      <img v-if="currMax" :src="currMax.profileImg" @click="navUsers(1)"/>
     </div>
     <div class="flex map-filter">
       <user-filter></user-filter>
@@ -74,11 +74,13 @@ export default {
     },
 
     currMin() {
+      if (!this.users) return;
       if (this.currUserIdx === 0) return this.users[this.users.length - 1];
       return this.users[this.currUserIdx - 1];
     },
 
     currMax() {
+      if (!this.users) return;
       if (this.currUserIdx === this.users.length - 1) return this.users[0];
       return this.users[this.currUserIdx + 1];
     },

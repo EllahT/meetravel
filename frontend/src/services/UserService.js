@@ -34,20 +34,17 @@ function remove(userId) {
     return HttpService.ajax(`user/${userId}`, 'delete');
 }
 
-function login(userCred) { // TODO: add try and catch
-    // console.log('user cred at User Service:', userCred)
+function login(userCred) { 
     return HttpService.ajax('auth/login', 'post', userCred)
         .then(res => res)
         .catch(err => err)
 }
 
 function signup(userCred) {
-    // console.log('userCred at front user-service', userCred);
     return HttpService.ajax('auth/signup', 'post', userCred);
 }
 
 function logout() {
-    // console.log('hi from log-out at front user-service');
     return HttpService.ajax('auth/logout', 'post');
 }
 

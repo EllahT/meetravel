@@ -130,6 +130,7 @@
     .secondery-container {
       .select {
         width: 80%; 
+        cursor: pointer;
       }
       .google-map {
         height: 400px;
@@ -164,6 +165,7 @@
         width: 100%;
         margin: 10px auto;
         padding: 0px;
+        cursor: pointer;
       }
     }
   }

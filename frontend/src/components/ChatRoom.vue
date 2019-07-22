@@ -1,7 +1,7 @@
 <template>
   <div class="chat-box">
       <header>
-        <img :src="friendImg"/><h3>{{friendName}}</h3><button @click="emitToggleShowChat">&times</button></h3>
+        <img v-if="chatInfo.friendImg" :src="chatInfo.friendImg"/><h3>{{chatInfo.friendName}}</h3><button @click="emitCloseChat">&times</button></h3>
       </header>
     <div class="chat-body">
       <ul ref="msgsList" class="chat-area">
@@ -28,14 +28,14 @@ export default {
     };
   },
 
-  props: ['friendshipId', 'history', 'friendImg', 'friendName'],
+  props: ['chatInfo'],
 
   created() {
-    this.history.forEach(msg => {
+    this.chatInfo.history.forEach(msg => {
       this.messages.push(msg);
     })
 
-    this.socket.emit('chat join', {user: this.user, friendshipId: this.friendshipId});
+    this.socket.emit('chat join', {user: this.user, friendshipId: this.chatInfo.friendshipId});
     
     this.socket.on('chat newMsg', (msg)=>{
         this.messages.push(msg);
@@ -56,11 +56,11 @@ export default {
   methods: {
     sendMessage() {
         const msg = {from: this.user, txt: this.txt};
-        this.socket.emit('chat msg', {msg, friendshipId: this.friendshipId});
+        this.socket.emit('chat msg', {msg, friendshipId: this.chatInfo.friendshipId});
         this.txt = "";
     },
 
-    emitToggleShowChat() {
+    emitCloseChat() {
       this.$emit('close');
     }
   },
@@ -80,16 +80,16 @@ export default {
   background-color: #fafcfc;
   border-radius: 8px;
   box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.5);
-  max-height: 70vh;
   width: 400px;
 
   header {
-    background-color: #efefef;
+    background-color: #407FFF;
     width: 100%;
     display: flex;
     justify-content: flex-start;
     align-content: flex-start;
     padding: 10px;
+    color: #52524e;
     
       img {
         max-width: 50px;
@@ -104,14 +104,17 @@ export default {
       }    
   }
 
+  header:hover {
+    color: #52524e;
+  }
+  
   .chat-area {
     padding: 2em;
     padding-top: 2.5em;
     overflow: hidden;
     margin: 0 auto 2em auto;
-    max-height: calc(100%-100px);
     overflow-y: scroll;
-    max-height: 475px;
+    height: 420px;
     list-style: none;
   }
   .message {

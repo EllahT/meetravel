@@ -24,13 +24,12 @@ export default {
     },
     methods: {
         doSignUp() {
-            // console.log('sign-up cmp', this.user)
             this.$store.dispatch({type: 'signup', user: this.user})
                 .then ((user) => {
                  this.$router.push('/user');
                     //TODO: activate a method to alert the user about the failed function
                 }).catch(err => {
-                    console.log('got here with a mistake');
+                    console.log(err);
                     this.$router.push('/signup')}) 
         }
 }

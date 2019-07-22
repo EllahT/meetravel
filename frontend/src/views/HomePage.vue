@@ -32,7 +32,7 @@
             :items="items"
             v-model="selectedLocation"
             label="Search location"
-            hint="Enter your location"
+            hint="Select a location"
             item-text="address"
             item-value="location"
             return-object
