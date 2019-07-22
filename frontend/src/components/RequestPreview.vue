@@ -3,7 +3,7 @@
     <router-link :to="senderUrl" v-if="sender"><img :src="senderImage"/></router-link>
     <h4> {{request.sender.name}}</h4>
     <h4> sent {{time}}</h4>
-    <button @click="approveRequest">Approve Friendship Request</button>
+    <button @click="approveRequest"><i class="material-icons">check_circle</i></button>
   </li>
 </template>
 
@@ -64,7 +64,7 @@ export default {
 
 <style lang="scss">
 .request-preview {
-    max-width: 400px;
+    max-width: 500px;
     margin-top:5px;
     padding: 5px;
     display: flex;
@@ -78,7 +78,9 @@ export default {
 
     img {
       max-width: 50px;
+      max-height: 50px;
       border-radius: 50%;
+      margin: 10px;
     }
 
     a {
@@ -93,6 +95,7 @@ export default {
       cursor: pointer;
     }
 </style>
+
 
 
 

@@ -91,6 +91,7 @@ export default {
     img {
       max-width: 200px;
       border-radius: 50%;
+      margin: 10px;
     }
 
     a {
