@@ -28,7 +28,7 @@
             </v-layout>
           </v-carousel-item>
         </v-carousel> -->
-        <div style="overflow-x: scroll;">
+        <div style="">
         <div class="cards-container">
           <div
             v-for="card in cards"

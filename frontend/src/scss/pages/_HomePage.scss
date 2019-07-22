@@ -11,7 +11,7 @@
     align-items: center;
     height: 100vh;
     z-index: 2;
-
+ 
     h1 {
       color: $primary-dark;
       font-size: 5rem;
@@ -59,10 +59,12 @@
   }
 
   .secondery-container {
+    padding: 40px;
     // background-color: $primary-dark;
     h1 {
+      font-family: 'Roboto', sans-serif !important;
       color: $primary-dark;
-      font-size: 4rem;
+      font-size: 3.8rem;
       max-width: 450px;
       font-weight: 100;
       margin: 20px auto;
@@ -73,14 +75,14 @@
       font-size: 1.5rem;
     }
     .bg {
-      margin: 20px;
+      margin: 30px;
       // background-image: linear-gradient(#000000c5, rgba(48, 47, 47, 0.459)),
       //   url("https://wallpapercave.com/wp/wp4409147.jpg");
       // background-repeat: no-repeat;
       // background-size: cover;
       // background-position: center center;
       width: 100%;
-      padding: 60px;
+      // padding: 60px;
       
     }
     .select {

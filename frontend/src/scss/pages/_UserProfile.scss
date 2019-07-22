@@ -1,10 +1,14 @@
 .user-profile {
-  text-align: center;
+  margin-top: 50px;
+ 
   .cover {
     color: white;
-    padding: 30px;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.315), rgba(44, 44, 44, 0.555)),
-      url('https://wallpapercave.com/wp/wp4414509.jpg');
+    padding: 50px;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0), rgba(202, 79, 79, 0.555)),
+      url('../../public/img/bg11.jpg');
+      background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
   }
   h1 {
     font-size: 2.2rem;
@@ -26,13 +30,18 @@
     margin: 30px;
   }
   .actions > * {
+    
     margin: 20px;
   }
   .user-info {
-    padding: 10px;
+    text-align: left;
+    margin: 0 auto;
+    max-width: 600px;
+    padding: 20px;
     color: rgb(94, 94, 94);
     h2 {
-      margin: 15px; 
+      margin: 15px;
+      margin-left: 0; 
       cursor: pointer;
     }
     li {
@@ -41,9 +50,11 @@
       list-style: none;
     }
     .tag {
-      border: 1px solid rgb(153, 153, 153);
-      border-radius: 25px;
-      cursor: pointer;
+      // background-color: $primary-dark;
+      // color: $primary-dark;
+      // border: 1px solid rgb(153, 153, 153);
+      border-radius: 10px;
+      // cursor: pointer;
     }
     i {
       margin-left: 5px;

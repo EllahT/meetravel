@@ -1,12 +1,19 @@
 <template>
   <header>
     <v-layout class="app-header">
-      <v-container class="flex hamburger-container">
-        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-container class="flex hamburger-container" :class="{trans:isScroll }">
+        <v-toolbar-side-icon flat color="" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <v-spacer></v-spacer>
+        <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="200" offset-x>
+          <template v-slot:activator="{ on }">
+            <v-btn flat color="" v-on="on" :class="classByUnread"><v-icon >notifications</v-icon>({{unread}})</v-btn>
+          </template>
+
+          <user-notifications></user-notifications>
+        </v-menu>
         <!-- <v-icon color="black">notifications</v-icon> -->
       </v-container>
-      <div style=" margin-bottom: 80px;"></div>
+      <!-- <div style=" margin-bottom: 80px;"></div> -->
       <v-navigation-drawer class="nav-container" v-model="drawer" absolute temporary>
         <v-list class="pa-1">
           <v-list-tile avatar v-if="(username !== null)">
@@ -23,7 +30,7 @@
         <v-list class="pt-0" dense>
           <v-divider></v-divider>
 
-          <button
+          <button class="px-4 py-2"
             @click.stop="toggleShowNotifications"
             v-if="username"
             :class="classByUnread"
@@ -41,7 +48,7 @@
             </router-link>
           </v-list-tile>
           <v-list-tile class="nav-item">
-            <router-link to>
+            <router-link to="/signup">
               <v-list-tile-content @click="doLogOut">
                 <v-list-tile-title>
                   <v-icon color="black" left>person</v-icon>LogOut
@@ -52,17 +59,19 @@
         </v-list>
       </v-navigation-drawer>
     </v-layout>
-        <new-notification v-if="newNotification !== null" :newNotification="newNotification"></new-notification>
-
+    <new-notification v-if="newNotification !== null" :newNotification="newNotification"></new-notification>
   </header>
 </template>
 
 <script>
-import NewNotification from '@/components/NewNotification';
-import UserNotifications from '@/components/UserNotifications';
+import NewNotification from "@/components/NewNotification";
+import UserNotifications from "@/components/UserNotifications";
 
 export default {
   data: () => ({
+    menu: false,
+    header: 300,
+    isScroll: false,
     drawer: null,
     width: 300,
     items: [
@@ -71,9 +80,9 @@ export default {
       { icon: "account_circle", title: "Edit Profile", link: "/profile" },
       // { icon: "notifications", title: "Notification", link: "" },
       { icon: "inbox", title: "Inbox", link: "/inbox" },
-      { divider: true },
+      // { divider: true },
       { icon: "info", title: "About", link: "/about" },
-      { icon: "insert_chart_outlined", title: "Admin", link: "" },
+      { icon: "insert_chart_outlined", title: "Admin", link: "/admin" },
       { icon: "person", title: "Login", link: "/login" },
       { icon: "person", title: "Signup", link: "/signup" }
     ],
@@ -81,6 +90,9 @@ export default {
   }),
 
   methods: {
+    getCurrentScroll() {
+      return window.pageYOffset || document.documentElement.scrollTop;
+    },
     doLogOut() {
       this.$store.dispatch({ type: "logout" });
     },
@@ -107,12 +119,22 @@ export default {
     },
 
     classByUnread() {
-      return this.unread? 'unread' : 'allread';
+      return this.unread ? "unread" : "allread";
     },
 
     newNotification() {
       return this.$store.getters.newNotification;
     }
+  },
+  created() {
+    window.scroll(function() {
+      var scroll = this.getCurrentScroll();
+      if (scroll >= this.header) {
+        this.isScroll = true;
+      } else {
+        this.isScroll = false;
+      }
+    });
   },
 
   components: {
@@ -142,7 +164,11 @@ export default {
   .hamburger-container {
     position: fixed;
     z-index: 4;
-   
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.945);
+  }
+  .hamburger-container.trans {
+    background-color: rgba(255, 255, 255, 0);
   }
   .nav-container {
     position: fixed;

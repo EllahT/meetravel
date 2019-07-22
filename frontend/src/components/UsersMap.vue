@@ -3,7 +3,7 @@
         :center="userPosition"
         :zoom="11"
         map-type-id="terrain"
-        style="width: 500px; height: 300px"
+        style="width: 800px; height: 400px; margin:40px 10px"
     >
         <GmapMarker
             :position="userPosition"

@@ -1,11 +1,47 @@
 <template>
   <li class="user-preview flex column" v-if="user" :class="isAdminPageClass">
     <div class="flex user-nav">
-      <button class="btn-arrow" v-if="!isAdminPage" @click.stop="emitNavUsers(-1)">
+      <button class="btn-arrow bounce" v-if="!isAdminPage" @click.stop="emitNavUsers(-1)">
         <v-icon color="white">keyboard_arrow_left</v-icon>
       </button>
-        <router-link :to="detailsUrl">
-      <div
+      <router-link :to="detailsUrl">
+      <figure class="snip1529 img-container">
+        <img
+          :src="user.profileImg"
+          
+        />
+        <div class="date">
+          <span class="day">{{distance}}</span>
+          <span class="month">km</span>
+        </div>
+        <figcaption>
+          <h3>{{user.name.first}} {{user.name.last}}, {{age}}</h3>
+          <!-- <h3></h3> -->
+          <p>{{user.residance.city}}, {{user.residance.country}}</p>
+         
+        </figcaption>
+        <div @mouseleave="isHover = false" :class="{hover: isHover}">
+          <i >View profile</i>
+        </div>
+        <a href="#"></a>
+       
+      </figure>
+    </router-link>
+    
+      <button class="btn-arrow bounce" v-if="!isAdminPage" @click.stop="emitNavUsers(1)">
+        <v-icon color="white">keyboard_arrow_right</v-icon>
+      </button>
+    </div>
+     <button
+      class="btn primary"
+      v-if="!isAdminPage"
+      @click="emitRequest"
+      :disabled="possibleToRequest"
+    >
+      {{btnText}}
+      <span class="shiny"></span>
+    </button>
+    <!-- <div
         class="img-container flex column lato-light"
         :style="{ backgroundImage: `url('${user.profileImg}')` }"
       >
@@ -17,13 +53,8 @@
           <h4 class="Lato-bold">{{user.name.first}} {{user.name.last}}</h4>
           <h5>{{user.residance.city}}, {{user.residance.country}}</h5>
           </div>
-      </div>
-        </router-link>
-      <button class="btn-arrow" v-if="!isAdminPage" @click.stop="emitNavUsers(1)">
-        <v-icon color="white">keyboard_arrow_right</v-icon>
-      </button>
-    </div>
-    <div class="details-container">
+    </div>-->
+    <!-- <div class="details-container">
       <div>
         <h1>
           About Me
@@ -38,16 +69,13 @@
         <li v-for="place in user.bucketList" :key="place">#<i>{{place}}</i></li>
         </ul>
       </div>
-    </div>
+    </div>-->
     <div v-if="isAdminPage" class="actions">
       <router-link :to="editUrl">Edit</router-link>|
       <button @click="emitDelete" title="delete user">x</button>
     </div>
-    <button class="btn primary" v-if="!isAdminPage" @click="emitRequest" :disabled="possibleToRequest">
-      {{btnText}}
-      <span class="shiny"></span>
-    </button>
-    <button @click="changePic">changePic</button>
+    
+    <!-- <button @click="changePic">changePic</button> -->
   </li>
 </template>
 
@@ -69,8 +97,16 @@ export default {
       require: false
     }
   },
+  data() {
+    return {
+      isHover: true
+    }
+  },
 
   computed: {
+    age() {
+      return new Date().getFullYear() - this.user.birthDate;
+    },
     detailsUrl() {
       return `/user/${this.user._id}`;
     },
@@ -150,7 +186,6 @@ export default {
 
 <style lang="scss">
 .user-preview {
-
   a {
     color: inherit;
     text-decoration: none;

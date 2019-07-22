@@ -41,8 +41,8 @@
           // margin: 20px;
           transition: 0.6s;
           transform: rotatex(40deg) translatey(-50px) translatez(-100px);
-          box-shadow: 0px 20px 60px rgba(212, 212, 212, 0.5);
-
+          box-shadow: 0px 10px 20px rgba(151, 151, 151, 0.363);
+          border: 1px solid rgba(219, 219, 219, 0.637);
           &:hover {
             transform: rotatex(0deg);
             transform: rotatez(0deg);
@@ -68,7 +68,7 @@
             text-shadow: 0 0.2rem 0.7rem rgb(17, 17, 17);
             h3 {
               font-weight: 100;
-              font-size: 2.5rem;
+              font-size: 2rem;
               letter-spacing: -0.15ch;
               font-weight: bold;
             }

@@ -7,20 +7,24 @@
         <p>{{user.residance.city}}, {{user.residance.country}}</p>
       </div>
       <div class="user-info">
-        <div>
-          <h2>Bucket List</h2>
-          <ul class="flex wrap">
-            <li v-for="place in user.bucketList" :key="place" class="tag">{{place}}</li>
-          </ul>
+        <div class="flex start" style="align-items: baseline;">
+          <h2>Bucket List:</h2>
+          <p v-for="place in user.bucketList" :key="place" class="tag">{{place}}</p>
         </div>
         <h2>About me</h2>
         <p>{{user.description}}</p>
-        <h2>Prefered Travel Type</h2>
+        <div class="flex start" style="align-items: baseline;">
+        <h2>Prefered Travel Type:</h2>
         <p v-for=" type in user.travelTypes" :key="type">{{type}}</p>
-        <h2>Age</h2>
+        </div>
+        <div class="flex start" style="align-items: baseline;">
+        <h2>Age:</h2>
         <span>{{age}}</span>
-        <h2>location</h2>
+        </div>
+        <div class="flex start" style="align-items: baseline;">
+        <h2>location:</h2>
         <span>{{distance}} km away</span>
+        </div>
       </div>
     </div>
     <div class="actions">
