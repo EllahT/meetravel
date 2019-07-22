@@ -111,7 +111,6 @@ export default {
    },
 
    uploadImage(event) {
-     console.log('upload event pushed', event);
      this.isLoadingPic = true;
      this.$store.dispatch({type: 'uploadImg', event})
      .then(profileImg => {

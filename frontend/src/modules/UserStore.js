@@ -48,6 +48,7 @@ export default {
         },
 
         unreadNotifications(state) {
+            if (!state.loggedUser) return 0;
             return state.loggedUser.notifications.filter(notification => !notification.readStatus).length;
         },
 

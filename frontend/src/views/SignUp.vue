@@ -30,7 +30,7 @@ export default {
                  this.$router.push('/user');
                     //TODO: activate a method to alert the user about the failed function
                 }).catch(err => {
-                    console.log('got here with a mistake');
+                    console.log(err);
                     this.$router.push('/signup')}) 
         }
 }
