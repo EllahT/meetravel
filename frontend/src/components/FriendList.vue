@@ -1,7 +1,11 @@
 <template>
-     <ul v-if="friendships.length">
+    <div>
+      <router-link to="/inbox/friends" class="title-container"><p class="inbox-title">Friends</p></router-link> 
+      <router-link to="/inbox/requests" class="sub-title-container"><p class="inbox-sub-title">Requests</p></router-link>
+     <ul class="friends-list" v-if="friendships.length">
         <friend-preview v-for="friendship in friendships" :friendship="friendship" :key="(friendship || {})._id"></friend-preview>
     </ul>
+    </div>
 </template>
 
 <script>
@@ -24,4 +28,4 @@ export default {
   }
 }
 </script>
-   
+  

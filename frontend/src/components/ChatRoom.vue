@@ -80,16 +80,16 @@ export default {
   background-color: #fafcfc;
   border-radius: 8px;
   box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.5);
-  max-height: 70vh;
   width: 400px;
 
   header {
-    background-color: #efefef;
+    background-color: #407FFF;
     width: 100%;
     display: flex;
     justify-content: flex-start;
     align-content: flex-start;
     padding: 10px;
+    color: #52524e;
     
       img {
         max-width: 50px;
@@ -104,14 +104,17 @@ export default {
       }    
   }
 
+  header:hover {
+    color: #52524e;
+  }
+  
   .chat-area {
     padding: 2em;
     padding-top: 2.5em;
     overflow: hidden;
     margin: 0 auto 2em auto;
-    max-height: calc(100%-100px);
     overflow-y: scroll;
-    max-height: 475px;
+    height: 420px;
     list-style: none;
   }
   .message {

@@ -64,23 +64,34 @@ export default {
 
 <style lang="scss">
 .request-preview {
-    max-width: 650px;
+    max-width: 400px;
     margin-top:5px;
     padding: 5px;
-    border-width:1px;
-    border-style: solid;
-    border-color: blue;
-    border-width: 1px;
-    border-radius: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 5px 0;
+    padding: 10px 8px;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    color: #9a9b94;
 
     img {
       max-width: 50px;
       border-radius: 50%;
     }
+
+    a {
+      color: inherit;
+    }
 }
+
+.request-preview:hover {
+      border-top: 1px solid #9a9b94;
+      border-bottom: 1px solid #9a9b94;
+      color: #52524e;
+      cursor: pointer;
+    }
 </style>
 
 
