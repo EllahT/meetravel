@@ -1,7 +1,7 @@
 <template>
   <section class="log-in">
         <v-form @submit.prevent="doLogIn">
-            <v-text-field prepend-icon="person" v-model="user.username" label="First name" type="text"></v-text-field>
+            <v-text-field class="user-name" prepend-icon="person" v-model="user.username" label="User name" type="text"></v-text-field>
             <v-text-field prepend-icon="lock" v-model="user.password" label="Password" type="password"></v-text-field>
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -40,6 +40,9 @@ export default {
 <style lang="scss">
 .log-in{
     margin: 10px;
-    padding: 10px
+    padding: 10px;
+}
+.user-name{
+  margin-top: 30px
 }
 </style>
