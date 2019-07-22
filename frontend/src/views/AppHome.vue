@@ -129,7 +129,7 @@ export default {
 
       this.$store.dispatch({ type: "sendRequest", request }).then(() => {
         console.log("request sent to", recipient);
-        this.$noty.success(`request sent to ${recipient.name}`);
+        this.$noty.success(`Request sent to ${recipient.name}`);
       });
     },
 

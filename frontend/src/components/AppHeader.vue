@@ -6,7 +6,7 @@
         <v-spacer></v-spacer>
         <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="200" offset-x>
           <template v-slot:activator="{ on }">
-            <v-btn flat color="" v-on="on" :class="classByUnread"><v-icon >notifications</v-icon>({{unread}})</v-btn>
+            <v-btn flat color="" v-on="on" :class="classByUnread"><v-icon :color="colorByUnread">notifications</v-icon>({{unread}})</v-btn>
           </template>
 
           <user-notifications></user-notifications>
@@ -30,7 +30,7 @@
         <v-list class="pt-0" dense>
           <v-divider></v-divider>
 
-          <button class="px-4 py-2"
+          <button class="px-5 py-2"
             @click.stop="toggleShowNotifications"
             v-if="username"
             :class="classByUnread"
@@ -124,6 +124,10 @@ export default {
 
     newNotification() {
       return this.$store.getters.newNotification;
+    },
+
+    colorByUnread() {
+      return this.unread ? "red" : "black";
     }
   },
   created() {
@@ -194,5 +198,7 @@ export default {
 
 .unread {
   font-weight: bold;
+  color: red;
 }
+
 </style>
