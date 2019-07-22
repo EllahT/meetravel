@@ -20,23 +20,19 @@
     </div>
     </div>
     <user-preview v-if="users" :user="users[currUserIdx]" @nav="navUsers" @request="sendRequest"></user-preview>
+    <users-map @goToUser="navToUser"></users-map>
   </div>
 </template>
 
 <script>
-import UserPreview from "@/components/UserPreview.vue";
-import UserSlider from "@/components/UserSlider.vue";
-import ImageService from "@/services/ImageService.js";
+import UserPreview from '@/components/UserPreview.vue';
+import UserSlider from '@/components/UserSlider.vue';
+import ImageService from '@/services/ImageService.js';
+import UsersMap from '@/components/UsersMap.vue';
 
 export default {
   created() {
-    this.$store.dispatch({ type: "loadUsers" }).then(() => {
-      if (
-        this.$store.getters.loggedInUser._id ===
-        this.users[this.currUserIdx]._id
-      )
-        this.currUserIdx++;
-    });
+    this.$store.dispatch({ type: "loadUsers" });
   },
 
   data() {
@@ -48,7 +44,11 @@ export default {
 
   computed: {
     users() {
-      return this.$store.getters.users;
+      const users = [...this.$store.getters.users];
+      const idx = users.findIndex(user => user._id === this.$store.getters.loggedInUser._id);
+      if (idx > -1) return users;
+      else users.splice(idx,1);
+      return users;
     },
 
     location() {
@@ -97,14 +97,21 @@ export default {
       };
 
       this.$store.dispatch({ type: "sendRequest", request }).then(() => {
-        console.log("request sent to", recipient);
+        console.log('request sent to', recipient);
+        this.$noty.success(`request sent to ${recipient.name}`);
       });
+    },
+
+    navToUser(userId) {
+      const idx = this.users.findIndex(user => user._id === userId);
+      this.currUserIdx = idx;
     }
   },
 
   components: {
     UserPreview,
-    UserSlider
+    UserSlider,
+    UsersMap
   }
 };
 </script>

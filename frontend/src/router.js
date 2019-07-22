@@ -66,21 +66,6 @@ export default new Router({
             name: 'UserDetails',
             component: UserDetails
         },
-        // {
-        //     path: '/trip/',
-        //     name: 'TripList',
-        //     component: TripList
-        // },
-        // {
-        //     path: '/trip/edit/:tripId?',
-        //     name: 'TripEdit',
-        //     component: TripEdit
-        // },
-        // {
-        //     path: '/trip/:tripId',
-        //     name: 'TripDetails',
-        //     component: TripDetails
-        // },
         {
             path: '/inbox',
             name: 'UserInbox',

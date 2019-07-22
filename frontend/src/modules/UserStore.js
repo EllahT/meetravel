@@ -1,6 +1,6 @@
 import UserService from '../services/UserService';
+import ImageService from '../services/ImageService';
 import socket from '../services/SocketService.js';
-import Vue from 'vue';
 
 export default {
     strict: true,
@@ -14,7 +14,8 @@ export default {
             gender: 'all',
             name: null
         },
-        location: { lat: 32.059391999999995, lng: 34.8512256, address: 'Kiryat Ono, Israel' }
+        location: { lat: 32.059391999999995, lng: 34.8512256, address: 'Kiryat Ono, Israel' },
+        newNotification: null
     },
 
     getters: {
@@ -48,6 +49,10 @@ export default {
 
         unreadNotifications(state) {
             return state.loggedUser.notifications.filter(notification => !notification.readStatus).length;
+        },
+
+        newNotification (state) {
+            return state.newNotification;
         }
     },
 
@@ -61,7 +66,6 @@ export default {
         },
 
         updateUser(state, { updatedUser }) {
-            console.log('state & updated user at store mutation', state, updatedUser);
             const idx = state.users.findIndex(user => user._id === updatedUser._id);
             state.users.splice(idx, 1, updatedUser);
         },
@@ -87,24 +91,29 @@ export default {
             state.location = location;
         },
 
-        addNotification(state, {notification}) {
+        addNotification(state, { notification }) {
             state.loggedUser.notifications.push(notification);
         },
 
-        updateReadNotification(state, {index}) {
+        updateReadNotification(state, { index }) {
             state.loggedUser.notifications[index].readStatus = true;
+        },
+
+        setNewNotification(state, {notification}) {
+            state.newNotification = notification;
         }
+
     },
 
     actions: {
         login(context, { user }) {
             return UserService.login(user)
                 .then((user) => {
-                    if (!user) throw 'no user found'
+                    if (!user) throw 'no user found';
                     else {
                         context.commit({ type: 'setLoggedUser', user });
-                        context.dispatch({type: 'appLogin', root: true });
-                        context.dispatch({type: 'loadFrienships'});
+                        context.dispatch({ type: 'appLogin', root: true });
+                        context.dispatch({ type: 'loadFrienships' });
                         return user;
                     }
                 })
@@ -128,8 +137,7 @@ export default {
         updateUser(context, { user }) {
             return UserService.update(user)
                 .then(updatedUser => {
-                    console.log('updated user at store action after promise', updatedUser);
-                    context.commit({ type: 'updateUser', user: updatedUser })
+                    context.commit({ type: 'updateUser', updatedUser })
                     return updatedUser
                 })
         },
@@ -166,6 +174,15 @@ export default {
                 });
         },
 
+        // uploadImg(context, event) {
+        //     console.log('at store: upload image pushed. event-value:', event.target.value)
+        // return ImageService.uploadImg(context.state.filterBy, context.state.location)
+        //     .then(filteredUsers => {
+        //         context.commit({ type: "setUsers", filteredUsers });
+        //         return filteredUsers;
+        //     });
+        // },
+
         updateLocation(context, { location }) {
             context.commit({ type: 'updateLocation', location })
         },
@@ -176,32 +193,36 @@ export default {
         },
 
         loadUserOrDefaultUser(context) {
-            return UserService.getLoggedUser() 
-            .then(user => {
-                if (user) {
-                    context.commit({type: 'setLoggedUser',user})
-                } else {
-                   context.dispatch({ type: "login", user: { username: "TabathaEwing", password: "tabathaewing" } })
-                }
-            })   
+            return UserService.getLoggedUser()
+                .then(user => {
+                    if (user) {
+                        context.commit({ type: 'setLoggedUser', user })
+                    } else {
+                        context.dispatch({ type: "login", user: { username: "TabathaEwing", password: "tabathaewing" } })
+                    }
+                })
         },
-        
-        appLogin({getters, commit}) {
-            socket.emit('app login', {username: getters.loggedInUser.username, userId: getters.loggedInUser._id});
-            socket.on('app newNotification', notification => { 
-                console.log("before", notification);
-                commit({type: 'addNotification', notification });
-                console.log("after", notification);
+
+        appLogin({ getters, commit }) {
+            console.log(getters.loggedInUser.username);
+            socket.emit('app login', { username: getters.loggedInUser.username, userId: getters.loggedInUser._id });
+            socket.on('app newNotification', notification => {
+                commit({ type: 'addNotification', notification});
+                commit({type: 'setNewNotification', notification})
             });
         },
 
-        readNotification(context, {index}) {
+        readNotification(context, { index }) {
             let user = context.state.loggedUser;
             user.notifications[index].readStatus = true;
             UserService.update(user)
-            .then(() => {
-                context.commit({type: 'updateReadNotification', index});
-            })
+                .then(() => {
+                    context.commit({ type: 'updateReadNotification', index });
+                })
+        },
+
+        clearNewNotification({commit}) {
+            commit({type: 'setNewNotification', notification: null});
         }
     }
 }

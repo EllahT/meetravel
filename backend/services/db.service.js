@@ -14,7 +14,7 @@ var gClient = null;
 //     if (dbConn) return Promise.resolve(dbConn);
 //     const MongoClient = require('mongodb').MongoClient;
                 
-//     const url = 'mongodb+srv://ellah:lily2016@cluster0-zot7w.mongodb.net/ellah?retryWrites=true';
+//     const url = 'mongodb+srv://ellah:lily2016@cluster0-zot7w.mongodb.net/test?retryWrites=true&w=majority';
  
 //     return MongoClient.connect(url , { useNewUrlParser: true })
 //         .then(client => {
@@ -31,7 +31,8 @@ var gClient = null;
 //  }
 
 async function connect() {
-    if (dbConn) return dbConn;
+    if (dbConn) return Promise.resolve(dbConn);
+    
     try {
         const client = await MongoClient.connect(
             config.dbURL,
@@ -46,6 +47,12 @@ async function connect() {
         process.on('SIGINT', closeDatabaseConnectionAndExit);
         process.on('SIGTERM', closeDatabaseConnectionAndExit);
 
+        client.on('close', () => {
+            console.log('MongoDB Diconnected!');
+            client.close()
+            dbConn = null;
+        })
+             
         return db;
     } catch(err) {
         console.log('Cannot Connect to DB', err)
@@ -55,7 +62,7 @@ async function connect() {
 
 async function getCollection(collectionName) {
     const db = await connect()
-    return db.collection(collectionName);
+    return db.collection( collectionName);
 }
 
 function closeDatabaseConnectionAndExit() {

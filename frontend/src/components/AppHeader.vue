@@ -52,11 +52,14 @@
         </v-list>
       </v-navigation-drawer>
     </v-layout>
+        <new-notification v-if="newNotification !== null" :newNotification="newNotification"></new-notification>
+
   </header>
 </template>
 
 <script>
-import UserNotifications from "@/components/UserNotifications";
+import NewNotification from '@/components/NewNotification';
+import UserNotifications from '@/components/UserNotifications';
 
 export default {
   data: () => ({
@@ -104,12 +107,17 @@ export default {
     },
 
     classByUnread() {
-      return this.unread ? "unread" : "allread";
+      return this.unread? 'unread' : 'allread';
+    },
+
+    newNotification() {
+      return this.$store.getters.newNotification;
     }
   },
 
   components: {
-    UserNotifications
+    UserNotifications,
+    NewNotification
   }
 };
 </script>

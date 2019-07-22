@@ -1,14 +1,21 @@
 <template>
   <section class="user-profile lato-light" v-if="user">
     <div class="cover parallax">
-      <img :src="user.profileImg" class="profile-img"/>
+
+      <!-- <div>
+          <div class="actions">
+          <h6 v-if="isLoadingPic">Image is coming soon</h6> -->
+          <img :src="user.profileImg" class="profile-img"/>
+         
+            <!-- <div class="profile-img"> <img :src="user.profileImg"/></div> -->
+      <!-- <div class="profile-img" :style="{'background-image': `url(${require(user.profileImg)})`}"></div> -->
       <h1>{{user.name.first}} {{user.name.last}}, {{age}}</h1>
       <p>{{user.residance.city}}, {{user.residance.country}}</p>
 
       <div class="actions flex">
         <div>
           <router-link to="/profile/edit" class="flex wrap">
-            <v-icon color="white">edit</v-icon>Edit General Info
+            <v-icon color="white">edit</v-icon>Edit general info
           </router-link>
         </div>
         <div> 
@@ -23,9 +30,9 @@
         <h2>Bucket List</h2>
         <ul class="flex wrap">
           <li v-for="place in user.bucketList" :key="place" class="tag">{{place}} &times</li>
-          <li>
-            <v-icon class="tag">add</v-icon>
-          </li>
+          <!-- <li>
+            <v-icon class="tag" @click="addPlace">add</v-icon>
+          </li> -->
         </ul>
       </div>
 
@@ -35,7 +42,7 @@
         <template v-slot:activator="{ on }">
           <h2>
           About me
-          <v-icon v-on="on">edit</v-icon>
+          <v-icon v-on="on" title="Edit about me">edit</v-icon>
            </h2>
         </template>
         <v-card>
@@ -78,7 +85,9 @@ export default {
   data() {
     return {
       user: null,
-      dialog: false
+      dialog: false,
+      isLoadingPic: false,
+      isFileUpload: false
     };
   },
 
@@ -97,13 +106,32 @@ export default {
         console.log("updated user");
       });
     },
+     openFileInput() {
+     this.isFileUpload = !this.isFileUpload;
+   },
+
+   uploadImage(event) {
+     console.log('upload event pushed', event);
+     this.isLoadingPic = true;
+     this.$store.dispatch({type: 'uploadImg', event})
+     .then(profileImg => {
+       this.user.profileImg = profileImg;
+       this.isLoadingPic = false;
+     })
+
+    // addPlace(){
+    //   console.log('add place pushed');
+      
+    // }
         
       }
-    
+    }
 }
 
 </script>
 
 <style lang="scss">
-
+.upload-btn{
+  color: black
+}
 </style>
