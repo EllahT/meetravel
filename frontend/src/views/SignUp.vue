@@ -24,7 +24,6 @@ export default {
     },
     methods: {
         doSignUp() {
-            // console.log('sign-up cmp', this.user)
             this.$store.dispatch({type: 'signup', user: this.user})
                 .then ((user) => {
                  this.$router.push('/user');

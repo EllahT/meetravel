@@ -207,7 +207,6 @@ export default {
         },
 
         appLogin({ getters, commit }) {
-            console.log(getters.loggedInUser.username);
             socket.emit('app login', { username: getters.loggedInUser.username, userId: getters.loggedInUser._id });
             socket.on('app newNotification', notification => {
                 commit({ type: 'addNotification', notification});
