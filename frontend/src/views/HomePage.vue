@@ -19,7 +19,7 @@
         </div>
       </section>
     </div>
-    <cards-3D @setLocation="setLocation"></cards-3D>
+    
     <div class="flex column secondery-container">
       <h1 class="">Find travelers</h1>
         <span class="">Search for travelers in a chosen location</span>
@@ -58,7 +58,7 @@
         ></iframe>
       </div>-->
     </div>
-    <cards-3D></cards-3D>
+    <cards-3D @setLocation="setLocation"></cards-3D>
   </section>
 </template>
 <script>

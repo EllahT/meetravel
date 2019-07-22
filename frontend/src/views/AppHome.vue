@@ -28,7 +28,7 @@
       
     </div>
     <h3 class="lato-light" v-if="users">
-      <b>{{currUserIdx+1}}/{{users.length}}</b>
+      <!-- <b>{{currUserIdx+1}}/{{users.length}}</b> -->
     </h3>
 
     <div class="flex user-gallery">
