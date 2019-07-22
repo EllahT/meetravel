@@ -8,13 +8,13 @@
       </div>
       <div class="user-info">
         <div class="flex start" style="align-items: baseline;">
-          <h2>Bucket List:</h2>
+          <h2>Bucket list:</h2>
           <p v-for="place in user.bucketList" :key="place" class="tag">{{place}}</p>
         </div>
         <h2>About me</h2>
         <p>{{user.description}}</p>
         <div class="flex start" style="align-items: baseline;">
-        <h2>Prefered Travel Type:</h2>
+        <h2>Prefered travel type:</h2>
         <p v-for=" type in user.travelTypes" :key="type">{{type}}</p>
         </div>
         <div class="flex start" style="align-items: baseline;">
@@ -22,7 +22,7 @@
         <span>{{age}}</span>
         </div>
         <div class="flex start" style="align-items: baseline;">
-        <h2>location:</h2>
+        <h2>Location:</h2>
         <span>{{distance}} km away</span>
         </div>
       </div>
