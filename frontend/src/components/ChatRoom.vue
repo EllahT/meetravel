@@ -1,7 +1,7 @@
 <template>
   <div class="chat-box">
       <header>
-        <img v-if="friendImg" :src="friendImg"/><h3>{{friendName}}</h3><button @click="emitToggleShowChat">&times</button></h3>
+        <img v-if="chatInfo.friendImg" :src="chatInfo.friendImg"/><h3>{{chatInfo.friendName}}</h3><button @click="emitCloseChat">&times</button></h3>
       </header>
     <div class="chat-body">
       <ul ref="msgsList" class="chat-area">
@@ -28,14 +28,14 @@ export default {
     };
   },
 
-  props: ['friendshipId', 'history', 'friendImg', 'friendName'],
+  props: ['chatInfo'],
 
   created() {
-    this.history.forEach(msg => {
+    this.chatInfo.history.forEach(msg => {
       this.messages.push(msg);
     })
 
-    this.socket.emit('chat join', {user: this.user, friendshipId: this.friendshipId});
+    this.socket.emit('chat join', {user: this.user, friendshipId: this.chatInfo.friendshipId});
     
     this.socket.on('chat newMsg', (msg)=>{
         this.messages.push(msg);
@@ -56,11 +56,11 @@ export default {
   methods: {
     sendMessage() {
         const msg = {from: this.user, txt: this.txt};
-        this.socket.emit('chat msg', {msg, friendshipId: this.friendshipId});
+        this.socket.emit('chat msg', {msg, friendshipId: this.chatInfo.friendshipId});
         this.txt = "";
     },
 
-    emitToggleShowChat() {
+    emitCloseChat() {
       this.$emit('close');
     }
   },

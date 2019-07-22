@@ -5,16 +5,25 @@
         <router-link to="/inbox/requests" class="sub-title-container"><p class="inbox-sub-title">Requests</p></router-link>
       </nav>
       <ul class="friends-list" v-if="friendships.length">
-        <friend-preview v-for="friendship in friendships" :friendship="friendship" :key="(friendship || {})._id"></friend-preview>
+        <friend-preview v-for="friendship in friendships" :friendship="friendship" :key="(friendship || {})._id" @showChat="openChat"></friend-preview>
       </ul>
+      <chat-room v-if="showChat" :chatInfo="chatInfo" @close="closeChat">
+    </chat-room>
     </div>
 </template>
 
 <script>
-import FriendPreview from "@/components/FriendPreview.vue";
+import FriendPreview from '@/components/FriendPreview.vue';
+import ChatRoom from '@/components/ChatRoom.vue';
 
 export default {
-  
+  data() {
+    return {
+      showChat: false,
+      chatInfo: null
+    }
+  },
+
   created() {
     this.$store.dispatch({type: 'loadFriends'})
   },
@@ -25,8 +34,21 @@ export default {
       }
   },
 
+  methods: {
+    openChat(chatInfo) {
+      this.showChat = true;
+      this.chatInfo = chatInfo;
+    },
+
+    closeChat() {
+      this.showChat = false;
+      this.chatInfo = null;
+    }
+  },
+
   components: {
-    FriendPreview
+    FriendPreview,
+    ChatRoom
   }
 }
 </script>

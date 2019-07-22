@@ -4,16 +4,12 @@
     <router-link :to="friendUrl"><img v-if="friendImg" :src="friendImg"/></router-link>
     <h4>{{friendName}}</h4>
     <h5>friends since {{time}}</h5>
-    <button @click="toggleShowChat"><i class="material-icons">chat</i></button>
-    <chat-room v-if="showChat && friendship" :friendshipId="friendship._id" :history="friendship.messages" :friendImg="friendImg" :friendName="friendName" @close="toggleShowChat">
-      <div></div>
-    </chat-room>
+    <button @click="emitShowChat"><i class="material-icons">chat</i></button>
   </li>
 </div>
 </template>
 
 <script>
-import ChatRoom from '@/components/ChatRoom.vue';
 import moment from 'moment';
 
 export default {
@@ -62,13 +58,9 @@ export default {
   },
 
   methods: {
-    toggleShowChat() {
-      this.showChat = !this.showChat;
+    emitShowChat() {
+      this.$emit('showChat', {friendshipId: this.friendship._id, history: this.friendship.messages ,friendImg: this.friendImg, friendName: this.friendName});
     }
-  },
-
-  components: {
-    ChatRoom
   }
 }
 
