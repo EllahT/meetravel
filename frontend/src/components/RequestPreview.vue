@@ -3,7 +3,7 @@
     <router-link :to="senderUrl" v-if="sender"><img :src="senderImage"/></router-link>
     <h4> {{request.sender.name}}</h4>
     <h4> sent {{time}}</h4>
-    <button @click="approveRequest"><i class="material-icons">check_circle</i></button>
+    <button @click="approveRequest"><v-icon color="blue">check_circle</v-icon></button>
   </li>
 </template>
 
