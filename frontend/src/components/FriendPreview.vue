@@ -1,10 +1,10 @@
 <template>
   <li class="friend-preview" v-if="friendship">
     <h4>You and <router-link :to="friendUrl">{{friendName}}</router-link></h4>
-    <img :src="friendImg"/>
+    <!-- <img :src="friendImg"/> -->
     <h5>friends since :{{time}}</h5>
     <!-- <router-link :to="detailsUrl">talk and set a trip together!</router-link> -->
-    <button @click="toggleShowChat">talk and set a trip together!</button>
+    <button @click="toggleShowChat">Chat and set a trip together!</button>
     <chat-room  v-if="showChat && friendship" :friendshipId="friendship._id" :history="friendship.messages" :friendImg="friendImg" :friendName="friendName" @close="toggleShowChat">
       <div></div>
     </chat-room>
