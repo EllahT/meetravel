@@ -52,6 +52,8 @@ http.listen(port, () => {
   logger.info("Server is running on port: " + port);
 });
 
+
+
 // deleting all notifications
 // const UserService = require('./api/user/user.service');
 
