@@ -37,9 +37,7 @@
 <v-subheader class="pl-0">Gender</v-subheader>
     <gender-picker v-model="filterBy.gender" @input="setFilter" />
     </v-flex>
-    
-    <router-link to="/user">Back To Travelers</router-link>
-  </div>
+      </div>
 </template>
  
 <script>

@@ -73,7 +73,8 @@ export default {
 
 <style scoped lang="scss">
 .chat-box {
-  position: absolute;
+  position: fixed;
+  height: 90vh;
   bottom: 0;
   right: 0;
   margin: 0;
