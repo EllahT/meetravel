@@ -101,30 +101,21 @@ export default {
     }
   },
     methods: {
-      editInfo (){
-      this.$store.dispatch({ type: "updateUser", user: this.user }).then(() => {
+      async editInfo (){
+        await this.$store.dispatch({ type: "updateUser", user: this.user })
         console.log("updated user");
-      });
+      },
+
+    openFileInput() {
+      this.isFileUpload = !this.isFileUpload;
     },
-     openFileInput() {
-     this.isFileUpload = !this.isFileUpload;
-   },
 
-   uploadImage(event) {
-     this.isLoadingPic = true;
-     this.$store.dispatch({type: 'uploadImg', event})
-     .then(profileImg => {
-       this.user.profileImg = profileImg;
-       this.isLoadingPic = false;
-     })
-
-    // addPlace(){
-    //   console.log('add place pushed');
-      
-    // }
-        
-      }
-    }
+   async uploadImage(event) {
+    this.isLoadingPic = true;
+    const profileImg = await this.$store.dispatch({type: 'uploadImg', event});
+    this.user.profileImg = profileImg;
+    this.isLoadingPic = false;
+   }
 }
 
 </script>

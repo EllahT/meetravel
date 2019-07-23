@@ -11,45 +11,78 @@ export default {
     getLoggedUser,
 }
 
-function query(filterBy, location) {
+async function query(filterBy, location) {
     filterBy.currLat = location.lat;
     filterBy.currLng = location.lng;
-    return HttpService.ajax(`user${_getQueryString(filterBy)}`)
-        .then(users => {
-            return users;
-        })
+    try {
+        return await HttpService.ajax(`user${_getQueryString(filterBy)}`);
+    }
+    catch(err) {
+        console.log(err);
+    }
 }
 
-function getById(userId) {
-    return HttpService.ajax(`user/${userId}`);
+async function getById(userId) {
+    try {
+        return await HttpService.ajax(`user/${userId}`);
+    }
+    catch(err) {
+        console.log(err);
+    }
 }
 
-function update(user) {
-    return HttpService.ajax(`user/${user._id}`, 'put', user)
-        .then(res => res)
-        .catch(err => err)
+async function update(user) {
+    try {
+        return await HttpService.ajax(`user/${user._id}`, 'put', user);
+    }
+    catch(err) {
+        console.log(err);
+    }
 }
 
-function remove(userId) {
-    return HttpService.ajax(`user/${userId}`, 'delete');
+async function remove(userId) {
+    try {
+        return await HttpService.ajax(`user/${userId}`, 'delete');
+    }
+    catch(err) {
+        console.log(err);
+    }
 }
 
-function login(userCred) { 
-    return HttpService.ajax('auth/login', 'post', userCred)
-        .then(res => res)
-        .catch(err => err)
+async function login(userCred) { 
+    try {
+        return await HttpService.ajax('auth/login', 'post', userCred);
+    }
+    catch(err) {
+        console.log(err);
+    }
 }
 
-function signup(userCred) {
-    return HttpService.ajax('auth/signup', 'post', userCred);
+async function signup(userCred) {
+    try {
+        return await HttpService.ajax('auth/signup', 'post', userCred);
+    }
+    catch(err) {
+        console.log(err);
+    }
 }
 
-function logout() {
-    return HttpService.ajax('auth/logout', 'post');
+async function logout() {
+    try {
+        return await HttpService.ajax('auth/logout', 'post');
+    }
+    catch(err) {
+        console.log(err);
+    }
 }
 
-function getLoggedUser() {
-    return HttpService.ajax('auth/');
+async function getLoggedUser() {
+    try {
+        return await HttpService.ajax('auth/');
+    }
+    catch(err) {
+        console.log(err);
+    }
 }
 
 function _getQueryString(filterBy) {
