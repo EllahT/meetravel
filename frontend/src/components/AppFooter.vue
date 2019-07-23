@@ -1,5 +1,5 @@
 <template>
-  <footer> ©️ Rights reserved to Ella, Maor & Tamir
+  <footer> ©️ Rights reserved to Ella, Maor & Tamir - MeeTravel
     </footer>
 </template>
 

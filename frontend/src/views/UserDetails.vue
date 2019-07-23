@@ -69,12 +69,12 @@ export default {
     btnText() {
       const id = this.user._id;
       return this.$store.getters.isFriendById(id)
-        ? "Your Friend"
+        ? "Your friend"
         : this.$store.getters.isRequestedById(id)
         ? "Pending, waiting for your approve"
         : this.$store.getters.isRequesterById(id)
         ? "Pending, waiting for recipient approve"
-        : "Send A Request";
+        : "Send a request";
     },
 
     possibleToRequest() {
