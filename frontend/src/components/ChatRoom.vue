@@ -74,7 +74,7 @@ export default {
 <style scoped lang="scss">
 .chat-box {
   position: absolute;
-  bottom: 0;
+  bottom: 25px;
   right: 0;
   margin: 0;
   background-color: #fafcfc;
@@ -111,17 +111,14 @@ export default {
   .chat-body {
     margin: 0 auto 2em auto;
     height: 420px;
-    overflow: hidden;
-    overflow-y: scroll;
     
     .chat-area {
-      padding: 2em;
-      padding-top: 2.5em;      
       list-style: none;
-      padding-bottom: 2.5em;
-      position: absolute;
-      bottom: 0;
+      padding-top: 1.5em;
       width: 100%;
+      height: 100%;
+      overflow: hidden;
+      overflow-y: scroll;
 
       .message {
         width: 45%;
