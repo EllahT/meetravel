@@ -108,53 +108,63 @@ export default {
     color: #52524e;
   }
   
-  .chat-area {
-    padding: 2em;
-    padding-top: 2.5em;
-    overflow: hidden;
+  .chat-body {
     margin: 0 auto 2em auto;
-    overflow-y: scroll;
     height: 420px;
-    list-style: none;
-  }
-  .message {
-    width: 45%;
-    border-radius: 10px;
-    padding: 0.8em;
-    margin-bottom: .5em;
-    font-size: 1em;
-    overflow: visible;
-    white-space: initial;
+    overflow: hidden;
+    overflow-y: scroll;
     
+    .chat-area {
+      padding: 2em;
+      padding-top: 2.5em;      
+      list-style: none;
+      padding-bottom: 2.5em;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+
+      .message {
+        width: 45%;
+        border-radius: 10px;
+        padding: 0.8em;
+        margin-bottom: .5em;
+        font-size: 1em;
+        overflow: visible;
+        white-space: initial; 
+      }
+
+      .message-out {
+        background: #407FFF;
+        color: white;
+        margin-left: 50%;
+      }
+
+      .message-in {
+        background: #F1F0F0;
+        color: black;
+      }
+    }
   }
-  .message-out {
-    background: #407FFF;
-    color: white;
-    margin-left: 50%;
-  }
-  .message-in {
-    background: #F1F0F0;
-    color: black;
-  }
+
   .input-container {
-    display: flex;
-    width: 100%;
-    background-color: #fafcfc;
-    bottom: 0;
+        display: flex;
+        width: 100%;
+        background-color: #fafcfc;
+        bottom: 0;
 
-    .input-msg {
-      padding: 10px;
-      margin: 10px;
-      margin-right: 0;
-      flex-grow: 1;
-      outline: none;
-    }
+        .input-msg {
+          padding: 10px;
+          margin: 10px;
+          margin-right: 0;
+          flex-grow: 1;
+          outline: none;
+        }
 
-    button {
-      outline: none;
+        button {
+          outline: none;
 
-    }
-  }
+        }
+      }
 }
 </style>
 

@@ -25,11 +25,9 @@ export default {
       }
   },
 
-  created() {
-      this.$store.dispatch({type: 'loadUserById', userId: this.request.sender.userId})
-      .then(sender => {
-          this.sender = sender;
-      })
+  async created() {
+      const sender = await this.$store.dispatch({type: 'loadUserById', userId: this.request.sender.userId})
+      this.sender = sender;
   },
 
   computed: {
@@ -48,14 +46,12 @@ export default {
   },
 
   methods: {
-    approveRequest() {
-      this.$store.dispatch({type: 'approveRequest', requestId: this.request._id})
-      .then(() => {
-        console.log('request approved, user is now in your friends list');
-        setTimeout(() => {
-          this.$router.push('/inbox/friends');
-        }, 100)
-      })
+    async approveRequest() {
+      await this.$store.dispatch({type: 'approveRequest', requestId: this.request._id})
+      console.log('request approved, user is now in your friends list');
+      setTimeout(() => {
+        this.$router.push('/inbox/friends');
+      }, 100)
     }
   }
 }

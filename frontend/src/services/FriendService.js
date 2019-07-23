@@ -19,22 +19,22 @@ function query() {
     })
 }
 
-function getFriends(userId) {
-    return HttpService.ajax(`friend/friends/byuser/${userId}`)
+function getFriends() {
+    return HttpService.ajax(`friend/friends/byuser/`)
     .then(friends => {
         return friends;
     })
 }
 
-function getRequests(userId) {
-    return HttpService.ajax(`friend/requests/byuser/${userId}`)
+function getRequests() {
+    return HttpService.ajax(`friend/requests/byuser/`)
     .then(requests => {
         return requests;
     })
 }
 
-function getRequestsSent(userId) {
-    return HttpService.ajax(`friend/sent/byuser/${userId}`)
+function getRequestsSent() {
+    return HttpService.ajax(`friend/sent/byuser/`)
     .then(requestsSent => {
         return requestsSent;
     })

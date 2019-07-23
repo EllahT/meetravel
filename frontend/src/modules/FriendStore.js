@@ -60,7 +60,7 @@ export default {
         },
 
         convertRequestToFriendship(state, {newFriendship}) {
-            const requestIdx = state.requests.findIndex(request => request._id === newFriendship._id)
+            const requestIdx = state.requests.findIndex(request => request._id === newFriendship._id);
             if (requestIdx) {
                 state.requests.splice(requestIdx, 1);
             } 
@@ -74,28 +74,22 @@ export default {
     },
 
     actions: {
-        loadFriends(context) {
-            return FriendService.getFriends(context.getters.loggedInUser._id)
-                .then(friends => {
-                    context.commit({ type: 'setFriends', friends });
-                    return friends;
-                });
+        async loadFriends(context) {
+            const friends = await FriendService.getFriends();
+            context.commit({ type: 'setFriends', friends });
+            return friends;
         },
 
-        loadRequests(context) {
-            return FriendService.getRequests(context.getters.loggedInUser._id)
-                .then(requests => {
-                    context.commit({ type: 'setRequests', requests });
-                    return requests;
-                });
+        async loadRequests(context) {
+            const requests = await FriendService.getRequests();
+            context.commit({ type: 'setRequests', requests });
+            return requests;
         },
 
-        loadRequestsSent(context) {
-            return FriendService.getRequestsSent(context.getters.loggedInUser._id)
-                .then(requestsSent => {
-                    context.commit({ type: 'setRequestsSent', requestsSent });
-                    return requestsSent;
-                });
+        async loadRequestsSent(context) {
+            const requestsSent = await FriendService.getRequestsSent();
+            context.commit({ type: 'setRequestsSent', requestsSent });
+            return requestsSent;
         },
 
         loadFriendships(context) {
@@ -104,47 +98,38 @@ export default {
             return context.dispatch({type: 'loadRequestsSent'});    
         },
 
-        deleteFriend(context, { friendId }) {
-            return FriendService.remove(friendId).then(() => {
-                context.commit({ type: 'removeFriend', friendId });
-                return {};
-            })
+        async deleteFriend(context, { friendId }) {
+            await FriendService.remove(friendId);
+            context.commit({ type: 'removeFriend', friendId });
+            return {};
         },
 
-        updateFriend(context, { friend }) {
-            return FriendService.update(friend)
-                .then(updatedFriend => {
-                    console.log('updated friend at store', updatedFriend);
-                    context.commit({ type: 'updateFriend', friend: updatedFriend })
-                    return updatedFriend;
-                })
+        async updateFriend(context, { friend }) {
+            const updatedFriend = await FriendService.update(friend);
+            console.log('updated friend at store', updatedFriend);
+            context.commit({ type: 'updateFriend', friend: updatedFriend })
+            return updatedFriend;
         },
 
-        sendRequest(context, {request}) {
-            return FriendService.sendRequest(request)
-            .then(newRequest => {
-                context.commit({type: 'addRequest', newRequest});
-                socket.emit('send notification', {type: "request", sender: request.sender, recipient: request.recipient, loggedUser: context.getters.loggedInUser._id});
-                context.dispatch({type: 'loadFriendships'});
-                return newRequest;
-            })
+        async sendRequest(context, {request}) {
+            const newRequest = await FriendService.sendRequest(request);
+            context.commit({type: 'addRequest', newRequest});
+            socket.emit('send notification', {type: "request", sender: request.sender, recipient: request.recipient, loggedUser: context.getters.loggedInUser._id});
+            context.dispatch({type: 'loadFriendships'});
+            return newRequest;
         },
 
-        approveRequest(context, {requestId}) {
-            return FriendService.approveRequest(requestId)
-            .then(newFriendship => {
-                context.commit({type: 'convertRequestToFriendship', newFriendship});
-                socket.emit('send notification', {type: "friendship", sender: newFriendship.sender, recipient: newFriendship.recipient, loggedUser: context.getters.loggedInUser._id});
-                context.dispatch({type: 'loadFriendships'});
-                return newFriendship;
-            })
+        async approveRequest(context, {requestId}) {
+            const newFriendship = await FriendService.approveRequest(requestId);
+            context.commit({type: 'convertRequestToFriendship', newFriendship});
+            socket.emit('send notification', {type: "friendship", sender: newFriendship.sender, recipient: newFriendship.recipient, loggedUser: context.getters.loggedInUser._id});
+            context.dispatch({type: 'loadFriendships'});
+            return newFriendship;
         },
 
-        loadFriendshipById(context, {friendshipId}) {
-            return FriendService.getById(friendshipId)
-            .then(friendship => {
-                return friendship;
-            })
+        async loadFriendshipById(context, {friendshipId}) {
+            const friendship = await FriendService.getById(friendshipId);
+            return friendship;
         }
     }
 }

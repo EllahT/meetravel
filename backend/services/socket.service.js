@@ -48,9 +48,8 @@ async function _onSendNotification({ type, sender, recipient, loggedUser }) {
   io.to(`notifications_${recipient.userId}`).emit("app newNotification", msg);
   const recipientObj = await UserService.getById(recipient.userId);
   recipientObj.notifications.push(msg);
-  UserService.update(recipientObj).then(updatedUser => {
-    console.log(`updated nofitications at ${updatedUser._id}, ${recipient.name}`);
-  });
+  const updatedUser = await UserService.update(recipientObj)
+  console.log(`updated nofitications at ${updatedUser._id}, ${recipient.name}`);
 
   if (msg.type === "friendship") {
     const senderMsg = Object.assign(msg);

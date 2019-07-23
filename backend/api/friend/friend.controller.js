@@ -11,20 +11,20 @@ const getFriendships = async (req, res) => {
 }
 
 async function getFriendshipsByUser(req, res) {
-    const userId = req.params.userId;
-    const friendships = await friendService.getUserFriendships(userId);
+    const user = req.session.user;
+    const friendships = await friendService.getUserFriendships(user._id);
     res.send(friendships);
 }
 
 async function getRequestsByUser(req, res) {
-    const userId = req.params.userId;
-    const requests = await friendService.getUserRequests(userId);
+    const user = req.session.user;
+    const requests = await friendService.getUserRequests(user._id);
     res.send(requests);
 }
 
 async function getRequestsSentByUser(req, res) {
-    const userId = req.params.userId;
-    const requests = await friendService.getUserSentRequests(userId);
+    const user = req.session.user;
+    const requests = await friendService.getUserSentRequests(user._id);
     res.send(requests);
 }
 
