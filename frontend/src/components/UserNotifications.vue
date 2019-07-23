@@ -5,7 +5,7 @@
       v-for="(notification, index) in notifications"
       :key="(notification || {}).timestamp"
     >
-      <v-list >
+      <v-list > 
         <v-list-tile>
           <v-btn class="icons" :class="fav ? 'blue--text' : ''" icon @click="fav = !fav">
               <v-icon>supervised_user_circle</v-icon>
