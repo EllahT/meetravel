@@ -111,7 +111,7 @@ export default {
       });
     },
 
-    sendRequest(recipient) {
+    async sendRequest(recipient) {
       let request = {
         createdAt: new Date().getTime(),
         location: this.$store.getters.location,
@@ -127,10 +127,9 @@ export default {
         messages: []
       };
 
-      this.$store.dispatch({ type: "sendRequest", request }).then(() => {
+        await this.$store.dispatch({ type: "sendRequest", request });
         console.log("request sent to", recipient);
         this.$noty.success(`Request sent to ${recipient.name}`);
-      });
     },
 
     navToUser(userId) {

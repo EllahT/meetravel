@@ -177,18 +177,13 @@ export default {
   },
 
   methods: {
-    getUserLocation() {
-      GeocodeService.getPosition().then(loc => {
-        this.location.lat = loc.coords.latitude;
-        this.location.lng = loc.coords.longitude;
-        GeocodeService.getCityByLatLng(
-          this.location.lat,
-          this.location.lng
-        ).then(address => {
-          this.location.address = address;
-          this.goToUsers();
-        });
-      });
+    async getUserLocation() {
+      const loc = await GeocodeService.getPosition();
+      this.location.lat = loc.coords.latitude;
+      this.location.lng = loc.coords.longitude;
+      const address = await GeocodeService.getCityByLatLng(this.location.lat,this.location.lng);
+      this.location.address = address;
+      this.goToUsers();
     },
 
     setLocation({coords, address}) {

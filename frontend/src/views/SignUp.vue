@@ -22,17 +22,20 @@ export default {
                     password: ''}
         }
     },
+    
     methods: {
-        doSignUp() {
-            this.$store.dispatch({type: 'signup', user: this.user})
-                .then ((user) => {
-                 this.$router.push('/user');
-                    //TODO: activate a method to alert the user about the failed function
-                }).catch(err => {
-                    console.log(err);
-                    this.$router.push('/signup')}) 
+        async doSignUp() {
+            try {
+                await this.$store.dispatch({type: 'signup', user: this.user});
+                this.$router.push('/user');
+            }
+
+            catch(err) {
+                console.log(err);
+                this.$router.push('/signup');
+            }
         }
-}
+    }
 }
 </script>
 

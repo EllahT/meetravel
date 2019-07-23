@@ -106,47 +106,39 @@ export default {
     },
 
     actions: {
-        login(context, { user }) {
-            return UserService.login(user)
-                .then((user) => {
-                    if (!user) throw 'no user found';
-                    else {
-                        context.commit({ type: 'setLoggedUser', user });
-                        context.dispatch({ type: 'appLogin', root: true });
-                        context.dispatch({ type: 'loadFriendships' });
-                        return user;
-                    }
-                })
+        async login(context, { user }) {
+            const loggedUser = await UserService.login(user);
+            if (!loggedUser) throw 'no user found';
+            else {
+                context.commit({ type: 'setLoggedUser', user: loggedUser });
+                context.dispatch({ type: 'appLogin', root: true });
+                context.dispatch({ type: 'loadFriendships' });
+                return loggedUser;
+            }
         },
 
-        signup(context, { user }) {
-            return UserService.signup(user)
-                .then((addedUser) => {
-                    context.commit({ type: 'addUser', user: addedUser });
-                    return addedUser;
-                })
+        async signup(context, { user }) {
+            const addedUser = await UserService.signup(user);
+            context.commit({ type: 'addUser', user: addedUser });
+            return addedUser;
         },
 
-        deleteUser(context, { userId }) {
-            return UserService.remove(userId).then(() => {
-                context.commit({ type: 'removeUser', userId });
-                return {};
-            })
+        async deleteUser(context, { userId }) {
+            await UserService.remove(userId);
+            context.commit({ type: 'removeUser', userId });
+            return {};
         },
 
-        updateUser(context, { user }) {
-            return UserService.update(user)
-                .then(updatedUser => {
-                    context.commit({ type: 'updateUser', updatedUser })
-                    return updatedUser
-                })
+        async updateUser(context, { user }) {
+            const updatedUser = await UserService.update(user);
+            context.commit({ type: 'updateUser', updatedUser })
+            return updatedUser;
         },
 
-        logout(context) {
-            return UserService.logout().then(() => {
-                context.commit({ type: 'setLoggedUser', user: null });
-                return {};
-            })
+        async logout(context) {
+            await UserService.logout();
+            context.commit({ type: 'setLoggedUser', user: null });
+            return {};
         },
 
         setFilter(context, { filterBy }) {
@@ -159,41 +151,35 @@ export default {
             context.dispatch({ type: 'loadUsers' });
         },
 
-        updateProfile(context, { userData }) {
-            return UserService.update(userData).then((updatedUser) => {
-                context.commit({ type: 'updateUser', updatedUser });
-                return updatedUser;
-            });
+        async updateProfile(context, { userData }) {
+            const updatedUser = await UserService.update(userData);
+            context.commit({ type: 'updateUser', updatedUser });
+            return updatedUser;
         },
 
-        loadUsers(context) {
-            return UserService.query(context.state.filterBy, context.state.location)
-                .then(filteredUsers => {
-                    context.commit({ type: "setUsers", filteredUsers });
-                    return filteredUsers;
-                });
+        async loadUsers(context) {
+            const filteredUsers = await UserService.query(context.state.filterBy, context.state.location);
+            context.commit({ type: "setUsers", filteredUsers });
+            return filteredUsers;
         },
 
         updateLocation(context, { location }) {
             context.commit({ type: 'updateLocation', location })
         },
 
-        loadUserById(context, { userId }) {
-            return UserService.getById(userId)
-                .then(user => user)
+        async loadUserById(context, { userId }) {
+            return await UserService.getById(userId);
         },
 
-        loadUserOrDefaultUser(context) {
-            return UserService.getLoggedUser()
-                .then(user => {
-                    if (user) {
-                        context.commit({ type: 'setLoggedUser', user })
-                        context.dispatch({ type: 'appLogin', root: true });
-                        context.dispatch({ type: 'loadFriendships' });
-                    } else {
-                        context.dispatch({ type: "login", user: { username: "TabathaEwing", password: "tabathaewing" } })
-                    }
-                })
+        async loadUserOrDefaultUser(context) {
+            const user = await UserService.getLoggedUser();
+            if (user) {
+                context.commit({ type: 'setLoggedUser', user })
+                context.dispatch({ type: 'appLogin', root: true });
+                context.dispatch({ type: 'loadFriendships' });
+            } else {
+                context.dispatch({ type: "login", user: { username: "TabathaEwing", password: "tabathaewing" } })
+            }
         },
 
         appLogin({ getters, commit }) {
@@ -204,13 +190,11 @@ export default {
             });
         },
 
-        readNotification(context, { index }) {
+        async readNotification(context, { index }) {
             let user = context.state.loggedUser;
             user.notifications[index].readStatus = true;
-            UserService.update(user)
-                .then(() => {
-                    context.commit({ type: 'updateReadNotification', index });
-                })
+            await UserService.update(user);
+            context.commit({ type: 'updateReadNotification', index });
         },
 
         clearNewNotification({commit}) {

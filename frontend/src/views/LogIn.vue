@@ -21,17 +21,15 @@ export default {
     };
   },
   methods: {
-    doLogIn() {
-      console.log('Login', this.user)
-      this.$store
-        .dispatch({ type: "login", user: this.user })
-        .then(user => {
-          this.$router.push("/user");
-          //TODO: activate a method to alert the user about the failed function
-        })
-        .catch(err => {
+    async doLogIn() {
+      try {
+        await this.$store.dispatch({ type: "login", user: this.user });
+        this.$router.push("/user");
+      }
+      
+      catch(err) {
           console.log("got here with a mistake",err);
-        });
+      }
     }
   }
 };

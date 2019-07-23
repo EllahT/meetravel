@@ -1,4 +1,4 @@
-// import HttpService from "./HttpService";
+import axios from 'axios';
 
 export default {
     getCityByLatLng,
@@ -8,27 +8,27 @@ export default {
 
 const API_KEY = 'AIzaSyAQz_Zc9Ys9pFeNAYxOhagonVUGOyg_zlg';
 
-function getCityByLatLng(lat, lng) {
-    return fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${API_KEY}`)
-    .then(res => (res.json()))
-    .then(resData => {
-        const city = resData.results.find ((components) => {
-            return components.types.includes("locality")
-            })
+async function getCityByLatLng(lat, lng) {
+    try {
+        const res = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${API_KEY}`);
+        const data = res.data;
+        const city = data.results.find ((components) => components.types.includes("locality"));
         return city.formatted_address;
-    })
-    .catch((err) => {
+    }
+    catch(err) {
         console.log('there is a problam', err);
-    })
+    }
 }
 
-function getLatLngByAddress(address) {
-    return fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${API_KEY}`)
-        .then(res => (res.json()))
-        .then(resData => (resData.results[0].geometry.location))
-        .catch((err) => {
-            console.log('there is a problam', err);
-        })
+async function getLatLngByAddress(address) {
+    try {
+        const res = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${API_KEY}`);
+        const data = res.data;
+        return data.results[0].geometry.location;
+    }
+    catch(err) {
+        console.log('there is a problam', err);
+    }
 }
 
 function getPosition() {
@@ -36,6 +36,3 @@ function getPosition() {
         navigator.geolocation.getCurrentPosition(resolve, reject)
     })
 }
-
-
-

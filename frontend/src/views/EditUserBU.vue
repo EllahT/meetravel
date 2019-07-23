@@ -62,12 +62,10 @@ export default {
     },
 
     methods: {
-        saveUser() {
-            this.$store.dispatch({type: 'updateUser', user:this.user})
-            .then(() => {
-                console.log('updated user');
-                this.$router.push('/user');
-              })
+        async saveUser() {
+            await this.$store.dispatch({type: 'updateUser', user:this.user});
+            console.log('updated user');
+            this.$router.push('/user');
         }
     },
 

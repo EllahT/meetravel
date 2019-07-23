@@ -46,12 +46,12 @@ export default {
       user: null
     };
   },
-  created() {
+  
+  async created() {
     const userId = this.$route.params.userId;
-    this.$store.dispatch({ type: "loadUserById", userId }).then(user => {
-      if (user) this.user = JSON.parse(JSON.stringify(user));
-      else this.$router.push("/user");
-    });
+    const user = await this.$store.dispatch({ type: "loadUserById", userId });
+    if (user) this.user = JSON.parse(JSON.stringify(user));
+    else this.$router.push("/user");
   },
 
   computed: {
@@ -88,7 +88,7 @@ export default {
   },
 
   methods: {
-    sendRequest() {
+    async sendRequest() {
       let request = {
         createdAt: new Date().getTime(),
         location: this.$store.getters.location,
@@ -107,11 +107,10 @@ export default {
         messages: []
       };
 
-      this.$store.dispatch({ type: "sendRequest", request }).then(() => {
+        await this.$store.dispatch({ type: "sendRequest", request });
         console.log("request sent to", request.recipient);
         this.$noty.success(`Request sent to ${request.recipient.name}`);
         this.$router.push("/user");
-      });
     }
   }
 };
