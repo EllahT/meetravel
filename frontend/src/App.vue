@@ -1,12 +1,14 @@
 <template>
   <v-app id="app">
     <app-header v-if="showNav"></app-header>
+    <app-footer></app-footer>
     <router-view @homepage="toggleNav" />
   </v-app>
 </template>
 
 <script>
 import AppHeader from "@/components/AppHeader.vue";
+import AppFooter from "@/components/AppFooter.vue";
 
 export default {
   data() {
@@ -26,7 +28,8 @@ export default {
   },
 
   components: {
-    AppHeader
+    AppHeader,
+    AppFooter
   }
 };
 </script>

@@ -4,7 +4,7 @@
       <h1 class="lato-light" v-if="users">
         Found
         <b>{{users.length}}</b>
-        Fellow Travelers!
+        nearby travelers!
       </h1>
       <h4>
         <v-icon size="18">location_on</v-icon>

@@ -1,7 +1,7 @@
 <template>
     <section class="sign-up">
         <v-form @submit.prevent="doSignUp">
-            <v-text-field prepend-icon="person" v-model="user.firstName" label="First name" type="text"></v-text-field>
+            <v-text-field class="first-name" prepend-icon="person" v-model="user.firstName" label="First name" type="text"></v-text-field>
             <v-text-field prepend-icon="person" v-model="user.lastName" label="Last name" type="text"></v-text-field>
             <v-text-field prepend-icon="lock" v-model="user.password" label="Password" type="password"></v-text-field>
               <v-card-actions>
@@ -40,5 +40,8 @@ export default {
 .sign-up{
     margin: 10px;
     padding: 10px
+}
+.first-name{
+  margin-top: 30px
 }
 </style>

@@ -4,15 +4,14 @@
     <div class="main-container flex column">
       <div>
         <h1 class="logo sensations">MeeTravel</h1>
-        <h4 class>Meet people. Have an adventure.</h4>
       </div>
 
       <div class="app-presenting flex column">
-        <p>Traveling?</p>
-        <p>Connect with travelers nearby</p>
+        <p>Connect with nearby travelers</p>
+        <h3>Have an adventure</h3>
       </div>
       <section class="location-container flex column">
-        <span>Find travelers in your current location</span>
+        <h3>To find travelers in your current location:</h3>
         <div class="btn primary-dark" @click="getUserLocation">
           <v-icon color="white" class="px-1">location_on</v-icon>Enable location
           <span class="shiny"></span>
