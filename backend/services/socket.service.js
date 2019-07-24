@@ -15,6 +15,8 @@ function setup(http) {
 
         socket.on("app login", payload => _onAppLogin(payload, socket));
 
+        socket.on("app logout", payload => _onAppLogout(payload, socket));
+
         socket.on("send notification", payload => _onSendNotification(payload));
 
         socket.on("disconnect", () => {
@@ -26,6 +28,11 @@ function setup(http) {
 function _onAppLogin({ username, userId }, socket) {
     socket.join(`notifications_${userId}`);
     console.log(`user ${username} logged in and joined notifications_${userId}`);
+}
+
+function _onAppLogout({ username, userId }, socket) {
+    socket.leave(`notifications_${userId}`);
+    console.log(`user ${username} logged out and left notifications_${userId}`);
 }
 
 async function _onSendNotification({ type, sender, recipient, loggedUser }) {
@@ -54,9 +61,9 @@ async function _onSendNotification({ type, sender, recipient, loggedUser }) {
 
     if (msg.type === "friendship") {
         const senderMsg = Object.assign(msg);
-        const nonother =
+        const other_ =
             sender.userId === loggedUser ? sender.name : recipient.name;
-        senderMsg.message = `You're now friend with ${nonother}!`;
+        senderMsg.message = `You're now friend with ${other_}!`;
         console.log(
             `sending ${senderMsg.message}, to sender's notifications_${sender.userId}, ${sender.name}`
         );

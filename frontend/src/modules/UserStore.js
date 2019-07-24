@@ -107,11 +107,12 @@ export default {
 
     actions: {
         async login(context, { user }) {
+            if (context.getters.loggedInUser.username) await this.$store.dispatch({type: 'logout'});
             const loggedUser = await UserService.login(user);
             if (!loggedUser) throw 'no user found';
             else {
                 context.commit({ type: 'setLoggedUser', user: loggedUser });
-                context.dispatch({ type: 'appLogin', root: true });
+                socket.emit('app login', { username: context.getters.loggedInUser.username, userId: context.getters.loggedInUser._id });
                 context.dispatch({ type: 'loadFriendships' });
                 return loggedUser;
             }
@@ -137,6 +138,7 @@ export default {
 
         async logout(context) {
             await UserService.logout();
+            socket.emit('app logout', { username: context.getters.loggedInUser.username, userId: context.getters.loggedInUser._id });
             context.commit({ type: 'setLoggedUser', user: null });
             return {};
         },
@@ -172,22 +174,18 @@ export default {
         },
 
         async loadUserOrDefaultUser(context) {
+            socket.on('app newNotification', notification => {
+                context.commit({ type: 'addNotification', notification});
+                context.commit({type: 'setNewNotification', notification});
+            });
             const user = await UserService.getLoggedUser();
             if (user) {
                 context.commit({ type: 'setLoggedUser', user })
                 context.dispatch({ type: 'appLogin', root: true });
                 context.dispatch({ type: 'loadFriendships' });
             } else {
-                context.dispatch({ type: "login", user: { username: "TabathaEwing", password: "tabathaewing" } })
+                context.dispatch({ type: "login", user: { username: "TabathaEwing", password: "tabathaewing" } });
             }
-        },
-
-        appLogin({ getters, commit }) {
-            socket.emit('app login', { username: getters.loggedInUser.username, userId: getters.loggedInUser._id });
-            socket.on('app newNotification', notification => {
-                commit({ type: 'addNotification', notification});
-                commit({type: 'setNewNotification', notification})
-            });
         },
 
         async readNotification(context, { index }) {
