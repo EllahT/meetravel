@@ -107,7 +107,7 @@ export default {
 
     actions: {
         async login(context, { user }) {
-            if (context.getters.loggedInUser.username) await this.$store.dispatch({type: 'logout'});
+            if (context.getters.loggedInUser.username) await context.dispatch({type: 'logout'});
             const loggedUser = await UserService.login(user);
             if (!loggedUser) throw 'no user found';
             else {
