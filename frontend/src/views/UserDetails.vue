@@ -143,6 +143,9 @@ export default {
       list-style: none;
     }
   }
+  .px-1{
+        margin-bottom: -4px
+  }
 }
 </style>
 

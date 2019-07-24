@@ -15,14 +15,14 @@
           <!-- <v-list-tile-avatar>
             <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
           </v-list-tile-avatar> -->
-          <router-link v-if="notification.type === 'friendship'" to="/inbox/friends">
+          <router-link v-if="notification.type === 'friendship'" title="To friends inbox" to="/inbox/friends">
            <v-list-tile-content>
             <v-list-tile-title>{{notification.message}}</v-list-tile-title>
             <v-list-tile-sub-title> ({{notification.timestamp | timeAgo}})
             </v-list-tile-sub-title>
           </v-list-tile-content>
           </router-link>
-          <router-link v-if="notification.type === 'request'" to="/inbox/requests">
+          <router-link v-if="notification.type === 'request'" title="To requests inbox" to="/inbox/requests">
            <v-list-tile-content>
             <v-list-tile-title>{{notification.message}}</v-list-tile-title>
             <v-list-tile-sub-title> ({{notification.timestamp | timeAgo}})
