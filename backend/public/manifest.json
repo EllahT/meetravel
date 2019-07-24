@@ -1,20 +1,19 @@
 {
-  "name": "final",
-  "short_name": "final",
-  "icons": [
-    {
-      "src": "./img/icons/android-chrome-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "./img/icons/android-chrome-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ],
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#4DBA87"
+    "name": "MeeTravel",
+    "short_name": "MeeTravel",
+    "icons": [{
+            "src": "./img/icons/ms-icon-150x150.png",
+            "sizes": "150x150",
+            "type": "image/png"
+        },
+        {
+            "src": "./img/icons/ms-icon-310x310.png",
+            "sizes": "310x310",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#4DBA87"
 }

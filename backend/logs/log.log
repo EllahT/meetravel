@@ -987,3 +987,6 @@ Wed, 24 Jul 2019 10:47:36 GMT - Debug - auth.service - trying to login with user
 Wed, 24 Jul 2019 10:04:40 GMT - Info - Server is running on port: 3000
 Wed, 24 Jul 2019 10:12:32 GMT - Debug - auth.service - trying to login with username: TabathaEwing
 >>>>>>> 44295e54de252e208ee9f4a05c1f482821a43f71
+
+Wed, 24 Jul 2019 11:37:57 GMT - Debug - auth.service - trying to login with username: TabathaEwing
+Wed, 24 Jul 2019 11:38:10 GMT - Debug - auth.service - trying to login with username: TabathaEwing
