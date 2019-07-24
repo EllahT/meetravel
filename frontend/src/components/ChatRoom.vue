@@ -18,19 +18,21 @@
 
 <script>
 import io from 'socket.io-client';
+import socketService from '@/services/SocketService';
 
 export default {
   data() {
     return {
       txt: "",
       messages: [],
-      socket: io('localhost:3000')
+      socket: null
     };
   },
 
   props: ['chatInfo'],
 
   created() {
+    this.socket = socketService.socket;
     this.chatInfo.history.forEach(msg => {
       this.messages.push(msg);
     })
@@ -151,7 +153,6 @@ export default {
         display: flex;
         width: 100%;
         background-color: #fafcfc;
-        bottom: 0;
 
         .input-msg {
           padding: 10px;
