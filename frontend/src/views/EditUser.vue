@@ -33,7 +33,7 @@
         type="number"
       ></v-text-field>
 
-      <button class="btn" type="submit">{{btnText}}</button>
+      <button class="btn success" type="submit">{{btnText}}</button>
     </form>
   </div>
 </template>
@@ -82,19 +82,32 @@ export default {
 </script>
 
 <style lang="scss">
-.title {
+.user-edit {
+  margin: 10px;
+  padding: 70px;
+   input {
+      padding: 10px;
+      margin-top: 10px;
+    }
+  .title {
   color: white;
-  background-color: green;
-  padding: 5px;
+  background-color: rgb(48, 165, 48);
+  padding: 10px;
+  margin: 20px;
   position: left;
   max-width: 250px;
   text-align: center;
   border-radius: 10px;
 }
-.user-edit {
-  margin: 10px;
-  padding: 10px;
 }
+
+@media screen and (max-width: 550px) {
+ .user-edit {
+  padding: 70px 20px;
+ }
+}
+
+
 </style>
 
 

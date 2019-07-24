@@ -8,24 +8,29 @@
       </div>
       <div class="user-info">
         <div class="flex start" style="align-items: baseline;">
-          <h2>Bucket List:</h2>
+          <h2>Bucket List</h2>
           <p v-for="place in user.bucketList" :key="place" class="tag">{{place}}</p>
         </div>
+        <v-divider></v-divider>
         <h2>About me</h2>
         <p>{{user.description}}</p>
+        <v-divider></v-divider>
         <div class="flex start" style="align-items: baseline;">
-        <h2>Prefered Travel Type:</h2>
+        <h2>Prefered Travel Type</h2>
         <p v-for=" type in user.travelTypes" :key="type">{{type}}</p>
         </div>
+        <v-divider></v-divider>
         <div class="flex start" style="align-items: baseline;">
-        <h2>Age:</h2>
+        <h2>Age</h2>
         <span>{{age}}</span>
         </div>
+        <v-divider></v-divider>
         <div class="flex start" style="align-items: baseline;">
-        <h2>location:</h2>
+        <h2>location</h2>
         <span>{{distance}} km away</span>
         </div>
-      </div>
+        <v-divider></v-divider>
+      </div> 
     </div>
     <div class="actions">
       <button class="btn primary" @click="sendRequest">
@@ -78,20 +83,22 @@ export default {
 <style lang="scss">
 .user-details {
   .user-profile {
+    margin: 0 auto;
     position: relative;
   }
   .btn.primary {
     position: fixed;
     bottom: 40px;
-    left: 40px;
-    box-shadow: 10px 20px 60px rgb(0, 0, 0);
+    right: 40px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.678);
   }
 
   text-align: center;
 
   .user-info {
+  
     // text-align: left;
-    margin: 20px;
+    margin: 20px ;
     display: flex;
     flex-direction: column;
     //  .flex {

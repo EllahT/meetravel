@@ -1,0 +1,76 @@
+.app-header {
+  a {
+    text-decoration: none;
+    color: $primary-dark;
+  }
+  .logo {
+    // margin-left: 20px;
+    justify-content: flex-start;
+    h1{
+      font-weight: normal;
+      font-size: 2rem;
+      line-height: 1.5rem;
+      border-bottom: 1px solid $primary-dark;
+      margin: 15px 15px;
+    }
+    img { 
+      object-fit: cover;
+      margin: 5px;
+      object-position: -6px 5px;
+    }
+  }
+ 
+  .nav-item {
+    a {
+      text-decoration: none;
+      color: $primary-grey;
+      width: 100%;
+      padding: 5px;
+      &:hover {
+        background-color: rgb(221, 221, 221);
+      }
+    }
+    // display: inline;
+  }
+  .hamburger-container {
+    position: fixed;
+    z-index: 4;
+    height: 50px;
+    // background-color: $primary-color-opacity;
+    
+  }
+  .hamburger-container.trans {
+    background-color: rgba(228, 11, 11, 0);
+  }
+  .nav-container {
+    position: fixed;
+    // background-color: rgba(185, 97, 97, 0.945);
+  }
+
+  .v-navigation-drawer {
+    transition: none !important;
+    img { 
+      object-fit: cover;
+      height: 50px;
+      width: 50px;
+    }
+  }
+
+  .signed {
+    margin-left: 20px;
+  }
+
+  .lightbox {
+    box-shadow: 0 0 20px inset rgba(0, 0, 0, 0.2);
+    background-image: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.4) 0%,
+      transparent 72px
+    );
+  }
+
+  .unread {
+    // color: $primary-color;
+    font-weight: bold;
+  }
+}

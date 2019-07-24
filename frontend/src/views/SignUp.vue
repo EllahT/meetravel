@@ -6,7 +6,7 @@
             <v-text-field prepend-icon="lock" v-model="user.password" label="Password" type="password"></v-text-field>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <button class="btn" type="submit">SignUp</button>
+                <button class="btn success" type="submit">SignUp</button>
               </v-card-actions>
         </v-form>
     </section>
@@ -39,6 +39,17 @@ export default {
 <style lang="scss">
 .sign-up{
     margin: 10px;
-    padding: 10px
+    padding: 70px;
+    input {
+      padding: 10px;
+      margin-top: 10px;
+    }
+}
+ 
+
+@media screen and (max-width: 550px) {
+ .sign-up {
+  padding: 70px 20px;
+ }
 }
 </style>

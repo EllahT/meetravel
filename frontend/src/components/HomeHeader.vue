@@ -3,11 +3,6 @@
     <v-layout class="app-header">
       <v-container class="flex hamburger-container" :class="{trans:isScroll }">
         <v-toolbar-side-icon flat color="blue-grey darken-4" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <div class=" flex logo">
-        <router-link to="/">
-        <h1 class="sensations">MeeTravel</h1>
-        </router-link>
-        </div>
         <v-spacer></v-spacer>
         <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="200" offset-x>
           <template v-slot:activator="{ on }">
@@ -21,7 +16,7 @@
       <!-- <div style=" margin-bottom: 80px;"></div> -->
       <v-navigation-drawer class="nav-container" v-model="drawer" absolute temporary>
         <v-list class="pa-1">
-          <v-list-tile avatar  v-if="(username !== null)">
+          <v-list-tile avatar v-if="(username !== null)">
             <v-list-tile-avatar>
               <img :src="imgProfile" />
             </v-list-tile-avatar>

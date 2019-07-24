@@ -33,6 +33,7 @@
       </button>
     </div>
      <button
+     :class="btnClass"
       class="btn primary"
       v-if="!isAdminPage"
       @click="emitRequest"
@@ -144,6 +145,12 @@ export default {
         ? "Pending, waiting for recipient approve"
         : "Send A Request";
     },
+    btnClass() {
+      if (this.btnText) {
+        return 'disabled'
+      }
+      else return ''
+    },
 
     possibleToRequest() {
       const id = this.user._id;
@@ -189,6 +196,9 @@ export default {
   a {
     color: inherit;
     text-decoration: none;
+  }
+  .btn.disabled {
+    background-color: rgb(165, 165, 165);
   }
 }
 

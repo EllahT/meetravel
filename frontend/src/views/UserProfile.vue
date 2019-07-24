@@ -1,6 +1,6 @@
 <template>
   <section class="user-profile lato-light" v-if="user">
-    <div class="cover parallax">
+    <div class="cover parallax flex column">
 
       <!-- <div>
           <div class="actions">
@@ -12,7 +12,7 @@
       <h1>{{user.name.first}} {{user.name.last}}, {{age}}</h1>
       <p>{{user.residance.city}}, {{user.residance.country}}</p>
 
-      <div class="actions flex">
+      <div class="actions flex"> 
         <div>
           <router-link to="/profile/edit" class="flex wrap">
             <v-icon color="white">edit</v-icon>Edit general info
@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="user-info">
-      <div>
+      <div class="flex ">
         <h2>Bucket List</h2>
         <ul class="flex wrap">
           <li v-for="place in user.bucketList" :key="place" class="tag">{{place}} &times</li>
@@ -35,6 +35,7 @@
           </li> -->
         </ul>
       </div>
+      <v-divider></v-divider>
 
       <div>
     <v-layout row justify-center>
@@ -72,7 +73,7 @@
         <div class="flex">
           <p>{{user.description}}</p>
         </div>
-        
+        <v-divider></v-divider>
       </div>
     </div>
   </section>
@@ -132,5 +133,5 @@ export default {
 <style lang="scss">
 .upload-btn{
   color: black
-}
+} 
 </style>

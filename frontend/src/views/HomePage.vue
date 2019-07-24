@@ -4,25 +4,30 @@
     <div class="main-container flex column">
       <div>
         <h1 class="logo sensations">MeeTravel</h1>
-        <h4 class>Meet people. Have an adventure.</h4>
+        <!-- <h4 class>Meet people. Have an adventure.</h4> -->
       </div>
 
       <div class="app-presenting flex column">
-        <p>Traveling?</p>
-        <p>Connect with travelers nearby</p>
+        <!-- <p>Find a travel buddy.</p>
+        <p>Go explore together</p> -->
+        <p>CONNECT WITH TRAVELERS,</p>
+        <p>GO EXPLORE TOGETHER</p>
       </div>
       <section class="location-container flex column">
         <span>Find travelers in your current location</span>
         <div class="btn primary-dark" @click="getUserLocation">
-          <v-icon color="white" class="px-1">location_on</v-icon>Enable location
+          <v-icon color="white" class="px-1">location_on</v-icon>Enable Location
           <span class="shiny"></span>
         </div>
+        <v-icon size="3.5rem" color="grey lighten-5">keyboard_arrow_down</v-icon>
       </section>
+      <div>
+      </div>
     </div>
-    
+
     <div class="flex column secondery-container">
-      <h1 class="">Find travelers</h1>
-        <span class="">Search for travelers in a chosen location</span>
+      <h1 class>Choose a location</h1>
+      <span class>Find travelers in a chosen location</span>
       <div class="flex column bg">
         <div class="flex select">
           <v-autocomplete
@@ -155,13 +160,13 @@ export default {
           address: "Orlando, Florida",
           coords: { lat: 28.538336, lng: -81.379234 }
         },
-        { 
-          address: "Oslo, Norway", 
-          coords: { lat: 59.913868, lng: 10.752245 } 
+        {
+          address: "Oslo, Norway",
+          coords: { lat: 59.913868, lng: 10.752245 }
         },
-        { 
-          address: "Rome, Italy", 
-          coords: { lat: 41.902782, lng: 12.496365 } 
+        {
+          address: "Rome, Italy",
+          coords: { lat: 41.902782, lng: 12.496365 }
         },
         {
           address: "Zurich, Switzerland",
@@ -192,7 +197,7 @@ export default {
       });
     },
 
-    setLocation({coords, address}) {
+    setLocation({ coords, address }) {
       this.location.lat = coords.lat;
       this.location.lng = coords.lng;
       this.location.address = address;
