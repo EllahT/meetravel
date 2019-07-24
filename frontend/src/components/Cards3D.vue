@@ -13,8 +13,9 @@
           <v-carousel-item class="cards-container flex " :key="page" v-for="page in pages">
             <v-layout row>
               <v-flex
+              @click="emitLocation(index)"
                 xs4
-                v-for="card in page.cards"
+                v-for="(card, index) in page.cards"
                 :key="card.title"
                 class="card"
                 :style="{ backgroundImage: `url('${card.imgUrl}')` }"
