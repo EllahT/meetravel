@@ -3,10 +3,12 @@
       <header>
         <img v-if="chatInfo.friendImg" :src="chatInfo.friendImg"/><h3>{{chatInfo.friendName}}</h3><button @click="emitCloseChat">&times</button></h3>
       </header>
-      <ul ref="msgsList" class="chat-area">
-        <li v-for="(message, i) in messages" :key="i" class="message" 
-        :class="{'message-out': message.from === user, 'message-in': message.from !== user}">{{message.txt}}</li>
-      </ul>
+      <div class="chat-body">
+        <ul ref="msgsList" class="chat-area">
+          <li v-for="(message, i) in messages" :key="i" class="message" 
+          :class="{'message-out': message.from === user, 'message-in': message.from !== user}">{{message.txt}}</li>
+        </ul>
+      </div>
     <div class="input-container">
         <input class="input-msg" type="text" v-model="txt" @keydown.enter="sendMessage" placeholder="Write your message..." autofocus/>
         <button class="material-icons" @click="sendMessage">send</button>
@@ -74,8 +76,8 @@ export default {
 <style scoped lang="scss">
 .chat-box {
   position: fixed;
-  bottom: 25px;
-  right: 0;
+  bottom: 35px;
+  right: 20px;
   margin: 0;
   background-color: #fafcfc;
   border-radius: 8px;
@@ -87,10 +89,8 @@ export default {
 
   header {
     background-color: #407FFF;
-    width: 100%;
     display: flex;
-    justify-content: flex-start;
-    align-content: flex-start;
+    justify-content: center;
     padding: 10px;
     color: #52524e;
     
@@ -98,12 +98,14 @@ export default {
         max-width: 50px;
         max-height: 50px;
         margin: 0 10px;
-        }
+      }
     
+      h3 {
+        flex-grow: 1;
+      }
+
       button {
-        position: absolute;
-        top: 5px;
-        right: 5px;
+        font-size: 1.5em;
       }    
   }
 
@@ -111,41 +113,41 @@ export default {
     color: #52524e;
   }
   
-  .chat-area {
-    margin: 0 auto 2em auto;
+  .chat-body {
     height: 420px;
-    list-style: none;
-    padding-top: 1.5em;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
     overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
 
-    .message {
-      width: 45%;
-      border-radius: 10px;
-      padding: 0.8em;
-      margin-bottom: .5em;
-      font-size: 1em;
-      overflow: visible;
-      white-space: initial; 
-    }
+    .chat-area {
+      list-style: none;
+      padding: 20px;
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+      justify-content: flex-end;
 
-    .message-out {
-      background: #407FFF;
-      color: white;
-      align-self: flex-end;
-    }
+      .message {
+        max-width: 50%;
+        border-radius: 10px;
+        padding: 0.8em;
+        margin-bottom: .5em;
+        font-size: 1em;
+      }
 
-    .message-in {
-      background: #F1F0F0;
-      color: black;
+      .message-out {
+        background: #407FFF;
+        color: white;
+        align-self: flex-end;
+        padding-left: 20px;
+      }
+
+      .message-in {
+        background: #F1F0F0;
+        color: black;
+        padding-right: 10px;
+      }
     }
   }
-
+  
   .input-container {
     display: flex;
     width: 100%;
