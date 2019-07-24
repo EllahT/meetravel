@@ -76,13 +76,13 @@ export default {
 <style scoped lang="scss">
 .chat-box {
   position: fixed;
-  bottom: 65px;
+  bottom: 25px;
   right: 0;
   margin: 0;
   background-color: #fafcfc;
   border-radius: 8px;
   box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.5);
-  width: 400px;
+  width: 100vw;
   max-height: 80vh;
 
   header {
@@ -167,6 +167,13 @@ export default {
 
         }
       }
+}
+
+@media (min-width: 780px) {
+  .chat-box {
+    min-width: 30vw;
+    max-width: 400px;
+  }
 }
 </style>
 

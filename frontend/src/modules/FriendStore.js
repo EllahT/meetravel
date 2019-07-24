@@ -5,14 +5,14 @@ export default {
     strict: true,
 
     state: {
-        friends: [],
+        friendships: [],
         requests: [],
         requestsSent: []
     },
 
     getters: {
-        friends(state) {
-            return state.friends;
+        friendships(state) {
+            return state.friendships;
         },
 
         requests(state) {
@@ -20,11 +20,11 @@ export default {
         },
 
         friendshipById: state => id => {
-            return state.friends.find(friendship => friendship._id === id);
+            return state.friendships.find(friendship => friendship._id === id);
         },
 
         isFriendById: state => id => {
-            return  state.friends.find(friendship => (friendship.status === 'approved' && (friendship.sender.userId === id || friendship.recipient.userId === id)));
+            return  state.friendships.find(friendship => (friendship.status === 'approved' && (friendship.sender.userId === id || friendship.recipient.userId === id)));
         },
 
         isRequestedById: state => id => {
@@ -37,8 +37,8 @@ export default {
     },
 
     mutations: {
-        setFriends(state, { friends }) {
-            state.friends = friends;
+        setFriendships(state, { friendships }) {
+            state.friendships = friendships;
         },
 
         setRequests(state, { requests }) {
@@ -49,14 +49,14 @@ export default {
             state.requestsSent = requestsSent;
         },
 
-        updateFriend(state, { updatedFriend }) {
-            const idx = state.friends.findIndex(friend => friend._id === updatedFriend._id);
-            state.friends.splice(idx, 1, updatedFriend);
+        updateFriendship(state, { updatedFriendship }) {
+            const idx = state.friendships.findIndex(friendship => friendship._id === updatedFriendship._id);
+            state.friendship.splice(idx, 1, updatedFriendship);
         },
 
-        removeFriend(state, { friendId }) {
-            const idx = state.friends.findIndex(friend => friend._id === friendId);
-            state.friends.splice(idx, 1);
+        removeFriendship(state, { friendshipId }) {
+            const idx = state.friendships.findIndex(friendship => friendship._id === friendshipId);
+            state.friendships.splice(idx, 1);
         },
 
         convertRequestToFriendship(state, {newFriendship}) {
@@ -65,7 +65,7 @@ export default {
                 state.requests.splice(requestIdx, 1);
             } 
             
-            state.friends.unshift(newFriendship);
+            state.friendships.unshift(newFriendship);
         },
 
         addRequest(state, {newRequest}) {
@@ -75,9 +75,9 @@ export default {
 
     actions: {
         async loadFriends(context) {
-            const friends = await FriendService.getFriends();
-            context.commit({ type: 'setFriends', friends });
-            return friends;
+            const friendships = await FriendService.getFriends();
+            context.commit({ type: 'setFriendships', friendships });
+            return friendships;
         },
 
         async loadRequests(context) {
@@ -104,11 +104,10 @@ export default {
             return {};
         },
 
-        async updateFriend(context, { friend }) {
-            const updatedFriend = await FriendService.update(friend);
-            console.log('updated friend at store', updatedFriend);
-            context.commit({ type: 'updateFriend', friend: updatedFriend })
-            return updatedFriend;
+        async updateFriendship(context, { friendship }) {
+            const updatedFriendship = await FriendService.update(friendship);
+            context.commit({ type: 'updateFriendship', friend: updatedFriendship })
+            return updatedFriendship;
         },
 
         async sendRequest(context, {request}) {

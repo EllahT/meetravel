@@ -1,22 +1,27 @@
 .homepage {
   //app description
+  
 
   .main-container {
+    
     text-align: center;
-    padding: 5vh 0px;
+    padding: 50px 0px 0px;
     color: rgb(255, 255, 255);
     position: relative;
     margin: 0 auto;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     height: 100vh;
     z-index: 2;
  
     h1 {
       color: $primary-dark;
-      font-size: 5rem;
-      border-bottom: 0.1rem solid $primary-dark;
-      margin: 0 auto;
+      font-size: 6rem;
+      line-height: 0.5rem;
+      text-shadow: 0.05rem 0.05rem 0.2rem rgba(63, 63, 63, 0.507);
+      // border-bottom: 0.1rem solid rgba(5, 1, 58, 0.041);
+      margin: 40px auto;
+      padding: 20px;
       font-weight: 100;
     }
     h4 {
@@ -26,12 +31,15 @@
     }
 
     .app-presenting {
+      margin: 20px;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
+      // justify-content: flex-start;
       opacity: 1;
       font-weight: bold;
-      font-size: 4rem;
-      text-shadow: 0.1rem 0.1rem 0.7rem rgba(15, 11, 73, 0.842);
+      font-size: 3.5rem;
+      font-family: 'latobold';
+      text-shadow: 0.05rem 0.05rem 0.3rem rgba(0, 0, 0, 0.233);
       p {
         margin: 0;
         padding: 0;
@@ -41,21 +49,27 @@
     // location btn
 
     .location-container.flex {
+      margin-bottom: 20px;
+      span {
+        font-size: 1.5rem;
+      }
+      justify-content: flex-end;
       align-items: center;
       z-index: 4;
       .btn.primary-dark {
-        font-size: 1.2rem;
-        width: 250px;
+        font-size: 1.5rem;
+        padding: 8px 35px;
+        // width: 250px;
         margin: 10px;
         position: relative;
       }
       i {
-        font-size: 1.2rem;
-        opacity: 0.8;
+        font-size: 1.5rem;
+        opacity: 0.9;
         margin-right: 5px;
-        padding: 2px;
+        padding: 2px 15px;
       }
-    }
+    } 
   }
 
   .secondery-container {
@@ -84,7 +98,7 @@
       width: 100%;
       // padding: 60px;
       
-    }
+    } 
     .select {
       width: 60%;
       align-items: baseline;
@@ -154,18 +168,20 @@
       }
     }
     .secondery-container {
+      padding: 0;
+      h1 {
+        font-size: 3rem;
+      }
       .bg {
         padding: 10px;
       }
-      .google-map {
-        margin: 0;
-        height: 250px;
-      }
+    
       .select {
         width: 100%;
         margin: 10px auto;
         padding: 0px;
         cursor: pointer;
+      
       }
     }
   }

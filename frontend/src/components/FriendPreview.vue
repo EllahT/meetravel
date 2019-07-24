@@ -23,20 +23,25 @@ export default {
   data() {
     return {
       showChat: false,
+      friendImg: null
     }
+  },
+
+  async created() {
+      const friendId = (this.$store.getters.loggedInUser._id.includes(this.friendship.sender.userId))
+        ? this.friendship.recipient.userId
+        : this.friendship.sender.userId;
+      let friend =  this.$store.getters.userById(friendId);
+      if (friend) this.friendImg = friend.profileImg;
+      else {
+        friend = await this.$store.dispatch({type: 'loadUserById', userId: friendId});
+        this.friendImg = friend.profileImg;
+      } 
   },
 
   computed: {
     detailsUrl() {
       return `/inbox/friends/${this.friendship._id}`;
-    },
-
-    friendImg() {
-      const friendId = (this.$store.getters.loggedInUser._id.includes(this.friendship.sender.userId))
-        ? this.friendship.recipient.userId 
-        : this.friendship.sender.userId ;
-      let friend = this.$store.getters.userById(friendId);
-      return (friend)? friend.profileImg : null;
     },
 
     time() {
@@ -60,7 +65,7 @@ export default {
   methods: {
     emitShowChat() {
       this.$emit('showChat', {friendshipId: this.friendship._id, history: this.friendship.messages ,friendImg: this.friendImg, friendName: this.friendName});
-    }
+    },
   }
 }
 
@@ -68,7 +73,7 @@ export default {
 
 <style lang="scss">
 .friend-preview {
-    max-width: calc(100% - 420px);
+    max-width: 65vw;
     display: flex;
     justify-content: space-between;
     align-items: center;

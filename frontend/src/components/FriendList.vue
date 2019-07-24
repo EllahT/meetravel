@@ -25,12 +25,12 @@ export default {
   },
 
   created() {
-    this.$store.dispatch({type: 'loadFriends'})
+    this.$store.dispatch({type: 'loadFriends'});
   },
 
   computed: {
       friendships() {
-          return this.$store.getters.friends || [];
+          return this.$store.getters.friendships || [];
       }
   },
 

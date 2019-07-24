@@ -2,21 +2,26 @@
   <header>
     <v-layout class="app-header">
       <v-container class="flex hamburger-container" :class="{trans:isScroll }">
-        <v-toolbar-side-icon flat color="" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+        <v-toolbar-side-icon flat color="blue-grey darken-4" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+        <div class=" flex logo">
+        <router-link to="/">
+        <h1 class="sensations">MeeTravel</h1>
+        </router-link>
+        </div>
         <v-spacer></v-spacer>
         <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="200" offset-x>
           <template v-slot:activator="{ on }">
-            <v-btn flat color="" v-on="on" :class="classByUnread"><v-icon :color="colorByUnread">notifications</v-icon>({{unread}})</v-btn>
+            <v-btn flat color="blue-grey darken-4" v-on="on" :class="classByUnread"><v-icon >notifications</v-icon>({{unread}})</v-btn>
           </template>
 
           <user-notifications></user-notifications>
         </v-menu>
-        <!-- <v-icon color="black">notifications</v-icon> -->
+        <!-- <v-icon color="white">notifications</v-icon> -->
       </v-container>
       <!-- <div style=" margin-bottom: 80px;"></div> -->
       <v-navigation-drawer class="nav-container" v-model="drawer" absolute temporary>
         <v-list class="pa-1">
-          <v-list-tile avatar v-if="(username !== null)">
+          <v-list-tile avatar  v-if="(username !== null)">
             <v-list-tile-avatar>
               <img :src="imgProfile" />
             </v-list-tile-avatar>
@@ -41,7 +46,7 @@
             <router-link :to="item.link">
               <v-list-tile-content>
                 <v-list-tile-title>
-                  <v-icon color="black" left>{{ item.icon }}</v-icon>
+                  <v-icon color="blue-grey darken-4" left>{{ item.icon }}</v-icon>
                   {{ item.title }}
                 </v-list-tile-title>
               </v-list-tile-content>
@@ -51,7 +56,7 @@
             <router-link to="/signup">
               <v-list-tile-content @click="doLogOut">
                 <v-list-tile-title>
-                  <v-icon color="black" left>person</v-icon>LogOut
+                  <v-icon color="blue-grey darken-4" left>person</v-icon>LogOut
                 </v-list-tile-title>
               </v-list-tile-content>
             </router-link>
@@ -149,56 +154,5 @@ export default {
 </script>
 
 <style style lang="scss">
-.app-header {
-  img {
-    object-fit: cover;
-  }
-  .nav-item {
-    a {
-      text-decoration: none;
-      color: black;
-      width: 100%;
-      padding: 5px;
-      &:hover {
-        background-color: rgb(221, 221, 221);
-      }
-    }
-    // display: inline;
-  }
-  .hamburger-container {
-    position: fixed;
-    z-index: 4;
-    height: 50px;
-    background-color: rgba(255, 255, 255, 0.945);
-  }
-  .hamburger-container.trans {
-    background-color: rgba(255, 255, 255, 0);
-  }
-  .nav-container {
-    position: fixed;
-  }
-}
-
-.v-navigation-drawer {
-  transition: none !important;
-}
-
-.signed {
-  margin-left: 20px;
-}
-
-.lightbox {
-  box-shadow: 0 0 20px inset rgba(0, 0, 0, 0.2);
-  background-image: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.4) 0%,
-    transparent 72px
-  );
-}
-
-.unread {
-  font-weight: bold;
-  color: red;
-}
 
 </style>

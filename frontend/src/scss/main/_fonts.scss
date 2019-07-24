@@ -1,10 +1,34 @@
+@font-face {
+  font-family: 'MonBold';
+  src: url("../fonts/Montserrat-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; 
+}  
+
+@font-face {
+  font-family: 'Mon';
+  src: url("../fonts/Montserrat-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; 
+}  
+
+
+@font-face {
+  font-family: 'MonBlack';
+  src: url("../fonts/Montserrat-Black.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; 
+} 
+  
+  
+  
   @font-face {
     font-family: 'latoregular';
     src: url("../fonts/lato/Lato-Regular.ttf") format("truetype");
     font-weight: normal;
     font-style: normal; 
   }
-
+ 
   @font-face {
     font-family: 'latolight';
     src: url("../fonts/lato/Lato-Light.ttf") format("truetype");
@@ -56,7 +80,16 @@
     font-style: normal; 
   }
 
-
+  @font-face {
+    font-family: 'Questrial';
+    src: url("../fonts/Questrial-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal; 
+  }
+  
+  
+  
+  
   @font-face {
     font-family: 'quickbold';
     src: url("../fonts/Quicksand/Quicksand-Bold.ttf") format("truetype");
