@@ -76,16 +76,16 @@ self.__precacheManifest = [
     "url": "/robots.txt"
   },
   {
-    "revision": "a754600ced042759d49183de02e75e8d",
-    "url": "/img/hiking-icons/favicon-32x32.png"
+    "revision": "97775b1fd3b6e6c13fc719c2c7dd0ffe",
+    "url": "/img/hiking-icons/browserconfig.xml"
   },
   {
     "revision": "c5ce65c03384ac88a912b749f50a9c18",
     "url": "/img/hiking-icons/ms-icon-70x70.png"
   },
   {
-    "revision": "97775b1fd3b6e6c13fc719c2c7dd0ffe",
-    "url": "/img/hiking-icons/browserconfig.xml"
+    "revision": "a754600ced042759d49183de02e75e8d",
+    "url": "/img/hiking-icons/favicon-32x32.png"
   },
   {
     "revision": "36a521ec9cb2d3b815d916909c79e04a",
@@ -128,8 +128,8 @@ self.__precacheManifest = [
     "url": "/js/app.2336e472.js"
   },
   {
-    "revision": "809cd8ab97c465b57cb1a44b1795f12c",
-    "url": "/fonts/Quicksand-Bold.809cd8ab.ttf"
+    "revision": "678b12a6a938c32eb5fa88f2f439c2df",
+    "url": "/fonts/Quicksand-Regular.678b12a6.ttf"
   },
   {
     "revision": "0449bff73ea1c26d4dae5d78a3365b3a",
@@ -232,8 +232,8 @@ self.__precacheManifest = [
     "url": "/img/3.e99f44de.jpg"
   },
   {
-    "revision": "678b12a6a938c32eb5fa88f2f439c2df",
-    "url": "/fonts/Quicksand-Regular.678b12a6.ttf"
+    "revision": "809cd8ab97c465b57cb1a44b1795f12c",
+    "url": "/fonts/Quicksand-Bold.809cd8ab.ttf"
   },
   {
     "revision": "7f690e503a254e0b8349aec0177e07aa",

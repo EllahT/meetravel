@@ -73,14 +73,15 @@ export default {
 
 <style scoped lang="scss">
 .chat-box {
-  position: absolute;
-  bottom: 25px;
+  position: fixed;
+  bottom: 65px;
   right: 0;
   margin: 0;
   background-color: #fafcfc;
   border-radius: 8px;
   box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.5);
   width: 400px;
+  max-height: 80vh;
 
   header {
     background-color: #407FFF;
@@ -119,6 +120,9 @@ export default {
       height: 100%;
       overflow: hidden;
       overflow-y: scroll;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
 
       .message {
         width: 45%;

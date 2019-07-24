@@ -68,14 +68,10 @@ export default {
 
 <style lang="scss">
 .friend-preview {
-    max-width: 550px;
-    // margin-top:5px;
-    // padding: 5px;
+    max-width: calc(100% - 420px);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    // margin: 5px 0;
-    // padding: 10px 8px;
     border-top: 1px solid lightgray;
     border-bottom: 1px solid transparent;
     color: #6f7069;
