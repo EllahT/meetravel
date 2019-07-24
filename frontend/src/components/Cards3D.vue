@@ -30,9 +30,10 @@
         </v-carousel>
         <v-carousel :cycle="false" class="cards-container flex hidden-sm-and-up">
           <v-carousel-item
-            v-for="card in cards"
+            v-for="(card, index) in cards"
             :key="card.title"
             class="card"
+             @click="emitLocation(index)"
             :style="{ backgroundImage: `url('${card.imgUrl}')` }"
           >
             <div class="description">
