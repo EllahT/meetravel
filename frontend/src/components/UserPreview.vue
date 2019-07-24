@@ -33,13 +33,14 @@
       </button>
     </div>
      <button
+     :class="btnClass"
       class="btn primary"
       v-if="!isAdminPage"
       @click="emitRequest"
       :disabled="possibleToRequest"
     >
       {{btnText}}
-      <span class="shiny"></span>
+      <!-- <span class="shiny"></span> -->
     </button>
     <!-- <div
         class="img-container flex column lato-light"
@@ -143,6 +144,12 @@ export default {
         ? "Pending, waiting for recipient approve"
         : "Send a request";
     },
+    btnClass() {
+      if (this.btnText) {
+        return 'disabled'
+      }
+      else return ''
+    },
 
     possibleToRequest() {
       const id = this.user._id;
@@ -186,6 +193,9 @@ export default {
   a {
     color: inherit;
     text-decoration: none;
+  }
+  .btn.disabled {
+    background-color: rgb(165, 165, 165);
   }
 }
 

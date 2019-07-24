@@ -1,5 +1,6 @@
 .btn {
   position: relative;
+  font-family: 'latobold';
   font-size: 1rem;
   letter-spacing: 0.1rem;
   padding: 10px 15px;
@@ -42,6 +43,15 @@
   color: white;
   &:hover {
     background: $primary-color;
+  }
+}
+
+
+.btn.success {
+  background-color: $success-color;
+  color: white;
+  &:hover {
+    background: $success-states-color;
   }
 }
 

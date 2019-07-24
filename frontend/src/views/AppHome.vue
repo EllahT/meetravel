@@ -7,10 +7,11 @@
         nearby travelers!
       </h1>
       <h4>
-        <v-icon size="18">location_on</v-icon>
         Location: 
-        {{location}}
+        {{location}} 
+        <v-icon size="18">location_on</v-icon>
       </h4>
+      
       <!-- <div class="flex user-filters">
         <v-text-field
           dark
@@ -32,9 +33,9 @@
     </h3>
 
     <div class="flex user-gallery">
-      <img v-if="currMin" :src="currMin.profileImg" @click="navUsers(-1)"/>
+      <img class="hidden-xs-only" v-if="currMin" :src="currMin.profileImg" @click="navUsers(-1)"/>
       <user-preview v-if="users" :user="users[currUserIdx]" @nav="navUsers" @request="sendRequest"></user-preview>
-      <img v-if="currMax" :src="currMax.profileImg" @click="navUsers(1)"/>
+      <img class="hidden-xs-only" v-if="currMax" :src="currMax.profileImg" @click="navUsers(1)"/>
     </div>
     <div class="flex map-filter">
       <user-filter></user-filter>
