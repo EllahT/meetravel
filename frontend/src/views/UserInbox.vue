@@ -28,6 +28,10 @@ export default {
         margin-top: 20px;
         margin-bottom: 0;
         margin-right: 5px;
+        border-bottom-style: solid;
+        border-width: 1px;
+        border-color:blue;
+        border-radius: 10px;
 
         .inbox-title {
             margin-top: 0;

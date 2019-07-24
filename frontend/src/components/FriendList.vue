@@ -60,4 +60,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.inbox-nav{
+margin-left: 20px;
+}
+</style>
   
