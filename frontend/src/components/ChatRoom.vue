@@ -3,12 +3,10 @@
       <header>
         <img v-if="chatInfo.friendImg" :src="chatInfo.friendImg"/><h3>{{chatInfo.friendName}}</h3><button @click="emitCloseChat">&times</button></h3>
       </header>
-    <div class="chat-body">
       <ul ref="msgsList" class="chat-area">
         <li v-for="(message, i) in messages" :key="i" class="message" 
         :class="{'message-out': message.from === user, 'message-in': message.from !== user}">{{message.txt}}</li>
       </ul>
-    </div>
     <div class="input-container">
         <input class="input-msg" type="text" v-model="txt" @keydown.enter="sendMessage" placeholder="Write your message..." autofocus/>
         <button class="material-icons" @click="sendMessage">send</button>
@@ -84,6 +82,8 @@ export default {
   box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.5);
   width: 100vw;
   max-height: 80vh;
+  display: flex;
+  flex-direction: column;
 
   header {
     background-color: #407FFF;
@@ -111,62 +111,57 @@ export default {
     color: #52524e;
   }
   
-  .chat-body {
+  .chat-area {
     margin: 0 auto 2em auto;
     height: 420px;
-    
-    .chat-area {
-      list-style: none;
-      padding-top: 1.5em;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      overflow-y: scroll;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
+    list-style: none;
+    padding-top: 1.5em;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 
-      .message {
-        width: 45%;
-        border-radius: 10px;
-        padding: 0.8em;
-        margin-bottom: .5em;
-        font-size: 1em;
-        overflow: visible;
-        white-space: initial; 
-      }
+    .message {
+      width: 45%;
+      border-radius: 10px;
+      padding: 0.8em;
+      margin-bottom: .5em;
+      font-size: 1em;
+      overflow: visible;
+      white-space: initial; 
+    }
 
-      .message-out {
-        background: #407FFF;
-        color: white;
-        margin-left: 50%;
-      }
+    .message-out {
+      background: #407FFF;
+      color: white;
+      align-self: flex-end;
+    }
 
-      .message-in {
-        background: #F1F0F0;
-        color: black;
-      }
+    .message-in {
+      background: #F1F0F0;
+      color: black;
     }
   }
 
   .input-container {
-        display: flex;
-        width: 100%;
-        background-color: #fafcfc;
+    display: flex;
+    width: 100%;
+    background-color: #fafcfc;
 
-        .input-msg {
-          padding: 10px;
-          margin: 10px;
-          margin-right: 0;
-          flex-grow: 1;
-          outline: none;
-        }
+    .input-msg {
+      padding: 20px;
+      flex-grow: 1;
+      outline: none;
+    }
 
-        button {
-          outline: none;
-
-        }
-      }
+    button {
+       outline: none;
+       padding-right: 10px;
+    }
+  }
 }
 
 @media (min-width: 780px) {
