@@ -1,5 +1,5 @@
 <template>
-  <section class="user-details">
+  <section class="user-details" v-if="user">
     <div class="user-profile lato-light" v-if="user">
       <div class="cover parallax">
         <img :src="user.profileImg" class="profile-img" />
@@ -33,8 +33,9 @@
       </div> 
     </div>
     <div class="actions">
-      <button class="btn primary" @click="sendRequest">
-        <v-icon color="white" class="px-1">send</v-icon>Send a request
+      <button class="btn primary" @click="sendRequest" :disabled="possibleToRequest">
+        <v-icon color="white" class="px-1">send</v-icon>      
+      {{btnText}}
         <span class="shiny"></span>
       </button>
     </div>
@@ -50,12 +51,12 @@ export default {
       user: null
     };
   },
-  created() {
+  
+  async created() {
     const userId = this.$route.params.userId;
-    this.$store.dispatch({ type: "loadUserById", userId }).then(user => {
-      if (user) this.user = JSON.parse(JSON.stringify(user));
-      else this.$router.push("/user");
-    });
+    const user = await this.$store.dispatch({ type: "loadUserById", userId });
+    if (user) this.user = JSON.parse(JSON.stringify(user));
+    else this.$router.push("/user");
   },
 
   computed: {
@@ -68,13 +69,53 @@ export default {
 
     age() {
       return new Date().getFullYear() - this.user.birthDate;
+    },
+
+    btnText() {
+      const id = this.user._id;
+      return this.$store.getters.isFriendById(id)
+        ? "Your friend"
+        : this.$store.getters.isRequestedById(id)
+        ? "Pending, waiting for your approve"
+        : this.$store.getters.isRequesterById(id)
+        ? "Pending, waiting for recipient approve"
+        : "Send a request";
+    },
+
+    possibleToRequest() {
+      const id = this.user._id;
+      return !!(
+        this.$store.getters.isFriendById(id) ||
+        this.$store.getters.isRequestedById(id) ||
+        this.$store.getters.isRequesterById(id)
+      );
     }
   },
 
   methods: {
-    sendRequest() {
-      this.$store.dispatch({ type: "sendRequest", user: this.user._id });
-      this.$router.push("/user");
+    async sendRequest() {
+      let request = {
+        createdAt: new Date().getTime(),
+        location: this.$store.getters.location,
+        sender: {
+          userId: this.$store.getters.loggedInUser._id,
+          name:
+            this.$store.getters.loggedInUser.name.first +
+            " " +
+            this.$store.getters.loggedInUser.name.last
+        },
+        status: "pending",
+        recipient: {
+          userId: this.user._id,
+          name: this.user.name.first + " " + this.user.name.last
+        },
+        messages: []
+      };
+
+        await this.$store.dispatch({ type: "sendRequest", request });
+        console.log("request sent to", request.recipient);
+        this.$noty.success(`Request sent to ${request.recipient.name}`);
+        this.$router.push("/user");
     }
   }
 };
@@ -108,6 +149,9 @@ export default {
     ul {
       list-style: none;
     }
+  }
+  .px-1{
+        margin-bottom: -4px
   }
 }
 </style>

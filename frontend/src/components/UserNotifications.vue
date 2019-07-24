@@ -5,20 +5,30 @@
       v-for="(notification, index) in notifications"
       :key="(notification || {}).timestamp"
     >
-      <v-list >
-        <v-list-tile  >
-          <v-btn :class="fav ? 'blue--text' : ''" icon @click="fav = !fav">
+      <v-list > 
+        <v-list-tile>
+          <v-btn class="icons" :class="fav ? 'blue--text' : ''" icon @click="fav = !fav">
               <v-icon>supervised_user_circle</v-icon>
+              <v-icon class = "envelope" v-if=(!notification.readStatus)>markunread</v-icon>
+              <v-icon class = "envelope" v-else=notification.readStatus>drafts</v-icon>
             </v-btn>
           <!-- <v-list-tile-avatar>
             <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
           </v-list-tile-avatar> -->
-
-          <v-list-tile-content>
+          <router-link v-if="notification.type === 'friendship'" title="To friends inbox" to="/inbox/friends">
+           <v-list-tile-content>
             <v-list-tile-title>{{notification.message}}</v-list-tile-title>
-            <v-list-tile-sub-title> ({{notification.timestamp | timeAgo}})</v-list-tile-sub-title>
+            <v-list-tile-sub-title> ({{notification.timestamp | timeAgo}})
+            </v-list-tile-sub-title>
           </v-list-tile-content>
-
+          </router-link>
+          <router-link v-if="notification.type === 'request'" title="To requests inbox" to="/inbox/requests">
+           <v-list-tile-content>
+            <v-list-tile-title>{{notification.message}}</v-list-tile-title>
+            <v-list-tile-sub-title> ({{notification.timestamp | timeAgo}})
+            </v-list-tile-sub-title>
+          </v-list-tile-content>
+          </router-link>
           <!-- <v-list-tile-action>
             
           </v-list-tile-action> -->
@@ -62,5 +72,16 @@ export default {
  <style scoped>
 ul {
   list-style: none;
+}
+.envelope{
+padding-right: 15px;
+padding-left: 5px;
+}
+.icons{
+cursor: default
+}
+a{
+  text-decoration: none;
+  color: inherit;
 }
 </style>

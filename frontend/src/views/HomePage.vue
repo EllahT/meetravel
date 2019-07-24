@@ -14,7 +14,7 @@
         <p>GO EXPLORE TOGETHER</p>
       </div>
       <section class="location-container flex column">
-        <span>Find travelers in your current location</span>
+        <h3>To find travelers in your current location:</h3>
         <div class="btn primary-dark" @click="getUserLocation">
           <v-icon color="white" class="px-1">location_on</v-icon>Enable Location
           <span class="shiny"></span>
@@ -183,18 +183,13 @@ export default {
   },
 
   methods: {
-    getUserLocation() {
-      GeocodeService.getPosition().then(loc => {
-        this.location.lat = loc.coords.latitude;
-        this.location.lng = loc.coords.longitude;
-        GeocodeService.getCityByLatLng(
-          this.location.lat,
-          this.location.lng
-        ).then(address => {
-          this.location.address = address;
-          this.goToUsers();
-        });
-      });
+    async getUserLocation() {
+      const loc = await GeocodeService.getPosition();
+      this.location.lat = loc.coords.latitude;
+      this.location.lng = loc.coords.longitude;
+      const address = await GeocodeService.getCityByLatLng(this.location.lat,this.location.lng);
+      this.location.address = address;
+      this.goToUsers();
     },
 
     setLocation({ coords, address }) {

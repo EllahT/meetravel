@@ -1,9 +1,9 @@
 <template>
   <li class="request-preview" v-if="request">
-    <router-link :to="senderUrl" v-if="sender"><img :src="senderImage"/></router-link>
+    <router-link :to="senderUrl" v-if="sender" title="Show profile"><img :src="senderImage"/></router-link>
     <h4> {{request.sender.name}}</h4>
     <h4> sent {{time}}</h4>
-    <button @click="approveRequest"><i class="material-icons">check_circle</i></button>
+    <button @click="approveRequest" class="btn">Confirm?</button>
   </li>
 </template>
 
@@ -25,11 +25,9 @@ export default {
       }
   },
 
-  created() {
-      this.$store.dispatch({type: 'loadUserById', userId: this.request.sender.userId})
-      .then(sender => {
-          this.sender = sender;
-      })
+  async created() {
+      const sender = await this.$store.dispatch({type: 'loadUserById', userId: this.request.sender.userId})
+      this.sender = sender;
   },
 
   computed: {
@@ -48,14 +46,12 @@ export default {
   },
 
   methods: {
-    approveRequest() {
-      this.$store.dispatch({type: 'approveRequest', requestId: this.request._id})
-      .then(() => {
-        console.log('request approved, user is now in your friends list');
-        setTimeout(() => {
-          this.$router.push('/inbox/friends');
-        }, 100)
-      })
+    async approveRequest() {
+      await this.$store.dispatch({type: 'approveRequest', requestId: this.request._id})
+      console.log('request approved, user is now in your friends list');
+      setTimeout(() => {
+        this.$router.push('/inbox/friends');
+      }, 100)
     }
   }
 }
@@ -64,23 +60,24 @@ export default {
 
 <style lang="scss">
 .request-preview {
-    max-width: 500px;
-    margin-top:5px;
-    padding: 5px;
+    max-width: 550px;
+    // margin-top:5px;
+    // padding: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 5px 0;
-    padding: 10px 8px;
-    border-top: 1px solid transparent;
+    // margin: 5px 0;
+    // padding: 10px 8px;
+    border-top: 1px solid lightgray;
     border-bottom: 1px solid transparent;
-    color: #9a9b94;
+    color: #6f7069;
 
     img {
       max-width: 50px;
       max-height: 50px;
       border-radius: 50%;
       margin: 10px;
+      cursor: pointer;
     }
 
     a {
@@ -92,7 +89,6 @@ export default {
       border-top: 1px solid #9a9b94;
       border-bottom: 1px solid #9a9b94;
       color: #52524e;
-      cursor: pointer;
     }
 </style>
 

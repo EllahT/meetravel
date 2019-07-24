@@ -15,14 +15,12 @@
             }
         },
 
-        created() {
+        async created() {
             const friendshipId = this.$route.params.friendshipId;      
-            this.$store.dispatch({type: 'loadFriendshipById', friendshipId})
-            .then ((friendship) => {
-                if (friendship) this.friendship = JSON.parse(JSON.stringify(friendship));
-                else this.$router.push('/inbox');
-            })
-  },
+            const friendship = await this.$store.dispatch({type: 'loadFriendshipById', friendshipId})
+            if (friendship) this.friendship = JSON.parse(JSON.stringify(friendship));
+            else this.$router.push('/inbox');
+        },
 
         computed: {      
             friendName() {

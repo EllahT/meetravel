@@ -1,7 +1,7 @@
 <template>
     <section class="sign-up">
         <v-form @submit.prevent="doSignUp">
-            <v-text-field prepend-icon="person" v-model="user.firstName" label="First name" type="text"></v-text-field>
+            <v-text-field class="first-name" prepend-icon="person" v-model="user.firstName" label="First name" type="text"></v-text-field>
             <v-text-field prepend-icon="person" v-model="user.lastName" label="Last name" type="text"></v-text-field>
             <v-text-field prepend-icon="lock" v-model="user.password" label="Password" type="password"></v-text-field>
               <v-card-actions>
@@ -22,17 +22,20 @@ export default {
                     password: ''}
         }
     },
+    
     methods: {
-        doSignUp() {
-            this.$store.dispatch({type: 'signup', user: this.user})
-                .then ((user) => {
-                 this.$router.push('/user');
-                    //TODO: activate a method to alert the user about the failed function
-                }).catch(err => {
-                    console.log(err);
-                    this.$router.push('/signup')}) 
+        async doSignUp() {
+            try {
+                await this.$store.dispatch({type: 'signup', user: this.user});
+                this.$router.push('/user');
+            }
+
+            catch(err) {
+                console.log(err);
+                this.$router.push('/signup');
+            }
         }
-}
+    }
 }
 </script>
 
@@ -51,5 +54,8 @@ export default {
  .sign-up {
   padding: 70px 20px;
  }
+}
+.first-name{
+  margin-top: 30px
 }
 </style>

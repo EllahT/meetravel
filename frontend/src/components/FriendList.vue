@@ -36,8 +36,16 @@ export default {
 
   methods: {
     openChat(chatInfo) {
-      this.showChat = true;
-      this.chatInfo = chatInfo;
+      if (this.showChat) {
+        this.showChat = false
+        setTimeout(()=> {
+          this.showChat = true;
+          this.chatInfo = chatInfo;
+        }, 2);
+      } else {
+        this.showChat = true;
+        this.chatInfo = chatInfo;
+      }
     },
 
     closeChat() {
@@ -52,4 +60,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.inbox-nav{
+margin-left: 20px;
+}
+</style>
   

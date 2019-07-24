@@ -1,6 +1,6 @@
 <template>
   <div class="user-filter flex column lato-light">
-    <h1>Filter Travelers</h1>
+    <h1>Filter travelers</h1>
 
     <v-flex >
       <v-subheader class="pl-0">Distance</v-subheader>
@@ -37,9 +37,7 @@
 <v-subheader class="pl-0">Gender</v-subheader>
     <gender-picker v-model="filterBy.gender" @input="setFilter" />
     </v-flex>
-    
-    <router-link to="/user">Back To Travelers</router-link>
-  </div>
+      </div>
 </template>
  
 <script>

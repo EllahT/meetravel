@@ -4,7 +4,7 @@
       <h1 class="lato-light" v-if="users">
         Found
         <b>{{users.length}}</b>
-        fellow travelers!
+        nearby travelers!
       </h1>
       <h4>
         Location: 
@@ -112,7 +112,7 @@ export default {
       });
     },
 
-    sendRequest(recipient) {
+    async sendRequest(recipient) {
       let request = {
         createdAt: new Date().getTime(),
         location: this.$store.getters.location,
@@ -128,10 +128,9 @@ export default {
         messages: []
       };
 
-      this.$store.dispatch({ type: "sendRequest", request }).then(() => {
+        await this.$store.dispatch({ type: "sendRequest", request });
         console.log("request sent to", recipient);
-        this.$noty.success(`request sent to ${recipient.name}`);
-      });
+        this.$noty.success(`Request sent to ${recipient.name}`);
     },
 
     navToUser(userId) {

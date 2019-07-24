@@ -35,7 +35,7 @@
         <v-list class="pt-0" dense>
           <v-divider></v-divider>
 
-          <button class="px-4 py-2"
+          <button class="px-5 py-2"
             @click.stop="toggleShowNotifications"
             v-if="username"
             :class="classByUnread"
@@ -129,6 +129,10 @@ export default {
 
     newNotification() {
       return this.$store.getters.newNotification;
+    },
+
+    colorByUnread() {
+      return this.unread ? "red" : "black";
     }
   },
   created() {

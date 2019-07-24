@@ -1,10 +1,10 @@
 <template>
 <div>
   <li class="friend-preview" v-if="friendship">
-    <router-link :to="friendUrl"><img v-if="friendImg" :src="friendImg"/></router-link>
-    <h4>{{friendName}}</h4>
-    <h5>friends since {{time}}</h5>
-    <button @click="emitShowChat"><i class="material-icons">chat</i></button>
+    <router-link :to="friendUrl" title="Show profile"><img v-if="friendImg" :src="friendImg"/></router-link>
+    <h3>{{friendName}}</h3>
+    <h4>Friends since {{time}}</h4>
+    <button @click="emitShowChat" title="Open chat" class="chat-icon"><i class="material-icons">chat</i></button>
   </li>
 </div>
 </template>
@@ -40,7 +40,7 @@ export default {
     },
 
     time() {
-      return moment(this.friendship.createdAt).fromNow();
+      return moment(this.friendship.createdAt).format('MMM, YYYY');
     },
 
     friendName() {
@@ -68,17 +68,13 @@ export default {
 
 <style lang="scss">
 .friend-preview {
-    max-width: 400px;
-    margin-top:5px;
-    padding: 5px;
+    max-width: calc(100% - 420px);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 5px 0;
-    padding: 10px 8px;
-    border-top: 1px solid transparent;
+    border-top: 1px solid lightgray;
     border-bottom: 1px solid transparent;
-    color: #9a9b94;
+    color: #6f7069;
 
     img {
       max-width: 200px;
@@ -98,8 +94,10 @@ export default {
 .friend-preview:hover {
       border-top: 1px solid #9a9b94;
       border-bottom: 1px solid #9a9b94;
-      color: #52524e;
-      cursor: pointer;
+      .chat-icon
+      {
+      color: #2868f3;
+      }
     }
 </style>
 

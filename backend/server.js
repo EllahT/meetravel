@@ -52,17 +52,17 @@ http.listen(port, () => {
   logger.info("Server is running on port: " + port);
 });
 
+
+
 // deleting all notifications
 // const UserService = require('./api/user/user.service');
 
-// UserService.query()
-// .then(users => {
+// (async () => {
+//   const users = UserService.query()
 //   users.forEach(user => {
 //     user.notifications = [];
 //     delete user.notification;
-//     UserService.update(user)
-//     .then(() => {
-//       console.log('done');
-//     })
+//     await UserService.update(user)
+//     console.log('done');
 //   })
-// })
+// })();

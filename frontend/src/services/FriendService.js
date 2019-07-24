@@ -12,62 +12,83 @@ export default {
     getRequestsSent
 }
 
-function query() {
-    return HttpService.ajax('friend/')
-    .then(friends => {
-        return friends;
-    })
-}
-
-function getFriends(userId) {
-    return HttpService.ajax(`friend/friends/byuser/${userId}`)
-    .then(friends => {
-        return friends;
-    })
-}
-
-function getRequests(userId) {
-    return HttpService.ajax(`friend/requests/byuser/${userId}`)
-    .then(requests => {
-        return requests;
-    })
-}
-
-function getRequestsSent(userId) {
-    return HttpService.ajax(`friend/sent/byuser/${userId}`)
-    .then(requestsSent => {
-        return requestsSent;
-    })
-}
-
-function getById(friendId) {
-    return HttpService.ajax(`friend/${friendId}`);
-}
-
-function update(friend) {
-    return HttpService.ajax(`friend/${friend._id}`, 'put', friend);
-}
-
-function remove(friendId) {
-    return HttpService.ajax(`friend/${friendId}`, 'delete'); 
-}
-
-function sendRequest(request) {
-    return HttpService.ajax('friend/', 'post', request)
-    .then(() => {
-        return request;
-    })
-    .catch((err) => {
+async function query() {
+    try {
+        return await HttpService.ajax('friend/');
+    }
+    catch(err) {
         console.log(err);
-    })
+    }
 }
 
-function approveRequest(requestId) {
-    return HttpService.ajax(`friend/request/${requestId}`, 'put')
-    .then((newFriendship) => {
-        return newFriendship;
-    })
-    .catch((err) => {
+async function getFriends() {
+    try {
+        return await HttpService.ajax(`friend/friends/byuser/`);
+    }
+    catch(err) {
         console.log(err);
-    })
+    }
+}
+
+async function getRequests() {
+    try {
+        return await HttpService.ajax(`friend/requests/byuser/`);
+    }
+    catch(err) {
+        console.log(err);
+    }
+}
+
+async function getRequestsSent() {
+    try {
+        return await HttpService.ajax(`friend/sent/byuser/`);
+    }
+    catch(err) {
+        console.log(err);
+    }
+}
+
+async function getById(friendId) {
+    try {
+        return await HttpService.ajax(`friend/${friendId}`);
+    }
+    catch(err) {
+        console.log(err);
+    }
+}
+
+async function update(friend) {
+    try {
+        return await HttpService.ajax(`friend/${friend._id}`, 'put', friend);
+    }
+    catch(err) {
+        console.log(err);
+    }
+}
+
+async function remove(friendId) {
+    try {
+        return await HttpService.ajax(`friend/${friendId}`, 'delete'); 
+    }
+    catch(err) {
+        console.log(err);
+    }
+}
+
+async function sendRequest(request) {
+    try {
+        return await HttpService.ajax('friend/', 'post', request);
+    }
+    catch(err) {
+        console.log(err);
+    }
+}
+
+async function approveRequest(requestId) {
+    try {
+        return await HttpService.ajax(`friend/request/${requestId}`, 'put');
+    }
+    catch(err) {
+        console.log(err);
+    }
 }

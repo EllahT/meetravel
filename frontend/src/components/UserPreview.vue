@@ -75,7 +75,6 @@
       <router-link :to="editUrl">Edit</router-link>|
       <button @click="emitDelete" title="delete user">x</button>
     </div>
-    
     <!-- <button @click="changePic">changePic</button> -->
   </li>
 </template>
@@ -138,12 +137,12 @@ export default {
     btnText() {
       const id = this.user._id;
       return this.$store.getters.isFriendById(id)
-        ? "Your Friend"
+        ? "Already your friend"
         : this.$store.getters.isRequestedById(id)
         ? "Pending, waiting for your approve"
         : this.$store.getters.isRequesterById(id)
         ? "Pending, waiting for recipient approve"
-        : "Send A Request";
+        : "Send a request";
     },
     btnClass() {
       if (this.btnText) {
@@ -178,14 +177,12 @@ export default {
       this.$emit("nav", diff);
     },
 
-    changePic() {
+    async changePic() {
       let newUser = JSON.parse(JSON.stringify(this.user));
-      ImageService.getRandomImg("travel").then(imgSrc => {
-        newUser.profileImg = imgSrc;
-        UserService.update(newUser).then(() => {
-          console.log("done");
-        });
-      });
+      const imgSrc = await ImageService.getRandomImg("travel")
+      newUser.profileImg = imgSrc;
+      await UserService.update(newUser)
+      console.log("done");
     }
   }
 };
