@@ -181,7 +181,7 @@ export default {
             const user = await UserService.getLoggedUser();
             if (user) {
                 context.commit({ type: 'setLoggedUser', user })
-                context.dispatch({ type: 'appLogin', root: true });
+                socket.emit('app login', { username: context.getters.loggedInUser.username, userId: context.getters.loggedInUser._id });
                 context.dispatch({ type: 'loadFriendships' });
             } else {
                 context.dispatch({ type: "login", user: { username: "TabathaEwing", password: "tabathaewing" } });

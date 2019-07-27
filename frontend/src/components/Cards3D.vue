@@ -10,10 +10,10 @@
         <h1 class="display-2 font-weight-thin mb-3">Top Locations</h1>
         <h4 class="font-weight-thin">Popular destinations in our travelers community</h4>
         <v-carousel :cycle="false" class="hidden-xs-only">
-          <v-carousel-item class="cards-container flex " :key="i" v-for="(page, i) in pages">
+          <v-carousel-item class="cards-container flex " :key="pageIndex" v-for="(page, pageIndex) in pages">
             <v-layout row>
               <v-flex
-              @click="emitLocation(i, index)"
+              @click="emitLocation(index, pageIndex)"
                 xs4
                 v-for="(card, index) in page.cards"
                 :key="card.address"
@@ -34,7 +34,7 @@
             v-for="(card, index) in cards"
             :key="card.address"
             class="card"
-             @click="emitLocation(i, index)"
+             @click="emitLocation(index)"
             :style="{ backgroundImage: `url('${card.imgUrl}')` }"
           >
             <div class="description">
@@ -168,22 +168,14 @@ export default {
       ]
     };
   },
-  created() {
-    window.addEventListener("resize", this.handleResize);
-    this.handleResize();
-  },
-  destroyed() {
-    window.removeEventListener("resize", this.handleResize);
-  },
 
   methods: {
-    emitLocation(pageI, index) {
-      this.$emit("setLocation", this.pages[pageI].cards[index]);
-    },
-    handleResize() {
-      // if (window.innerWidth < 560) {
-      //   this.pages = this.pagesSM;
-      // }
+    emitLocation(index, pageIndex) {
+      if (pageIndex) {
+        this.$emit("setLocation", this.pages[pageIndex].cards[index]);
+      } else {
+        this.$emit("setLocation", this.cards[index]);
+      }
     }
   }
 };
